@@ -102,9 +102,22 @@ int main(int argc, char* argv[]) {
 
 	memset(&servaddr, 0, sizeof(servaddr));
 
-	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
-			sizeof(opt))) {
-		perror("sockopt");
+	// if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR | SO_REUSEPORT, &opt,
+	// 		sizeof(opt))) {
+	// 	perror("sockopt");
+	// 	exit(EXIT_FAILURE);
+	// }
+
+
+	// Set SO_REUSEADDR
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
+		perror("setsockopt SO_REUSEADDR");
+		exit(EXIT_FAILURE);
+	}
+
+	// Set SO_REUSEPORT (optional, based on your use case)
+	if (setsockopt(sockfd, SOL_SOCKET, SO_REUSEPORT, &opt, sizeof(opt))) {
+		perror("setsockopt SO_REUSEPORT");
 		exit(EXIT_FAILURE);
 	}
 
