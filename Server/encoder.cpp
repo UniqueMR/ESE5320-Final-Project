@@ -1,10 +1,14 @@
 #include "encoder.h"
-
+#include "cdc.h"
+#include "sha.h"
+#include "lzw.h"
+#include "utils.h"
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+#include <fstream>
 #include "server.h"
 #include <unistd.h>
 #include <fcntl.h>
@@ -12,6 +16,8 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <sys/mman.h>
+#include <unordered_map>
+#include <vector>
 #include "stopwatch.h"
 
 #define NUM_PACKETS 8
@@ -76,6 +82,15 @@ int main(int argc, char* argv[]) {
 
 	// get packet
 	unsigned char* buffer = input[writer];
+    // std::ofstream outFile("Input_Test.bin", std::ios::out | std::ios::binary);
+    // if (!outFile) {
+    //     std::cerr << "Failed to open Input_Test.bin for writing." << std::endl;
+    //     return 1;
+    // }
+    // outFile.write(reinterpret_cast<char*>(buffer), sizeof(unsigned char) * (NUM_ELEMENTS + HEADER));
+    // outFile.close();
+
+    // std::cout << "Buffer content written to Input_Test.bin" << std::endl;
 
 	// decode
 	done = buffer[1] & DONE_BIT_L;
@@ -116,6 +131,38 @@ int main(int argc, char* argv[]) {
 
 		offset += length;
 		writer++;
+
+		// encode the obtained information in buffer
+
+		// initialize the vector to store the obtained chunks
+		std::vector<std::string> chunks;
+		// get the chunked result
+		cdc(buffer, chunks, NUM_ELEMENTS + HEADER);
+
+		//construct the unordered-map to store <hash(by SHA), chunk id>
+		// std::unordered_map<std::array<unsigned char, 32>, int> chunks_map;
+		std::unordered_map<std::string, int> chunks_map;
+
+		//calculate hash value and chunk id for each chunk
+		//add those key-value pairs to chunks map
+		//Question: do we need to consider the situation that different chunks share the same hash value calculated by SHA at this point
+		for(std::vector<std::string>::size_type i = 0; i < chunks.size(); i++){
+		// for(std::vector<std::string>::size_type i = 0; i < 10; i++){
+			unsigned char* hash_value = (unsigned char*)malloc(sizeof(unsigned char) * 32); 
+			sha(chunks[i], hash_value);
+			std::string hash_hex_string = toHexString(hash_value, 32);
+			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
+				chunks_map.insert({hash_hex_string, i});
+				unsigned char* chunk_content = new unsigned char;
+				convert_string_char(chunks[i], chunk_content);
+				unsigned char* compress_result = new unsigned char;
+				lzw(chunk_content, compress_result, chunks[i].length());
+			}
+			else{
+			}
+		}
+
+
 	}
 
 	// write file to root and you can use diff tool on board
