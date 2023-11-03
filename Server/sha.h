@@ -1,0 +1,1 @@
+void sha(unsigned char* input_chunk, unsigned char* output_hash);
