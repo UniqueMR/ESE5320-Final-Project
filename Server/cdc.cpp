@@ -1,5 +1,6 @@
 #include "cdc.h"
-
+#include <vector>
+#include <string>
 static uint64_t last_hash = 0;
 
 static uint64_t hash_func(unsigned char *input, unsigned int pos)
@@ -29,12 +30,12 @@ static uint64_t hash_func(unsigned char *input, unsigned int pos)
 //         if((hash % MODULUS) == TARGET)
 //             std::cout << i << std::endl;
 
-//         // for(int i = 0; i < buff_size; i++){
-//         //     std::cout << chunk_boundary[i];
-//         // }
-// 	}
-//     last_hash = 0;
-// }
+        // for(int i = 0; i < buff_size; i++){
+        //     std::cout << chunk_boundary[i];
+        // }
+	}
+    last_hash = 0;
+}
 
 void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size){
     //do some operation to get the chunks 

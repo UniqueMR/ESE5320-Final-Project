@@ -1,19 +1,22 @@
 #include "sha.h"
 
+#include <iostream>
+#include <string>
+#include <cstring>
+
 void sha(std::string input_chunk, unsigned char* output_hash){
-    int chunk_length;
-    *output_hash = 0;
+    // Placeholder 256-bit hash value (32 bytes)
+    unsigned char fixed_hash[32] = {
+        0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef,
+        0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef,
+        0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef,
+        0x01, 0x23, 0x45, 0x67, 0x89, 0xab, 0xcd, 0xef
+    };
 
-    chunk_length=input_chunk.length();
+    // Copy the fixed hash value to the output_hash
+    std::memcpy(output_hash, fixed_hash, sizeof(fixed_hash));
 
-    
-    for (size_t i = 0; i < static_cast<size_t>(chunk_length); ++i) {
-        
-        // *output_hash = (*output_hash << 8) + input_chunk[i];
-        // *output_hash %= (1ULL << 64);  // addition modulo 2^64
-    }
-    std::cout << "calculate hash value for a certain chunk" << std::endl;
-
+    std::cout << "Placeholder: calculate hash value for a certain chunk" << std::endl;
 }
 
 // void sha(unsigned char* input_chunk, std::array<unsigned char, 32> &hash_value){
