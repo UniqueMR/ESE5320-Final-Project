@@ -1,5 +1,6 @@
 #include "sha.h"
 #include <stdlib.h>
+#include <iomanip>
 
 
 
@@ -90,25 +91,9 @@ void sha_pre_processing(std::string& input_chunk,std::vector<data_chunk>& M){
 }
 
 
-/*
-//initialized the hash value of each 512 bits block
-void sha_ini(std::vector<data_chunk>& M,std::vector<hash_part>& H_ini){
-     hash_part current_hash;
-
-        current_hash[0]=0x6a09e667;
-        current_hash[1]=0xbb67ae85;
-        current_hash[2]=0x3c6ef372;
-        current_hash[3]=0xa54ff53a;
-        current_hash[4]=0x510e527f;
-        current_hash[5]=0x9b05688c;
-        current_hash[6]=0x1f83d9ab;
-        current_hash[7]=0x5be0cd19;
-        H_ini.push_back(current_hash);
-}
-*/
 
 //some logic function in SHA computation
-//reference from https://github.com/james-ben/mpsoc-crypto/blob/master/sha256/software/sha256.c
+//micro reference from https://github.com/james-ben/mpsoc-crypto/blob/master/sha256/software/sha256.c
 #define ROTLEFT(a,b) (((a) << (b)) | ((a) >> (32-(b))))
 #define ROTRIGHT(a,b) (((a) >> (b)) | ((a) << (32-(b))))
 
@@ -123,8 +108,8 @@ void sha_ini(std::vector<data_chunk>& M,std::vector<hash_part>& H_ini){
 void sha_compute(std::vector<data_chunk>& M,hash_part& Hash_final){
     std::vector<hash_part> H;
     hash_part current_hash;
-    data_block_32 a, b, c, d, e, f, g, h, i, j, t1, t2, w[64];//what is i,j?
-
+    data_block_32 a, b, c, d, e, f, g, h, t1, t2, w[64]={0};
+    
         current_hash[0]=0x6a09e667;
         current_hash[1]=0xbb67ae85;
         current_hash[2]=0x3c6ef372;
@@ -136,35 +121,20 @@ void sha_compute(std::vector<data_chunk>& M,hash_part& Hash_final){
         H.push_back(current_hash);
 
 
-    for (size_t p = 0; p < M.size(); p++)
-    {
-        //if we stream the block, we dont need to consider whether it is the first block
-        if (p!=0){
-            a=H[p-1][0];
-            b=H[p-1][1];
-            c=H[p-1][2];
-            d=H[p-1][3];
-            e=H[p-1][4];
-            f=H[p-1][5];
-            g=H[p-1][6];
-            h=H[p-1][7];
-        }
-        else{
-            a=H[0][0];
-            b=H[0][1];
-            c=H[0][2];
-            d=H[0][3];
-            e=H[0][4];
-            f=H[0][5];
-            g=H[0][6];
-            h=H[0][7];
-        }
+    for (size_t p = 0; p < M.size(); ++p){
+        //Hash ini
+        a=H.back()[0];
+        b=H.back()[1];
+        c=H.back()[2];
+        d=H.back()[3];
+        e=H.back()[4];
+        f=H.back()[5];
+        g=H.back()[6];
+        h=H.back()[7];
              
-
-
-        for (i = 0; i < 64; ++i) {
+        for (size_t i = 0; i < 64; ++i) {
             if (i<16){
-                w[i]= (M[p][0] << 24) | (M[p][1]<< 16) | (M[p][2] << 8) | (M[p][3]);
+                w[i]= (M[p][4*i] << 24) | (M[p][4*i+1]<< 16) | (M[p][4*i+2] << 8) | (M[p][4*i+3]);
             }
             else{
                 w[i] = SIG1(w[i - 2]) + w[i - 7] + SIG0(w[i - 15]) + w[i - 16];
@@ -182,66 +152,50 @@ void sha_compute(std::vector<data_chunk>& M,hash_part& Hash_final){
             a = t1 + t2;
         }
 
-        current_hash[0]+=a;
-        current_hash[1]+=b;
-        current_hash[2]+=c;
-        current_hash[3]+=d;
-        current_hash[4]+=e;
-        current_hash[5]+=f;
-        current_hash[6]+=g;
-        current_hash[7]+=h;
+        current_hash[0]=a+H.back()[0];
+        current_hash[1]=b+H.back()[1];
+        current_hash[2]=c+H.back()[2];
+        current_hash[3]=d+H.back()[3];
+        current_hash[4]=e+H.back()[4];
+        current_hash[5]=f+H.back()[5];
+        current_hash[6]=g+H.back()[6];
+        current_hash[7]=h+H.back()[7];
         H.push_back(current_hash);
     }
     Hash_final=H.back();
 }
 
 
-
-
-
-void sha(std::string& input_chunk,std::array<unsigned int,8>& output_hash){
+//The actual function we will be using for SHA256 computation
+void sha(std::string& input_chunk,hash_part& final_hash){
     std::vector<data_chunk> M;//the data block of the input chunk, each block is 64 byte
-    hash_part final_hash;
     sha_pre_processing(input_chunk,M);
-
     sha_compute(M,final_hash);
 }
 
 
 
 int main(){
-
+    
+//this is all for testing-------------------------------------------------------
     std::string test_input;
     std::array<unsigned int,8> hash256_value;
-    test_input="abc";
+    //test_input="Hello,world!";
     //test_input="The quick brown fox jumps over the lazy dog twice. The quick brown fox jumps over the lazy dog twice.";
+    test_input="Hewlett Packard Enterprise is the global edge-to-cloud company advancing the way people live and work. We help companies connect, protect, analyze, and act on their data and applications wherever they live, from edge to cloud, so they can turn insights into outcomes at the speed required to thrive in today's complex world. Our culture thrives on finding new and better ways to accelerate what's next. We know diverse backgrounds are valued and succeed here. We have the flexibility to manage our work and personal needs. We make bold moves, together, and are a force for good. If you are looking to stretch and grow your career our culture will embrace you. Open up opportunities with HPE.";
     std::vector<data_chunk> M;
-    sha_pre_processing(test_input,M);
+    //sha_pre_processing(test_input,M);
     sha(test_input,hash256_value);
-    std::cout <<std::hex<<"hash value is: "<<hash256_value[0]<<hash256_value[1]<<hash256_value[2]<<hash256_value[3]<< hash256_value[4]<<hash256_value[5]<<hash256_value[6]<<hash256_value[7]<<std::endl;
 
-/*
-//---------------------------------------------------------------------------------------
-//test data preprocessing result
-    for (size_t k = 0; k< M.size(); k++)
-    {
-         std::cout<<"Data block number "<<k<<" : ------------------------------"<<std::endl;
-        for (size_t i = 0; i < 64; i++)
-        {
-            if (!M.empty() && !M[0].empty()) {
-                //std::cout << std::hex << static_cast<int>(M[0][i]) << std::endl;
-                std::bitset<8> bits(M[k][i]);
-                std::cout <<"byte "<<i<<" is: "<<bits<< std::endl;
-            } else {
-                std::cerr << "Error: Attempt to access empty vector or data_chunk." << std::endl;
-            }
-        }
-        std::cout<<std::endl;
+
+    std::cout << "hash value is: ";
+    for (auto value : hash256_value) {
+        std::cout << std::setfill('0') << std::setw(8) << std::hex << value;
     }
-//-------------------------------------------------------------------------------------- 
-*/
+    std::cout << std::endl;
 
 
+//expression -- *((unsigned char*)&M[0][0] + 1)   lldb order
 }
 
 
