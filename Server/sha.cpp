@@ -201,10 +201,10 @@ void sha_compute(std::vector<data_chunk>& M,hash_part& Hash_final){
 
 void sha(std::string& input_chunk,std::array<unsigned int,8>& output_hash){
     std::vector<data_chunk> M;//the data block of the input chunk, each block is 64 byte
-    hash_part final_hash;
+    // hash_part final_hash;
     sha_pre_processing(input_chunk,M);
 
-    sha_compute(M,final_hash);
+    sha_compute(M,output_hash);
 }
 
 
