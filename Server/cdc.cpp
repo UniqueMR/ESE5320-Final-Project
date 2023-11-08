@@ -33,9 +33,9 @@ static uint64_t hash_func(unsigned char *input, unsigned int pos)
         // for(int i = 0; i < buff_size; i++){
         //     std::cout << chunk_boundary[i];
         // }
-	}
-    last_hash = 0;
-}
+// 	}
+//     last_hash = 0;
+// }
 
 void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size){
     //do some operation to get the chunks 

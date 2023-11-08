@@ -209,16 +209,16 @@ void sha(std::string& input_chunk,std::array<unsigned int,8>& output_hash){
 
 
 
-int main(){
+// int main(){
 
-    std::string test_input;
-    std::array<unsigned int,8> hash256_value;
-    test_input="abc";
-    //test_input="The quick brown fox jumps over the lazy dog twice. The quick brown fox jumps over the lazy dog twice.";
-    std::vector<data_chunk> M;
-    sha_pre_processing(test_input,M);
-    sha(test_input,hash256_value);
-    std::cout <<std::hex<<"hash value is: "<<hash256_value[0]<<hash256_value[1]<<hash256_value[2]<<hash256_value[3]<< hash256_value[4]<<hash256_value[5]<<hash256_value[6]<<hash256_value[7]<<std::endl;
+//     std::string test_input;
+//     std::array<unsigned int,8> hash256_value;
+//     test_input="abc";
+//     //test_input="The quick brown fox jumps over the lazy dog twice. The quick brown fox jumps over the lazy dog twice.";
+//     std::vector<data_chunk> M;
+//     sha_pre_processing(test_input,M);
+//     sha(test_input,hash256_value);
+//     std::cout <<std::hex<<"hash value is: "<<hash256_value[0]<<hash256_value[1]<<hash256_value[2]<<hash256_value[3]<< hash256_value[4]<<hash256_value[5]<<hash256_value[6]<<hash256_value[7]<<std::endl;
 
 /*
 //---------------------------------------------------------------------------------------
@@ -242,7 +242,6 @@ int main(){
 */
 
 
-}
 
 
 

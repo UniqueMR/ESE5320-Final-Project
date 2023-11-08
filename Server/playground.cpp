@@ -1,4 +1,7 @@
 #include "cdc.h"
+#include "sha.h"
+#include "lzw.h"
+#include "utils.h"
 
 int main() {
     // Specify the file path
@@ -34,6 +37,18 @@ int main() {
     //     std::cout << buffer[i] << std::endl;
     // Now, you can work with the buffer containing the file data
     cdc(buffer, chunks, fileSize);
+    
+    for(int i = 0; i < chunks.size(); i++){
+        std::array<unsigned int,8> output_hash;
+        sha(chunks[i], output_hash);
+        std::string output_hash_str = toHexString(output_hash);
+        unsigned char *chunk_uc = (unsigned char*)malloc(chunks[i].length() * sizeof(unsigned char));
+        convert_string_char(chunks[i], &chunk_uc);
+        uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].size());
+        hardware_encoding(chunk_uc, chunks[i].size(), out_code);
+        printf("yes");
+    }
+
 
     // for (int i = 0; i < fileSize; ++i) {
     //     std::cout << chunk_boundary[i] << std::endl; // This will print 0 for false and 1 for true
