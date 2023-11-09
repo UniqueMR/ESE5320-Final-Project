@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <unordered_map>
 #include <stdlib.h>
@@ -27,5 +28,7 @@ void assoc_insert(assoc_mem* mem,  unsigned int key, unsigned int value, bool* c
 void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result);
 void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, unsigned int value, bool* collision);
 void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result);
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code);
+// void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code);
+// void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header);
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len);
 void decoding(std::vector<int> op);

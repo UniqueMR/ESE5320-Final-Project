@@ -1,0 +1,24 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "(lldb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "preLaunchTask": "C/C++: g++ build active file",
+            "program": "/Users/uniquemr/Documents/ESE5320/ESE5320-Final-Project/Decoder/decoder",
+            // "program": "/Users/uniquemr/Documents/ESE5320/ESE5320-Final-Project/Server/lzw",
+            "args": ["encoded_data.bin", "decoded_data.txt"],
+            // "args": [],
+            "stopAtEntry": false,
+            "cwd": "/Users/uniquemr/Documents/ESE5320/ESE5320-Final-Project/Decoder",
+            // "cwd": "/Users/uniquemr/Documents/ESE5320/ESE5320-Final-Project/Server",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "lldb"
+        }
+    ]
+}

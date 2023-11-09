@@ -45,7 +45,8 @@ int main() {
         unsigned char *chunk_uc = (unsigned char*)malloc(chunks[i].length() * sizeof(unsigned char));
         convert_string_char(chunks[i], &chunk_uc);
         uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].size());
-        hardware_encoding(chunk_uc, chunks[i].size(), out_code);
+        uint32_t header;
+        hardware_encoding(chunk_uc, chunks[i].size(), out_code, header);
         printf("yes");
     }
 

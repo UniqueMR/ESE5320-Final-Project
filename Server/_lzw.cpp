@@ -1,4 +1,7 @@
-#include "lzw.h"
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+#include <stdlib.h>
 //****************************************************************************************************************
 #define CAPACITY 32768 // hash output is 15 bits, and we have 1 entry per bucket, so capacity is 2^15
 //#define CAPACITY 4096
@@ -6,7 +9,7 @@
 // and see what happens to the number of entries in the assoc mem 
 // (make sure to also comment line 27 and uncomment line 28)
 
-    unsigned int my_hash(unsigned long key)
+unsigned int my_hash(unsigned long key)
 {
     key &= 0xFFFFF; // make sure the key is only 20 bits
 
@@ -74,6 +77,20 @@ void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value
         //std::cout << "\t(k,v,h) = " << key << " " << value << " " << my_hash(key) << std::endl;
     }
 }
+//****************************************************************************************************************
+typedef struct
+{   
+    // Each key_mem has a 9 bit address (so capacity = 2^9 = 512)
+    // and the key is 20 bits, so we need to use 3 key_mems to cover all the key bits.
+    // The output width of each of these memories is 64 bits, so we can only store 64 key
+    // value pairs in our associative memory map.
+
+    unsigned long upper_key_mem[512]; // the output of these  will be 64 bits wide (size of unsigned long).
+    unsigned long middle_key_mem[512];
+    unsigned long lower_key_mem[512]; 
+    unsigned int value[64];    // value store is 64 deep, because the lookup mems are 64 bits wide
+    unsigned int fill;         // tells us how many entries we've currently stored 
+} assoc_mem;
 
 // cast to struct and use ap types to pull out various feilds.
 
@@ -152,7 +169,7 @@ void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* h
     }
 }
 //****************************************************************************************************************
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len)
+void hardware_encoding(std::string s1)
 {
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
@@ -180,18 +197,17 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
     int next_code = 256;
 
 
-    int prefix_code = s1[0];
+    unsigned int prefix_code = s1[0];
     unsigned int code = 0;
-    char next_char = 0;
+    unsigned char next_char = 0;
 
-    int i = 0, j = 0;
-    while(i < length)
+    int i = 0;
+    while(i < s1.length())
     {
-        if(i + 1 == length)
+        if(i + 1 == s1.length())
         {
             std::cout << prefix_code;
             std::cout << "\n";
-            // i++;
             break;
         }
         next_char = s1[i + 1];
@@ -202,8 +218,6 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
         if(!hit)
         {
             std::cout << prefix_code;
-            out_code[j++] = prefix_code;
-            // out_code[i]=prefix_code;
             std::cout << "\n";
 
             bool collision = 0;
@@ -223,24 +237,10 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
         }
         i += 1;
     }
-    out_len = j;
-    header = static_cast<uint32_t>(out_len * 2) << 1;
-
-    
     std::cout << std::endl << "assoc mem entry count: " << my_assoc_mem.fill << std::endl;
-
-    std::ofstream outfile("encoded_data.bin", std::ios::binary);
-    if (!outfile) {
-        std::cerr << "Could not open the file for writing." << std::endl;
-        return;
-    }
-    outfile.write(reinterpret_cast<const char*>(&header), sizeof(header));
-    for (int i = 0; i < out_len; ++i) {
-        outfile.write(reinterpret_cast<const char*>(&out_code[i]), sizeof(uint16_t));
-    }
-    outfile.close();
 }
 //****************************************************************************************************************
+// "Golden" functions to check correctness
 std::vector<int> encoding(std::string s1)
 {
     std::cout << "Encoding\n";
@@ -315,11 +315,11 @@ int main()
 
     std::string s = "WYS*WYGWYS*WYSWYSG";
 
-    // std::cout << "Our message is: " << s << std::endl << std::endl;
-    // std::cout << "Running the software compression we get: " << std::endl;
+    std::cout << "Our message is: " << s << std::endl << std::endl;
+    std::cout << "Running the software compression we get: " << std::endl;
 
     std::vector<int> output_code = encoding(s);
-    // std::cout << "The compressed output stream is: ";
+    std::cout << "The compressed output stream is: ";
     for (int i = 0; i < output_code.size(); i++) {
         std::cout << output_code[i] << " ";
     }
@@ -327,15 +327,6 @@ int main()
 
     std::cout << "Running the hardware version we get " << std::endl;
     std::cout << "The compressed output stream is: " << std::endl;
-    unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
-    uint16_t out_code[20];
-    uint32_t header;
-    int out_len;
-    hardware_encoding(s1,20,out_code, header, out_len);
-    std::cout << "The compressed output stream is: " << std::endl;
-    for (int i = 0; i < out_len; ++i) {
-        std::cout << "Pointer " << i << ": " << out_code[i] 
-                  << ", Value: " << (out_code[i]) << std::endl;
-    }
+    hardware_encoding(s);
     return 0;
 }
