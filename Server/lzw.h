@@ -4,6 +4,7 @@
 #include <unordered_map>
 #include <stdlib.h>
 #include <stdint.h>
+#include <cmath>
 
 //****************************************************************************************************************
 typedef struct

@@ -6,7 +6,7 @@
 #include <stdint.h>
 
 // #define CODE_LENGTH (13)
-#define CODE_LENGTH (16)
+#define CODE_LENGTH (12)
 
 typedef std::vector<std::string> code_table;
 typedef std::vector<std::string> chunk_list;
@@ -73,6 +73,24 @@ int main(int Parameter_count, char * Parameters[])
   {
     std::cerr << "Could not open input file.\n";
     return EXIT_FAILURE;
+  }
+
+    // Determine the file length by seeking to the end and telling the position.
+  Input.seekg(0, std::ios::end);
+  std::streamsize size = Input.tellg();
+  Input.seekg(0, std::ios::beg);
+
+  // Create a buffer to hold the file contents.
+  std::vector<char> buffer(size);
+
+  // Read the contents of the file into the buffer.
+  if (Input.read(buffer.data(), size)) {
+    // Process or display the content of the buffer here.
+    // For example, to print the content as a series of hexadecimal values:
+    for (char c : buffer) {
+      std::cout << std::hex << (0xff & (unsigned int)c) << ' ';
+    }
+    std::cout << std::endl;
   }
 
   std::ofstream Output(Parameters[2], std::ios::binary);

@@ -151,6 +151,46 @@ void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* h
         assoc_lookup(mem, key, hit, result);
     }
 }
+
+static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header){
+    int total_bits = out_len * 12;
+    int total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
+    header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
+    unsigned char* file_buffer = (unsigned char*)malloc(sizeof(unsigned char) * (total_bytes + 4));
+
+    int i = 0, j = 0;
+    file_buffer[j++] = static_cast<unsigned char>(header >> 24);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
+    for(i = 0; i + 1 < out_len; i += 2){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>(((out_code[i] << 4) & 0xF0) | ((out_code[i + 1] >> 8) & 0x0F));
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i + 1] & 0xFF);
+    }
+    if(i != out_len){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>((out_code[i] << 4) & 0xF0);
+    }
+
+    std::ofstream outfile("encoded_data.bin", std::ios::binary);
+    if (!outfile.is_open()) {
+        std::cerr << "Could not open the file for writing.\n";
+        return;
+    }
+
+    // Write the data to the file
+    outfile.write(reinterpret_cast<const char*>(file_buffer), total_bytes + 4);
+
+    // Check for write errors
+    if (!outfile.good()) {
+        std::cerr << "Error occurred while writing to the file.\n";
+    }
+
+    // Close the file
+    outfile.close();
+}
+
 //****************************************************************************************************************
 void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len)
 {
@@ -224,21 +264,22 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
         i += 1;
     }
     out_len = j;
-    header = static_cast<uint32_t>(out_len * 2) << 1;
+    write_encoded_file(out_code, out_len, header);
 
+    // header = static_cast<uint32_t>(out_len) << 1;
     
     std::cout << std::endl << "assoc mem entry count: " << my_assoc_mem.fill << std::endl;
 
-    std::ofstream outfile("encoded_data.bin", std::ios::binary);
-    if (!outfile) {
-        std::cerr << "Could not open the file for writing." << std::endl;
-        return;
-    }
-    outfile.write(reinterpret_cast<const char*>(&header), sizeof(header));
-    for (int i = 0; i < out_len; ++i) {
-        outfile.write(reinterpret_cast<const char*>(&out_code[i]), sizeof(uint16_t));
-    }
-    outfile.close();
+    // std::ofstream outfile("encoded_data.bin", std::ios::binary);
+    // if (!outfile) {
+    //     std::cerr << "Could not open the file for writing." << std::endl;
+    //     return;
+    // }
+    // outfile.write(reinterpret_cast<const char*>(&header), sizeof(header));
+    // for (int i = 0; i < out_len; ++i) {
+    //     outfile.write(reinterpret_cast<const char*>(&out_code[i]), sizeof(uint16_t));
+    // }
+    // outfile.close();
 }
 //****************************************************************************************************************
 std::vector<int> encoding(std::string s1)
