@@ -159,10 +159,14 @@ static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &h
     unsigned char* file_buffer = (unsigned char*)malloc(sizeof(unsigned char) * (total_bytes + 4));
 
     int i = 0, j = 0;
-    file_buffer[j++] = static_cast<unsigned char>(header >> 24);
-    file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
-    file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    // file_buffer[j++] = static_cast<unsigned char>(header >> 24);
+    // file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
+    // file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    // file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
     file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>(header >> 24);
     for(i = 0; i + 1 < out_len; i += 2){
         file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
         file_buffer[j++] = static_cast<unsigned char>(((out_code[i] << 4) & 0xF0) | ((out_code[i + 1] >> 8) & 0x0F));
@@ -355,10 +359,8 @@ int main()
 {
 
     std::string s = "WYS*WYGWYS*WYSWYSG";
-
     // std::cout << "Our message is: " << s << std::endl << std::endl;
     // std::cout << "Running the software compression we get: " << std::endl;
-
     std::vector<int> output_code = encoding(s);
     // std::cout << "The compressed output stream is: ";
     for (int i = 0; i < output_code.size(); i++) {

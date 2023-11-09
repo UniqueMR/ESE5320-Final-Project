@@ -26,6 +26,7 @@ static int Read_code(void)
   {
     if (Input_position % 8 == 0)
       Byte = Input.get();
+
     Code = (Code << 1) | ((Byte >> (7 - Input_position % 8)) & 1);
     Input_position++;
   }
@@ -75,23 +76,23 @@ int main(int Parameter_count, char * Parameters[])
     return EXIT_FAILURE;
   }
 
-    // Determine the file length by seeking to the end and telling the position.
-  Input.seekg(0, std::ios::end);
-  std::streamsize size = Input.tellg();
-  Input.seekg(0, std::ios::beg);
+  //   // Determine the file length by seeking to the end and telling the position.
+  // Input.seekg(0, std::ios::end);
+  // std::streamsize size = Input.tellg();
+  // Input.seekg(0, std::ios::beg);
 
-  // Create a buffer to hold the file contents.
-  std::vector<char> buffer(size);
+  // // Create a buffer to hold the file contents.
+  // std::vector<char> buffer(size);
 
-  // Read the contents of the file into the buffer.
-  if (Input.read(buffer.data(), size)) {
-    // Process or display the content of the buffer here.
-    // For example, to print the content as a series of hexadecimal values:
-    for (char c : buffer) {
-      std::cout << std::hex << (0xff & (unsigned int)c) << ' ';
-    }
-    std::cout << std::endl;
-  }
+  // // Read the contents of the file into the buffer.
+  // if (Input.read(buffer.data(), size)) {
+  //   // Process or display the content of the buffer here.
+  //   // For example, to print the content as a series of hexadecimal values:
+  //   for (char c : buffer) {
+  //     std::cout << std::hex << (0xff & (unsigned int)c) << ' ';
+  //   }
+  //   std::cout << std::endl;
+  // }
 
   std::ofstream Output(Parameters[2], std::ios::binary);
   if (!Output.good())
