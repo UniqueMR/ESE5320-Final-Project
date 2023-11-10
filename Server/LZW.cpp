@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <stdlib.h>
-#include <stdint.h>
+#include "lzw.h"
 //****************************************************************************************************************
 #define CAPACITY 32768 // hash output is 15 bits, and we have 1 entry per bucket, so capacity is 2^15
 //#define CAPACITY 4096
@@ -78,20 +74,6 @@ void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value
         //std::cout << "\t(k,v,h) = " << key << " " << value << " " << my_hash(key) << std::endl;
     }
 }
-//****************************************************************************************************************
-typedef struct
-{   
-    // Each key_mem has a 9 bit address (so capacity = 2^9 = 512)
-    // and the key is 20 bits, so we need to use 3 key_mems to cover all the key bits.
-    // The output width of each of these memories is 64 bits, so we can only store 64 key
-    // value pairs in our associative memory map.
-
-    unsigned long upper_key_mem[512]; // the output of these  will be 64 bits wide (size of unsigned long).
-    unsigned long middle_key_mem[512];
-    unsigned long lower_key_mem[512]; 
-    unsigned int value[64];    // value store is 64 deep, because the lookup mems are 64 bits wide
-    unsigned int fill;         // tells us how many entries we've currently stored 
-} assoc_mem;
 
 // cast to struct and use ap types to pull out various feilds.
 
@@ -169,8 +151,57 @@ void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* h
         assoc_lookup(mem, key, hit, result);
     }
 }
+
+static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header){
+    printf("%d\n",out_code);
+    int total_bits = out_len * 12;
+    int total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
+    header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
+    unsigned char* file_buffer = (unsigned char*)malloc(sizeof(unsigned char) * (total_bytes + 4));
+
+    int i = 0, j = 0;
+    // file_buffer[j++] = static_cast<unsigned char>(header >> 24);
+    // file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
+    // file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    // file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>(header >> 24);
+    for(i = 0; i + 1 < out_len; i += 2){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>(((out_code[i] << 4) & 0xF0) | ((out_code[i + 1] >> 8) & 0x0F));
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i + 1] & 0xFF);
+    }
+    if(i != out_len){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>((out_code[i] << 4) & 0xF0);
+    }
+    // std::filesystem::path file_path("encoded_data.bin");
+    // if (std::filesystem::exists(file_path)) {
+    //     // Delete the file if it exists
+    //     std::filesystem::remove(file_path);
+    // }
+    std::ofstream outfile("encoded_data.bin", std::ios::app);
+    if (!outfile.is_open()) {
+        std::cerr << "Could not open the file for writing.\n";
+        return;
+    }
+
+    // Write the data to the file
+    outfile.write(reinterpret_cast<const char*>(file_buffer), total_bytes + 4);
+
+    // Check for write errors
+    if (!outfile.good()) {
+        std::cerr << "Error occurred while writing to the file.\n";
+    }
+
+    // Close the file
+    outfile.close();
+}
+
 //****************************************************************************************************************
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code)
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len)
 {
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
@@ -202,14 +233,14 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code)
     unsigned int code = 0;
     char next_char = 0;
 
-    int i = 0;
+    int i = 0, j = 0;
     while(i < length)
     {
         if(i + 1 == length)
         {
-            std::cout << prefix_code;
-            out_code[i]=prefix_code;
-            std::cout << "\n";
+            //std::cout << prefix_code;
+            //std::cout << "\n";
+            // i++;
             break;
         }
         next_char = s1[i + 1];
@@ -219,9 +250,10 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code)
         lookup(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, &hit, &code);
         if(!hit)
         {
-            std::cout << prefix_code;
-            out_code[i]=prefix_code;
-            std::cout << "\n";
+            //std::cout << prefix_code;
+            out_code[j++] = prefix_code;
+            // out_code[i]=prefix_code;
+            //std::cout << "\n";
 
             bool collision = 0;
             insert(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, next_code, &collision);
@@ -240,10 +272,26 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code)
         }
         i += 1;
     }
-    std::cout << std::endl << "assoc mem entry count: " << my_assoc_mem.fill << std::endl;
+    out_len = j;
+    write_encoded_file(out_code, out_len, header);
+
+    // header = static_cast<uint32_t>(out_len) << 1;
+    
+    //std::cout << std::endl << "assoc mem entry count: " << my_assoc_mem.fill << std::endl;
+
+    // std::ofstream outfile("encoded_data.bin", std::ios::binary);
+    // if (!outfile) {
+    //     std::cerr << "Could not open the file for writing." << std::endl;
+    //     return;
+    // }
+    // outfile.write(reinterpret_cast<const char*>(&header), sizeof(header));
+    // for (int i = 0; i < out_len; ++i) {
+    //     outfile.write(reinterpret_cast<const char*>(&out_code[i]), sizeof(uint16_t));
+    // }
+    // outfile.close();
 }
 //****************************************************************************************************************
-std::vector<int> encoding(std::string s1)
+std::vector<uint16_t> encoding(std::string s1)
 {
     std::cout << "Encoding\n";
     std::unordered_map<std::string, int> table;
@@ -256,7 +304,7 @@ std::vector<int> encoding(std::string s1)
     std::string p = "", c = "";
     p += s1[0];
     int code = 256;
-    std::vector<int> output_code;
+    std::vector<uint16_t> output_code;
     std::cout << "String\tOutput_Code\tAddition\n";
     for (int i = 0; i < s1.length(); i++) {
         if (i != s1.length() - 1)
@@ -276,6 +324,9 @@ std::vector<int> encoding(std::string s1)
     }
     std::cout << p << "\t" << table[p] << std::endl;
     output_code.push_back(table[p]);
+    uint32_t header;
+    uint16_t* out_code = output_code.data();
+    write_encoded_file(out_code, output_code.size(), header);
     return output_code;
 }
 
@@ -314,28 +365,56 @@ void decoding(std::vector<int> op)
 //****************************************************************************************************************
 int main()
 {
+    std::string filePath = "../test.txt";
 
-    std::string s = "WYS*WYGWYS*WYSWYSG";
+    // Open the binary file for reading
+    std::ifstream inputFile(filePath, std::ios::binary);
 
-    std::cout << "Our message is: " << s << std::endl << std::endl;
-    std::cout << "Running the software compression we get: " << std::endl;
+    if (!inputFile) {
+        std::cerr << "Failed to open the file for reading: " << filePath << std::endl;
+        return 1;
+    }
 
-    std::vector<int> output_code = encoding(s);
-    std::cout << "The compressed output stream is: ";
+    // Determine the file size
+    inputFile.seekg(0, std::ios::end);
+    std::streampos fileSize = inputFile.tellg();
+    inputFile.seekg(0, std::ios::beg);
+
+    if (fileSize < 0) {
+        std::cerr << "Failed to determine file size." << std::endl;
+        return 1;
+    }
+    // Create an unsigned char buffer and read the file into it
+    unsigned char* buffer = new unsigned char[fileSize];
+    // bool* chunk_boundary = new bool[fileSize];
+    inputFile.read(reinterpret_cast<char*>(buffer), fileSize);
+    // Close the file
+    inputFile.close();
+    std::string s(buffer, buffer + fileSize);
+    // std::string s = "WYS*WYGWYS*WYSWYSG";
+    // std::cout << "Our message is: " << s << std::endl << std::endl;
+    // std::cout << "Running the software compression we get: " << std::endl;
+    std::vector<uint16_t> output_code = encoding(s);
+    // std::cout << "The compressed output stream is: ";
     for (int i = 0; i < output_code.size(); i++) {
         std::cout << output_code[i] << " ";
     }
     std::cout << std::endl << std::endl;
 
-    std::cout << "Running the hardware version we get " << std::endl;
-    std::cout << "The compressed output stream is: " << std::endl;
-    unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
-    uint16_t out_code[20];
-    hardware_encoding(s1,20,out_code);
-    std::cout << "The compressed output stream is: " << std::endl;
-    for (int i = 0; i < 20; ++i) {
-        std::cout << "Pointer " << i << ": " << out_code[i] 
-                  << ", Value: " << (out_code[i]) << std::endl;
-    }
+
+
+    // std::cout << "Running the hardware version we get " << std::endl;
+    // std::cout << "The compressed output stream is: " << std::endl;
+    // //unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
+    // //fileSize = 272;
+    // uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * fileSize);
+    // uint32_t header;
+    // int out_len;
+    // hardware_encoding(buffer,fileSize,out_code, header, out_len);
+    // std::cout << "The compressed output stream is: " << std::endl;
+    // for (int i = 0; i < out_len; ++i) {
+    //     std::cout << "Pointer " << i << ": " << out_code[i] 
+    //               << ", Value: " << (out_code[i]) << std::endl;
+    // }
     return 0;
 }
