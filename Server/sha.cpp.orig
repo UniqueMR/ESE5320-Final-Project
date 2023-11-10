@@ -169,12 +169,31 @@ void sha_compute(std::vector<data_chunk>& M,hash_part& Hash_final){
 //The actual function we will be using for SHA256 computation
 void sha(std::string& input_chunk,hash_part& final_hash){
     std::vector<data_chunk> M;//the data block of the input chunk, each block is 64 byte
+<<<<<<< HEAD
+    // hash_part final_hash;
+    sha_pre_processing(input_chunk,M);
+
+    sha_compute(M,output_hash);
+=======
     sha_pre_processing(input_chunk,M);
     sha_compute(M,final_hash);
+>>>>>>> origin/Xingjian
 }
 
 
 
+<<<<<<< HEAD
+// int main(){
+
+//     std::string test_input;
+//     std::array<unsigned int,8> hash256_value;
+//     test_input="abc";
+//     //test_input="The quick brown fox jumps over the lazy dog twice. The quick brown fox jumps over the lazy dog twice.";
+//     std::vector<data_chunk> M;
+//     sha_pre_processing(test_input,M);
+//     sha(test_input,hash256_value);
+//     std::cout <<std::hex<<"hash value is: "<<hash256_value[0]<<hash256_value[1]<<hash256_value[2]<<hash256_value[3]<< hash256_value[4]<<hash256_value[5]<<hash256_value[6]<<hash256_value[7]<<std::endl;
+=======
 int main(){
     
 //this is all for testing-------------------------------------------------------
@@ -186,6 +205,7 @@ int main(){
     std::vector<data_chunk> M;
     //sha_pre_processing(test_input,M);
     sha(test_input,hash256_value);
+>>>>>>> origin/Xingjian
 
 
     std::cout << "hash value is: ";
@@ -195,8 +215,11 @@ int main(){
     std::cout << std::endl;
 
 
+<<<<<<< HEAD
+=======
 //expression -- *((unsigned char*)&M[0][0] + 1)   lldb order
 }
+>>>>>>> origin/Xingjian
 
 
 
