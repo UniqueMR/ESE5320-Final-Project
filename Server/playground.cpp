@@ -1,5 +1,7 @@
 #include "cdc.h"
-
+#include "sha.h"
+#include "lzw.h"
+#include "utils.h"
 int main() {
     // Specify the file path
     std::string filePath = "../LittlePrince.txt";
@@ -24,7 +26,7 @@ int main() {
 
     // Create an unsigned char buffer and read the file into it
     unsigned char* buffer = new unsigned char[fileSize];
-    bool* chunk_boundary = new bool[fileSize];
+    std::vector<std::string> chunks;
     inputFile.read(reinterpret_cast<char*>(buffer), fileSize);
     // Close the file
     inputFile.close();
@@ -32,6 +34,7 @@ int main() {
     // for(int i = 0; i < 2000; i++)
     //     std::cout << buffer[i] << std::endl;
     // Now, you can work with the buffer containing the file data
+
     cdc(buffer, chunks, fileSize);
     // for(int i=0; i<chunks.size();i++){
 	// 	printf("*%s*",chunks[i].c_str());
@@ -50,13 +53,13 @@ int main() {
     }
 
 
+
     // for (int i = 0; i < fileSize; ++i) {
     //     std::cout << chunk_boundary[i] << std::endl; // This will print 0 for false and 1 for true
     // }
 
     // Don't forget to free the memory when you're done with the buffer
     delete[] buffer;
-    delete[] chunk_boundary;
 
     return 0;
 }
