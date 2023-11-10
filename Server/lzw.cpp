@@ -1,8 +1,4 @@
-#include <iostream>
-#include <vector>
-#include <unordered_map>
-#include <stdlib.h>
-#include <stdint.h>
+#include "lzw.h"
 //****************************************************************************************************************
 #define CAPACITY 32768 // hash output is 15 bits, and we have 1 entry per bucket, so capacity is 2^15
 //#define CAPACITY 4096
@@ -78,20 +74,6 @@ void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value
         //std::cout << "\t(k,v,h) = " << key << " " << value << " " << my_hash(key) << std::endl;
     }
 }
-//****************************************************************************************************************
-typedef struct
-{   
-    // Each key_mem has a 9 bit address (so capacity = 2^9 = 512)
-    // and the key is 20 bits, so we need to use 3 key_mems to cover all the key bits.
-    // The output width of each of these memories is 64 bits, so we can only store 64 key
-    // value pairs in our associative memory map.
-
-    unsigned long upper_key_mem[512]; // the output of these  will be 64 bits wide (size of unsigned long).
-    unsigned long middle_key_mem[512];
-    unsigned long lower_key_mem[512]; 
-    unsigned int value[64];    // value store is 64 deep, because the lookup mems are 64 bits wide
-    unsigned int fill;         // tells us how many entries we've currently stored 
-} assoc_mem;
 
 // cast to struct and use ap types to pull out various feilds.
 
@@ -219,7 +201,7 @@ static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &h
 }
 
 //****************************************************************************************************************
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code)
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len)
 {
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
@@ -251,7 +233,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code)
     unsigned int code = 0;
     char next_char = 0;
 
-    int i = 0;
+    int i = 0, j = 0;
     while(i < length)
     {
         if(i + 1 == length)
@@ -410,28 +392,29 @@ int main()
     inputFile.close();
     std::string s(buffer, buffer + fileSize);
     // std::string s = "WYS*WYGWYS*WYSWYSG";
-// std::cout << "Our message is: " << s << std::endl << std::endl;
-// std::cout << "Running the software compression we get: " << std::endl;
-std::vector<uint16_t> output_code = encoding(s);
-// std::cout << "The compressed output stream is: ";
-for (int i = 0; i < output_code.size(); i++) {
-std::cout << output_code[i] << " ";
-}
+    // std::cout << "Our message is: " << s << std::endl << std::endl;
+    // std::cout << "Running the software compression we get: " << std::endl;
+    std::vector<uint16_t> output_code = encoding(s);
+    // std::cout << "The compressed output stream is: ";
+    for (int i = 0; i < output_code.size(); i++) {
+        std::cout << output_code[i] << " ";
+    }
     std::cout << std::endl << std::endl;
 
 
 
-//     std::cout << "Running the hardware version we get " << std::endl;
-//     std::cout << "The compressed output stream is: " << std::endl;
-//     unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
-//     uint16_t out_code[20];
-//     uint32_t header;
-//     int out_len;
-//     hardware_encoding(s1,20,out_code, header, out_len);
-//     std::cout << "The compressed output stream is: " << std::endl;
-//     for (int i = 0; i < out_len; ++i) {
-//         std::cout << "Pointer " << i << ": " << out_code[i] 
-//                   << ", Value: " << (out_code[i]) << std::endl;
-//     }
-//     return 0;
-// }
+    // std::cout << "Running the hardware version we get " << std::endl;
+    // std::cout << "The compressed output stream is: " << std::endl;
+    // //unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
+    // //fileSize = 272;
+    // uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * fileSize);
+    // uint32_t header;
+    // int out_len;
+    // hardware_encoding(buffer,fileSize,out_code, header, out_len);
+    // std::cout << "The compressed output stream is: " << std::endl;
+    // for (int i = 0; i < out_len; ++i) {
+    //     std::cout << "Pointer " << i << ": " << out_code[i] 
+    //               << ", Value: " << (out_code[i]) << std::endl;
+    // }
+    return 0;
+}
