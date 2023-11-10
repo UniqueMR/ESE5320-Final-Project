@@ -46,7 +46,7 @@ void handle_input(int argc, char* argv[], int* blocksize) {
 }
 
 int main(int argc, char* argv[]) {
-	std::cout << "9:34pm" << std::endl;
+	std::cout << "11:05am" << std::endl;
 	stopwatch ethernet_timer;
 	unsigned char* input[NUM_PACKETS];
 	int writer = 0;
@@ -83,15 +83,6 @@ int main(int argc, char* argv[]) {
 
 	// get packet
 	unsigned char* buffer = input[writer];
-    // std::ofstream outFile("Input_Test.bin", std::ios::out | std::ios::binary);
-    // if (!outFile) {
-    //     std::cerr << "Failed to open Input_Test.bin for writing." << std::endl;
-    //     return 1;
-    // }
-    // outFile.write(reinterpret_cast<char*>(buffer), sizeof(unsigned char) * (NUM_ELEMENTS + HEADER));
-    // outFile.close();
-
-    // std::cout << "Buffer content written to Input_Test.bin" << std::endl;
 
 	// decode
 	done = buffer[1] & DONE_BIT_L;
@@ -108,6 +99,7 @@ int main(int argc, char* argv[]) {
 	writer++;
 
 	std::unordered_map<std::string, int> chunks_map;
+	int sum_raw_length = 0, sum_lzw_cmprs_len = 0;
 
 	//last message
 	while (!done) {
@@ -142,38 +134,37 @@ int main(int argc, char* argv[]) {
 		// get the chunked result
 		cdc(buffer, chunks, NUM_ELEMENTS + HEADER);
 
-		//construct the unordered-map to store <hash(by SHA), chunk id>
-		// std::unordered_map<std::array<unsigned char, 32>, int> chunks_map;
-
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map
 		//Question: do we need to consider the situation that different chunks share the same hash value calculated by SHA at this point
 		for(std::vector<std::string>::size_type i = 0; i < chunks.size(); i++){
 		// for(std::vector<std::string>::size_type i = 0; i < 10; i++){
-			// unsigned char* hash_value = (unsigned char*)malloc(sizeof(unsigned char) * 32); 
 			hash_part hash_value;
 			sha(chunks[i], hash_value);
 			std::string hash_hex_string = toHexString(hash_value);
-			// std::cout << chunks[i] << std::endl;
-			// std::cout << hash_hex_string << std::endl;
 			
 			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
 				chunks_map.insert({hash_hex_string, i});
-				unsigned char* chunk_content = new unsigned char;
-				convert_string_char(chunks[i], &chunk_content);
+				unsigned char* chunk_content = (unsigned char*)malloc(sizeof(unsigned char) * (chunks[i].length() + 1));
+				convert_string_char(chunks[i], chunk_content);
 				uint32_t header;
 				uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].length() + 32);
 				int out_len;
 				hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
+				sum_raw_length += chunks[i].length();
+				sum_lzw_cmprs_len += out_len;
+				free(out_code);
+				free(chunk_content);
 			}
 
 			else{
 
 			}
 		}
-
-
 	}
+	float lzw_compress_ratio = sum_raw_length / sum_lzw_cmprs_len;
+	std::cout << "LZW compress ratio: " << lzw_compress_ratio << std::endl;
+
 
 	// write file to root and you can use diff tool on board
 	FILE *outfd = fopen("output_cpu.bin", "wb");

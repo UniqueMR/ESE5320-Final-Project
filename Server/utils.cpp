@@ -1,14 +1,14 @@
 #include "utils.h"
 
-void convert_string_char(const std::string& chunk_s, unsigned char** chunk_uc) {
+void convert_string_char(const std::string& chunk_s, unsigned char* chunk_uc) {
     // Allocate memory for the unsigned char array
     // *chunk_uc = (unsigned char*)malloc((chunk_s.length() + 1) * sizeof(unsigned char));
-    if (*chunk_uc) {
+    if (chunk_uc) {
         // Copy each character from the string to the unsigned char array
-        std::copy(chunk_s.begin(), chunk_s.end(), *chunk_uc);
+        std::copy(chunk_s.begin(), chunk_s.end(), chunk_uc);
 
         // Add a null character at the end for a proper C-style string
-        (*chunk_uc)[chunk_s.length()] = '\0';
+        chunk_uc[chunk_s.length()] = '\0';
     }
 }
 
