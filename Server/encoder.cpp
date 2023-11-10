@@ -46,6 +46,7 @@ void handle_input(int argc, char* argv[], int* blocksize) {
 }
 
 int main(int argc, char* argv[]) {
+	std::cout << "9:34pm" << std::endl;
 	stopwatch ethernet_timer;
 	unsigned char* input[NUM_PACKETS];
 	int writer = 0;
@@ -106,6 +107,8 @@ int main(int argc, char* argv[]) {
 	offset += length;
 	writer++;
 
+	std::unordered_map<std::string, int> chunks_map;
+
 	//last message
 	while (!done) {
 		// reset ring buffer
@@ -141,7 +144,6 @@ int main(int argc, char* argv[]) {
 
 		//construct the unordered-map to store <hash(by SHA), chunk id>
 		// std::unordered_map<std::array<unsigned char, 32>, int> chunks_map;
-		std::unordered_map<std::string, int> chunks_map;
 
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map
@@ -152,18 +154,22 @@ int main(int argc, char* argv[]) {
 			hash_part hash_value;
 			sha(chunks[i], hash_value);
 			std::string hash_hex_string = toHexString(hash_value);
-			std::cout << chunks[i] << std::endl;
-			std::cout << hash_hex_string << std::endl;
+			// std::cout << chunks[i] << std::endl;
+			// std::cout << hash_hex_string << std::endl;
 			
-			// if(chunks_map.find(hash_hex_string) == chunks_map.end()){
-			// 	chunks_map.insert({hash_hex_string, i});
-			// 	unsigned char* chunk_content = new unsigned char;
-			// 	convert_string_char(chunks[i], chunk_content);
-			// 	unsigned char* compress_result = new unsigned char;
-			// 	lzw(chunk_content, compress_result, chunks[i].length());
-			// }
-			// else{
-			// }
+			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
+				chunks_map.insert({hash_hex_string, i});
+				unsigned char* chunk_content = new unsigned char;
+				convert_string_char(chunks[i], &chunk_content);
+				uint32_t header;
+				uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].length() + 32);
+				int out_len;
+				hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
+			}
+
+			else{
+
+			}
 		}
 
 
