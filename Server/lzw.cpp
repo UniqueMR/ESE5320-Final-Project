@@ -354,31 +354,31 @@ void decoding(std::vector<int> op)
         old = n;
     }
 }
-//****************************************************************************************************************
-int main()
-{
+// //****************************************************************************************************************
+// int main()
+// {
 
-    std::string s = "WYS*WYGWYS*WYSWYSG";
-    // std::cout << "Our message is: " << s << std::endl << std::endl;
-    // std::cout << "Running the software compression we get: " << std::endl;
-    std::vector<int> output_code = encoding(s);
-    // std::cout << "The compressed output stream is: ";
-    for (int i = 0; i < output_code.size(); i++) {
-        std::cout << output_code[i] << " ";
-    }
-    std::cout << std::endl << std::endl;
+//     std::string s = "WYS*WYGWYS*WYSWYSG";
+//     // std::cout << "Our message is: " << s << std::endl << std::endl;
+//     // std::cout << "Running the software compression we get: " << std::endl;
+//     std::vector<int> output_code = encoding(s);
+//     // std::cout << "The compressed output stream is: ";
+//     for (int i = 0; i < output_code.size(); i++) {
+//         std::cout << output_code[i] << " ";
+//     }
+//     std::cout << std::endl << std::endl;
 
-    std::cout << "Running the hardware version we get " << std::endl;
-    std::cout << "The compressed output stream is: " << std::endl;
-    unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
-    uint16_t out_code[20];
-    uint32_t header;
-    int out_len;
-    hardware_encoding(s1,20,out_code, header, out_len);
-    std::cout << "The compressed output stream is: " << std::endl;
-    for (int i = 0; i < out_len; ++i) {
-        std::cout << "Pointer " << i << ": " << out_code[i] 
-                  << ", Value: " << (out_code[i]) << std::endl;
-    }
-    return 0;
-}
+//     std::cout << "Running the hardware version we get " << std::endl;
+//     std::cout << "The compressed output stream is: " << std::endl;
+//     unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
+//     uint16_t out_code[20];
+//     uint32_t header;
+//     int out_len;
+//     hardware_encoding(s1,20,out_code, header, out_len);
+//     std::cout << "The compressed output stream is: " << std::endl;
+//     for (int i = 0; i < out_len; ++i) {
+//         std::cout << "Pointer " << i << ": " << out_code[i] 
+//                   << ", Value: " << (out_code[i]) << std::endl;
+//     }
+//     return 0;
+// }

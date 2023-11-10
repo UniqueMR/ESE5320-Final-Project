@@ -173,30 +173,28 @@ void sha(std::string& input_chunk,hash_part& final_hash){
     sha_compute(M,final_hash);
 }
 
-
-
-int main(){
+// int main(){
     
-//this is all for testing-------------------------------------------------------
-    std::string test_input;
-    std::array<unsigned int,8> hash256_value;
-    //test_input="Hello,world!";
-    //test_input="The quick brown fox jumps over the lazy dog twice. The quick brown fox jumps over the lazy dog twice.";
-    test_input="Hewlett Packard Enterprise is the global edge-to-cloud company advancing the way people live and work. We help companies connect, protect, analyze, and act on their data and applications wherever they live, from edge to cloud, so they can turn insights into outcomes at the speed required to thrive in today's complex world. Our culture thrives on finding new and better ways to accelerate what's next. We know diverse backgrounds are valued and succeed here. We have the flexibility to manage our work and personal needs. We make bold moves, together, and are a force for good. If you are looking to stretch and grow your career our culture will embrace you. Open up opportunities with HPE.";
-    std::vector<data_chunk> M;
-    //sha_pre_processing(test_input,M);
-    sha(test_input,hash256_value);
+// //this is all for testing-------------------------------------------------------
+//     std::string test_input;
+//     std::array<unsigned int,8> hash256_value;
+//     //test_input="Hello,world!";
+//     //test_input="The quick brown fox jumps over the lazy dog twice. The quick brown fox jumps over the lazy dog twice.";
+//     test_input="Hewlett Packard Enterprise is the global edge-to-cloud company advancing the way people live and work. We help companies connect, protect, analyze, and act on their data and applications wherever they live, from edge to cloud, so they can turn insights into outcomes at the speed required to thrive in today's complex world. Our culture thrives on finding new and better ways to accelerate what's next. We know diverse backgrounds are valued and succeed here. We have the flexibility to manage our work and personal needs. We make bold moves, together, and are a force for good. If you are looking to stretch and grow your career our culture will embrace you. Open up opportunities with HPE.";
+//     std::vector<data_chunk> M;
+//     //sha_pre_processing(test_input,M);
+//     sha(test_input,hash256_value);
 
 
-    std::cout << "hash value is: ";
-    for (auto value : hash256_value) {
-        std::cout << std::setfill('0') << std::setw(8) << std::hex << value;
-    }
-    std::cout << std::endl;
+//     std::cout << "hash value is: ";
+//     for (auto value : hash256_value) {
+//         std::cout << std::setfill('0') << std::setw(8) << std::hex << value;
+//     }
+//     std::cout << std::endl;
 
 
-//expression -- *((unsigned char*)&M[0][0] + 1)   lldb order
-}
+// //expression -- *((unsigned char*)&M[0][0] + 1)   lldb order
+// }
 
 
 

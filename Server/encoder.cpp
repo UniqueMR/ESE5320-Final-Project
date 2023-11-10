@@ -148,18 +148,22 @@ int main(int argc, char* argv[]) {
 		//Question: do we need to consider the situation that different chunks share the same hash value calculated by SHA at this point
 		for(std::vector<std::string>::size_type i = 0; i < chunks.size(); i++){
 		// for(std::vector<std::string>::size_type i = 0; i < 10; i++){
-			unsigned char* hash_value = (unsigned char*)malloc(sizeof(unsigned char) * 32); 
+			// unsigned char* hash_value = (unsigned char*)malloc(sizeof(unsigned char) * 32); 
+			hash_part hash_value;
 			sha(chunks[i], hash_value);
-			std::string hash_hex_string = toHexString(hash_value, 32);
-			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
-				chunks_map.insert({hash_hex_string, i});
-				unsigned char* chunk_content = new unsigned char;
-				convert_string_char(chunks[i], chunk_content);
-				unsigned char* compress_result = new unsigned char;
-				lzw(chunk_content, compress_result, chunks[i].length());
-			}
-			else{
-			}
+			std::string hash_hex_string = toHexString(hash_value);
+			std::cout << chunks[i] << std::endl;
+			std::cout << hash_hex_string << std::endl;
+			
+			// if(chunks_map.find(hash_hex_string) == chunks_map.end()){
+			// 	chunks_map.insert({hash_hex_string, i});
+			// 	unsigned char* chunk_content = new unsigned char;
+			// 	convert_string_char(chunks[i], chunk_content);
+			// 	unsigned char* compress_result = new unsigned char;
+			// 	lzw(chunk_content, compress_result, chunks[i].length());
+			// }
+			// else{
+			// }
 		}
 
 
