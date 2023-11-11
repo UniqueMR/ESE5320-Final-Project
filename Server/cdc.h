@@ -12,6 +12,4 @@
 
 #define BUFFER_SIZE 
 
-void cdc(unsigned char* buffer, bool* chunk_boundary, unsigned int buff_size);
-
 void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size);

@@ -37,24 +37,25 @@ int main() {
 
     cdc(buffer, chunks, fileSize);
     // for(int i=0; i<chunks.size();i++){
-	// 	printf("*%s*",chunks[i].c_str());
+	// 	printf("%d",chunks[i].size());
 	// }
-    for(int i = 0; i < chunks.size(); i++){
-        std::array<unsigned int,8> output_hash;
-        sha(chunks[i], output_hash);
+    for(int i = 0; i < 4; i++){
+        //std::array<unsigned int,8> output_hash;
+        //sha(chunks[i], output_hash);
         //std::string output_hash_str = toHexString(output_hash);
         unsigned char *chunk_uc = (unsigned char*)malloc((chunks[i].length()) * sizeof(unsigned char));
         convert_string_char(chunks[i], &chunk_uc);
         uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].size());
         uint32_t header;
         int out_len;
-        hardware_encoding(chunk_uc, chunks[i].size(), out_code, header,out_len);
+        //std::vector<uint16_t> output_code = encoding(chunks[i]);
+        hardware_encoding(chunk_uc, chunks[i].size(), out_code, header, out_len);
         //printf("number of chunk is %d\n",i);
     }
 
 
 
-    // for (int i = 0; i < fileSize; ++i) {
+    // for (int i = 0; i < f ileSize; ++i) {
     //     std::cout << chunk_boundary[i] << std::endl; // This will print 0 for false and 1 for true
     // }
 

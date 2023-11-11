@@ -153,7 +153,7 @@ void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* h
 }
 
 static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header){
-    printf("%d\n",out_code);
+    //printf("%d\n",out_code);
     int total_bits = out_len * 12;
     int total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
     header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
@@ -363,58 +363,58 @@ void decoding(std::vector<int> op)
     }
 }
 //****************************************************************************************************************
-int main()
-{
-    std::string filePath = "../test.txt";
+// int main()
+// {
+//     std::string filePath = "../test.txt";
 
-    // Open the binary file for reading
-    std::ifstream inputFile(filePath, std::ios::binary);
+//     // Open the binary file for reading
+//     std::ifstream inputFile(filePath, std::ios::binary);
 
-    if (!inputFile) {
-        std::cerr << "Failed to open the file for reading: " << filePath << std::endl;
-        return 1;
-    }
+//     if (!inputFile) {
+//         std::cerr << "Failed to open the file for reading: " << filePath << std::endl;
+//         return 1;
+//     }
 
-    // Determine the file size
-    inputFile.seekg(0, std::ios::end);
-    std::streampos fileSize = inputFile.tellg();
-    inputFile.seekg(0, std::ios::beg);
+//     // Determine the file size
+//     inputFile.seekg(0, std::ios::end);
+//     std::streampos fileSize = inputFile.tellg();
+//     inputFile.seekg(0, std::ios::beg);
 
-    if (fileSize < 0) {
-        std::cerr << "Failed to determine file size." << std::endl;
-        return 1;
-    }
-    // Create an unsigned char buffer and read the file into it
-    unsigned char* buffer = new unsigned char[fileSize];
-    // bool* chunk_boundary = new bool[fileSize];
-    inputFile.read(reinterpret_cast<char*>(buffer), fileSize);
-    // Close the file
-    inputFile.close();
-    std::string s(buffer, buffer + fileSize);
-    // std::string s = "WYS*WYGWYS*WYSWYSG";
-    // std::cout << "Our message is: " << s << std::endl << std::endl;
-    // std::cout << "Running the software compression we get: " << std::endl;
-    std::vector<uint16_t> output_code = encoding(s);
-    // std::cout << "The compressed output stream is: ";
-    for (int i = 0; i < output_code.size(); i++) {
-        std::cout << output_code[i] << " ";
-    }
-    std::cout << std::endl << std::endl;
+//     if (fileSize < 0) {
+//         std::cerr << "Failed to determine file size." << std::endl;
+//         return 1;
+//     }
+//     // Create an unsigned char buffer and read the file into it
+//     unsigned char* buffer = new unsigned char[fileSize];
+//     // bool* chunk_boundary = new bool[fileSize];
+//     inputFile.read(reinterpret_cast<char*>(buffer), fileSize);
+//     // Close the file
+//     inputFile.close();
+//     std::string s(buffer, buffer + fileSize);
+//     // std::string s = "WYS*WYGWYS*WYSWYSG";
+//     // std::cout << "Our message is: " << s << std::endl << std::endl;
+//     // std::cout << "Running the software compression we get: " << std::endl;
+//     std::vector<uint16_t> output_code = encoding(s);
+//     // std::cout << "The compressed output stream is: ";
+//     for (int i = 0; i < output_code.size(); i++) {
+//         std::cout << output_code[i] << " ";
+//     }
+//     std::cout << std::endl << std::endl;
 
 
 
-    // std::cout << "Running the hardware version we get " << std::endl;
-    // std::cout << "The compressed output stream is: " << std::endl;
-    // //unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
-    // //fileSize = 272;
-    // uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * fileSize);
-    // uint32_t header;
-    // int out_len;
-    // hardware_encoding(buffer,fileSize,out_code, header, out_len);
-    // std::cout << "The compressed output stream is: " << std::endl;
-    // for (int i = 0; i < out_len; ++i) {
-    //     std::cout << "Pointer " << i << ": " << out_code[i] 
-    //               << ", Value: " << (out_code[i]) << std::endl;
-    // }
-    return 0;
-}
+//     // std::cout << "Running the hardware version we get " << std::endl;
+//     // std::cout << "The compressed output stream is: " << std::endl;
+//     // //unsigned char s1[] = "WYS*WYGWYS*WYSWYSG";
+//     // //fileSize = 272;
+//     // uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * fileSize);
+//     // uint32_t header;
+//     // int out_len;
+//     // hardware_encoding(buffer,fileSize,out_code, header, out_len);
+//     // std::cout << "The compressed output stream is: " << std::endl;
+//     // for (int i = 0; i < out_len; ++i) {
+//     //     std::cout << "Pointer " << i << ": " << out_code[i] 
+//     //               << ", Value: " << (out_code[i]) << std::endl;
+//     // }
+//     return 0;
+// }
