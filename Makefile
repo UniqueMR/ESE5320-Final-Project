@@ -52,15 +52,18 @@ VPP_OPTS = --target hw
 # host files
 #
 CLIENT_SOURCES = Client/client.cpp
-CLIENT_EXE = client
+CLIENT_EXE = client.exe
 
 SERVER_SOURCES = Server/cdc.cpp Server/sha.cpp Server/lzw.cpp Server/utils.cpp Server/encoder.cpp Server/server.cpp 
 SERVER_OBJECTS =$(SERVER_SOURCES:.cpp=.o)
-SERVER_EXE = encoder
+SERVER_EXE = encoder.exe
 
 DECODER_SOURCES = Decoder/Decoder.cpp
 DECODER_OBJECTS =$(DECODER_SOURCES:.cpp=.o)
-DECODER_EXE = decoder
+DECODER_EXE = decoder.exe
+
+TEST_EXE = ./Server/playground ./Server/playground.exe
+TEST_RESULTS = ./Server/*.txt ./Server/*.bin ./Decoder/*.txt ./Decoder/*.bin
 
 # CPU_SOURCES = cpu/Host.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
 # CPU_OBJECTS=$(CPU_SOURCES:.cpp=.o)
@@ -94,10 +97,10 @@ $(DECODER_EXE): $(DECODER_OBJECTS)
 # .PHONY: fpga clean
 # fpga: $(XCLBIN)
 
-.NOTPARALLEL: clean
+.NOTPARALLEL: clean clean_git
 
 clean:
-	-$(RM) $(SERVER_EXE) $(SERVER_OBJECTS) $(DECODER_EXE) $(DECODER_OBJECTS) $(CLIENT_EXE) 
+	-$(RM) $(SERVER_EXE) $(SERVER_OBJECTS) $(DECODER_EXE) $(DECODER_OBJECTS) $(CLIENT_EXE) $(TEST_EXE) $(TEST_RESULTS)
 
 # clean-cpu:
 # 	-$(RM) $(CPU_EXE) $(CPU_OBJECTS) 
