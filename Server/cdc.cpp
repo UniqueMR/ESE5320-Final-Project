@@ -21,22 +21,6 @@ static uint64_t hash_func(unsigned char *input, unsigned int pos)
 }
 
 
-// void cdc(unsigned char* buffer, bool* chunk_boundary, unsigned int buff_size){
-// 	for(unsigned int i = WIN_SIZE; i < buff_size - WIN_SIZE; i++){
-//         uint64_t hash = hash_func(buffer, i);
-//         chunk_boundary[i] = ((hash % MODULUS) == TARGET) ? true : false;
-//         // if(i < 8200)
-//     // std::cout << buffer[i]  << std::endl;
-//         if((hash % MODULUS) == TARGET)
-//             std::cout << i << std::endl;
-
-        // for(int i = 0; i < buff_size; i++){
-        //     std::cout << chunk_boundary[i];
-        // }
-// 	}
-//     last_hash = 0;
-// }
-
 void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size){
     //do some operation to get the chunks 
     std::cout << "Using cdc to split the input into chunks ..." << std::endl;
@@ -67,3 +51,18 @@ void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int b
     std::cout << "Finish generating chunks using cdc." << std::endl;
     std::cout << "The number of chunk is " << chunks.size() << std::endl;
 }
+
+
+// void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size){
+//     // Define the size of each chunk
+//     unsigned int chunk_size = 50 ;  // Set your desired chunk size here
+
+//     // Loop through the buffer and create chunks
+//     for(unsigned int i = 0; i < buff_size; i += chunk_size){
+//         // Determine the size of the current chunk
+//         unsigned int current_chunk_size = std::min(chunk_size, buff_size - i);
+
+//         // Create a string from the current chunk of the buffer and add it to the vector
+//         chunks.push_back(std::string(buffer + i, buffer + i + current_chunk_size));
+//     }
+// }
