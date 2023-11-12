@@ -47,6 +47,7 @@ void handle_input(int argc, char* argv[], int* blocksize) {
 
 int main(int argc, char* argv[]) {
 	std::cout << "11:05am" << std::endl;
+	std::cout << argv[1] << std::endl;
 	stopwatch ethernet_timer;
 	unsigned char* input[NUM_PACKETS];
 	int writer = 0;
