@@ -19,6 +19,7 @@
 #include <unordered_map>
 #include <vector>
 #include "stopwatch.h"
+#include "deduplication.h"
 
 #define NUM_PACKETS 8
 #define pipe_depth 4
@@ -97,7 +98,7 @@ int main(int argc, char* argv[]) {
 	memcpy(&file[offset], &buffer[HEADER], length);
 
 	offset += length;
-	writer++;
+	// writer++;
 
 	std::unordered_map<std::string, int> chunks_map;
 	int sum_raw_length = 0, sum_lzw_cmprs_len = 0;
@@ -151,15 +152,18 @@ int main(int argc, char* argv[]) {
 				uint32_t header;
 				uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].length() + 32);
 				int out_len;
-				hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
+				hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len, argv[1]);
+				std::cout << "New chunk " << i << ": " << out_code << std::endl;
 				sum_raw_length += chunks[i].length();
 				sum_lzw_cmprs_len += out_len;
 				free(out_code);
-				free(chunk_content);
+				free(chunk_content); 
 			}
 
 			else{
-
+				uint32_t out_code;
+				duplicate_encoding(chunks_map.at(hash_hex_string), out_code, argv[1]);
+				std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
 			}
 		}
 	}

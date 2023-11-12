@@ -8,7 +8,7 @@ void convert_string_char(const std::string& chunk_s, unsigned char* chunk_uc) {
         // Copy each character from the string to the unsigned char array
         std::copy(chunk_s.begin(), chunk_s.end(), chunk_uc);
         // Add a null character at the end for a proper C-style string
-        // (*chunk_uc)[chunk_s.length()] = '\0';
+        // chunk_uc[chunk_s.length()] = '\0';
     }
 }
 

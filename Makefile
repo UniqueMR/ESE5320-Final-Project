@@ -54,16 +54,16 @@ VPP_OPTS = --target hw
 CLIENT_SOURCES = Client/client.cpp
 CLIENT_EXE = client.exe
 
-SERVER_SOURCES = Server/cdc.cpp Server/sha.cpp Server/lzw.cpp Server/utils.cpp Server/encoder.cpp Server/server.cpp 
+SERVER_SOURCES = Server/cdc.cpp Server/sha.cpp Server/lzw.cpp Server/utils.cpp Server/encoder.cpp Server/server.cpp Server/deduplication.cpp
 SERVER_OBJECTS =$(SERVER_SOURCES:.cpp=.o)
-SERVER_EXE = encoder.exe
+SERVER_EXE = encoder encoder.exe
 
 DECODER_SOURCES = Decoder/Decoder.cpp
 DECODER_OBJECTS =$(DECODER_SOURCES:.cpp=.o)
 DECODER_EXE = decoder.exe
 
-TEST_EXE = ./Server/playground ./Server/playground.exe
-TEST_RESULTS = ./Server/*.txt ./Server/*.bin ./Decoder/*.txt ./Decoder/*.bin
+TEST_EXE = ./Server/playground ./Server/playground.exe playground
+TEST_RESULTS = ./Server/*.txt ./Server/*.bin ./Decoder/*.txt ./Decoder/*.bin encoded.bin decoded.bin
 
 # CPU_SOURCES = cpu/Host.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
 # CPU_OBJECTS=$(CPU_SOURCES:.cpp=.o)
@@ -101,6 +101,9 @@ $(DECODER_EXE): $(DECODER_OBJECTS)
 
 clean:
 	-$(RM) $(SERVER_EXE) $(SERVER_OBJECTS) $(DECODER_EXE) $(DECODER_OBJECTS) $(CLIENT_EXE) $(TEST_EXE) $(TEST_RESULTS)
+
+playground:
+	g++ ./Server/playground.cpp ./Server/cdc.cpp ./Server/sha.cpp ./Server/utils.cpp ./Server/lzw.cpp -o playground
 
 # clean-cpu:
 # 	-$(RM) $(CPU_EXE) $(CPU_OBJECTS) 

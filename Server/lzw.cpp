@@ -152,7 +152,7 @@ void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* h
     }
 }
 
-static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header){
+static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header, char* fileName){
     //printf("%d\n",out_code);
     int total_bits = out_len * 12;
     int total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
@@ -182,7 +182,7 @@ static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &h
     //     // Delete the file if it exists
     //     std::filesystem::remove(file_path);
     // }
-    std::ofstream outfile("encoded_data.bin", std::ios::app);
+    std::ofstream outfile(fileName, std::ios::app);
     
     if(!outfile.is_open()) {
         std::cerr << "Could not open the file for writing.\n";
@@ -202,7 +202,7 @@ static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &h
 }
 
 //****************************************************************************************************************
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len)
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len, char *outputFile)
 {
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
@@ -237,13 +237,13 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
     int i = 0, j = 0;
     while(i < length)
     {
-        if(i + 1 == length)
-        {
-            //std::cout << prefix_code;
-            //std::cout << "\n";
-            // i++;
-            break;
-        }
+        // if(i + 1 == length)
+        // {
+        //     //std::cout << prefix_code;
+        //     //std::cout << "\n";
+        //     // i++;
+        //     break;
+        // }
         next_char = s1[i + 1];
 
         bool hit = 0;
@@ -270,11 +270,13 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
         else
         {
             prefix_code = code;
+            if(i + 1 == length)
+                out_code[j++] = prefix_code;
         }
         i += 1;
     }
     out_len = j;
-    write_encoded_file(out_code, out_len, header);
+    write_encoded_file(out_code, out_len, header, outputFile);
 
     // header = static_cast<uint32_t>(out_len) << 1;
     
@@ -327,7 +329,7 @@ std::vector<uint16_t> encoding(std::string s1)
     output_code.push_back(table[p]);
     uint32_t header;
     uint16_t* out_code = output_code.data();
-    write_encoded_file(out_code, output_code.size(), header);
+    // write_encoded_file(out_code, output_code.size(), header);
     return output_code;
 }
 
