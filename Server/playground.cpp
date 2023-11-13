@@ -2,6 +2,9 @@
 #include "sha.h"
 #include "lzw.h"
 #include "utils.h"
+#include "deduplication.h"
+#include <unordered_map>
+
 int main(int argc, char* argv[]) {
     // Specify the file path
     std::string filePath = "./LittlePrince.txt";
@@ -33,28 +36,35 @@ int main(int argc, char* argv[]) {
 
     cdc(buffer, chunks, fileSize);
 
-    // for(int i = 0; i < chunks.size(); i++){
-    //     std::cout << "Chunk " << i << " has a size of " << chunks[i].size() << std::endl; 
-    //     std::cout << chunks[i] << std::endl;
-    // }
+    std::unordered_map<std::string, int> chunks_map;
 
-    // for(int i=0; i<chunks.size();i++){
-	// 	printf("%d",chunks[i].size());
-	// }
     for(int i = 0; i < chunks.size(); i++){
         std::cout << "raw chunk " << chunks[i] << std::endl;
         std::array<unsigned int,8> output_hash;
         sha(chunks[i], output_hash);
         std::string output_hash_str = toHexString(output_hash);
-        unsigned char *chunk_uc = (unsigned char*)malloc((chunks[i].length()) * sizeof(unsigned char));
-        convert_string_char(chunks[i], chunk_uc);
-        // std:: cout << chunk_uc[chunks[i].length() - 3] << chunk_uc[chunks[i].length() - 2] << chunk_uc[chunks[i].length() - 1] << std::endl;
-        uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].size());
-        uint32_t header;
-        int out_len;
-        //std::vector<uint16_t> output_code = encoding(chunks[i]);
-        hardware_encoding(chunk_uc, chunks[i].size(), out_code, header, out_len, argv[1]);
-        //printf("number of chunk is %d\n",i);
+
+        if(chunks_map.find(output_hash_str) == chunks_map.end()){
+			chunks_map.insert({output_hash_str, i});
+            unsigned char *chunk_uc = (unsigned char*)malloc((chunks[i].length()) * sizeof(unsigned char));
+            convert_string_char(chunks[i], chunk_uc);
+            // std:: cout << chunk_uc[chunks[i].length() - 3] << chunk_uc[chunks[i].length() - 2] << chunk_uc[chunks[i].length() - 1] << std::endl;
+            uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].size());
+            uint32_t header;
+            int out_len;
+            //std::vector<uint16_t> output_code = encoding(chunks[i]);
+            hardware_encoding(chunk_uc, chunks[i].size(), out_code, header, out_len, argv[1]);
+            std::cout << "New chunk " << i << ": " << out_code << std::endl;
+            free(out_code);
+            free(chunk_uc);
+            //printf("number of chunk is %d\n",i);
+        }
+
+        else{
+            uint32_t out_code;
+            duplicate_encoding(chunks_map.at(output_hash_str), out_code, argv[1]);
+            std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
+        }
     }
 
     // for (int i = 0; i < f ileSize; ++i) {
