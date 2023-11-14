@@ -6,7 +6,7 @@
 // and see what happens to the number of entries in the assoc mem 
 // (make sure to also comment line 27 and uncomment line 28)
 
-    unsigned int my_hash(unsigned long key)
+unsigned int my_hash(unsigned long key)
 {
     key &= 0xFFFFF; // make sure the key is only 20 bits
 

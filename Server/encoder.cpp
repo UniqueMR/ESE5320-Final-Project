@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
 	offset += length;
 	// writer++;
 
-	std::unordered_map<std::string, int> chunks_map;
+	// std::unordered_map<std::string, int> chunks_map;
 	int sum_raw_length = 0, sum_lzw_cmprs_len = 0;
 
 	//last message
@@ -135,6 +135,9 @@ int main(int argc, char* argv[]) {
 		std::vector<std::string> chunks;
 		// get the chunked result
 		cdc(buffer, chunks, NUM_ELEMENTS + HEADER);
+
+		// initialize the map for deduplication
+		std::unordered_map<std::string, int> chunks_map;
 
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map
