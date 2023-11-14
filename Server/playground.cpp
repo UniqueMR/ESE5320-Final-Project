@@ -4,7 +4,7 @@
 #include "utils.h"
 int main() {
     // Specify the file path
-    std::string filePath = "../LittlePrince.txt";
+    std::string filePath = "../test.txt";
 
     // Open the binary file for reading
     std::ifstream inputFile(filePath, std::ios::binary);
@@ -37,9 +37,11 @@ int main() {
 
     cdc(buffer, chunks, fileSize);
     // for(int i=0; i<chunks.size();i++){
-	// 	printf("%d",chunks[i].size());
+    //     std::cout << i;
+	// 	std::cout << chunks[i];
+    //     std::cout << "*";
 	// }
-    for(int i = 0; i < 4; i++){
+    for(int i = 0; i < chunks.size(); i++){
         //std::array<unsigned int,8> output_hash;
         //sha(chunks[i], output_hash);
         //std::string output_hash_str = toHexString(output_hash);
@@ -48,8 +50,9 @@ int main() {
         uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].size());
         uint32_t header;
         int out_len;
-        //std::vector<uint16_t> output_code = encoding(chunks[i]);
-        hardware_encoding(chunk_uc, chunks[i].size(), out_code, header, out_len);
+        //std::cout<<"chunk[i] is"<<chunks[i]<<std::endl;
+        std::vector<uint16_t> output_code = encoding(chunks[i]);
+        //hardware_encoding(chunk_uc, chunks[i].size(), out_code, header, out_len);
         //printf("number of chunk is %d\n",i);
     }
 
