@@ -238,11 +238,11 @@ int main(int argc, char** argv)
 			}
 		}
 		base += chunks.size();
+		printf("........................");
 	}
 	float lzw_compress_ratio = sum_raw_length / sum_lzw_cmprs_len;
 	std::cout << "LZW compress ratio: " << lzw_compress_ratio << std::endl;
 	std::cout << "Loop times: " << ticks << std::endl;
-
 
 	// write file to root and you can use diff tool on board
 	FILE *outfd = fopen("output_cpu.bin", "wb");
