@@ -5,7 +5,10 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <cmath>
-#include <filesystem>
+// #include <filesystem>
+
+#define HARDWARE 1
+// #define SOFTWARE 1
 
 //****************************************************************************************************************
 typedef struct
@@ -29,10 +32,16 @@ void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value
 void assoc_insert(assoc_mem* mem,  unsigned int key, unsigned int value, bool* collision);
 void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result);
 void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, unsigned int value, bool* collision);
-void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result);
-// void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code);
-// void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header);
-// void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len);
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len, char *outputFile);
+void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result);// void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len, char *outputFile);
+#ifdef SOFTWARE
+    void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len, char *outputFile);
+#endif
 void decoding(std::vector<int> op);
 std::vector<uint16_t> encoding(std::string s1);
+#ifdef HARDWARE
+extern "C"{
+    void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t *header, int *out_len);
+}
+
+void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t *header, char* fileName);
+#endif

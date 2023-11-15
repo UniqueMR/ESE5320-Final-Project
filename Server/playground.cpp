@@ -39,7 +39,7 @@ int main(int argc, char* argv[]) {
     std::unordered_map<std::string, int> chunks_map;
 
     for(int i = 0; i < chunks.size(); i++){
-        std::cout << "raw chunk " << chunks[i] << std::endl;
+        // std::cout << "raw chunk " << chunks[i] << std::endl;
         std::array<unsigned int,8> output_hash;
         sha(chunks[i], output_hash);
         std::string output_hash_str = toHexString(output_hash);
@@ -54,7 +54,13 @@ int main(int argc, char* argv[]) {
             int out_len;
             //std::vector<uint16_t> output_code = encoding(chunks[i]);
             hardware_encoding(chunk_uc, chunks[i].size(), out_code, header, out_len, argv[1]);
-            std::cout << "New chunk " << i << ": " << out_code << std::endl;
+            if(i == 0){
+                std::cout << "chunk_uc 0: " << chunk_uc << std::endl;
+                std::cout << "chunk_len 0: " << chunks[i].size() << std::endl;
+                std::cout << "fileName; " << argv[1] << std::endl;
+            }
+
+            // std::cout << "New chunk " << i << ": " << out_code << std::endl;
             free(out_code);
             free(chunk_uc);
             //printf("number of chunk is %d\n",i);
@@ -63,7 +69,7 @@ int main(int argc, char* argv[]) {
         else{
             uint32_t out_code;
             duplicate_encoding(chunks_map.at(output_hash_str), out_code, argv[1]);
-            std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
+            // std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
         }
     }
 

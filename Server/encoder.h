@@ -6,3 +6,25 @@
 #define HEADER 2
 
 #endif
+
+#include "cdc.h"
+#include "sha.h"
+#include "lzw.h"
+#include "utils.h"
+#include <stdio.h>
+#include <stdint.h>
+#include <stdlib.h>
+#include <string.h>
+#include <iostream>
+#include <fstream>
+#include "server.h"
+#include <unistd.h>
+#include <fcntl.h>
+#include <pthread.h>
+#include <errno.h>
+#include <fcntl.h>
+#include <sys/mman.h>
+#include <unordered_map>
+#include <vector>
+#include "stopwatch.h"
+#include "deduplication.h"

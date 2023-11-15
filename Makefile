@@ -44,8 +44,8 @@ VPP_OPTS = --target hw
 #
 # OpenCL kernel files
 #
-# XO := kernel.xo
-# XCLBIN := kernel.xclbin
+XO := kernel.xo
+XCLBIN := kernel.xclbin
 # ALL_MESSAGE_FILES = $(subst .xo,.mdb,$(XO)) $(subst .xclbin,.mdb,$(XCLBIN))
 
 #
@@ -66,14 +66,16 @@ TEST_EXE = ./Server/playground ./Server/playground.exe playground
 TEST_RESULTS = ./Server/*.txt ./Server/*.bin ./Decoder/*.txt ./Decoder/*.bin encoded.bin decoded.bin
 
 # CPU_SOURCES = cpu/Host.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
-# CPU_OBJECTS=$(CPU_SOURCES:.cpp=.o)
-# CPU_EXE = mmult_cpu
+CPU_SOURCES = cpu/host.cpp cpu/EventTimer.cpp cpu/utils.cpp
+CPU_OBJECTS=$(CPU_SOURCES:.cpp=.o)
+CPU_EXE = host
 
-# .PHONY: cpu 
-# cpu: $(CPU_EXE)
+.PHONY: cpu 
+cpu: $(CPU_EXE)
 
-# $(CPU_EXE): $(CPU_OBJECTS)
-# 	$(HOST_CXX) -I./fpga/hls/ -o "$@" $(+) $(LDFLAGS)
+$(CPU_EXE): $(CPU_OBJECTS)
+	$(HOST_CXX) -I./fpga/hls/ -o "$@" $(+) $(LDFLAGS)
+
 all: $(CLIENT_EXE) $(SERVER_EXE) $(DECODER_EXE)
 
 $(CLIENT_EXE):

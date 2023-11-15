@@ -1,28 +1,7 @@
 #include "encoder.h"
-#include "cdc.h"
-#include "sha.h"
-#include "lzw.h"
-#include "utils.h"
-#include <stdio.h>
-#include <stdint.h>
-#include <stdlib.h>
-#include <string.h>
-#include <iostream>
-#include <fstream>
-#include "server.h"
-#include <unistd.h>
-#include <fcntl.h>
-#include <pthread.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <sys/mman.h>
-#include <unordered_map>
-#include <vector>
-#include "stopwatch.h"
-#include "deduplication.h"
 
 #define NUM_PACKETS 8
-#define pipe_depth 4
+// #define pipe_depth 4
 #define DONE_BIT_L (1 << 7)
 #define DONE_BIT_H (1 << 15)
 
@@ -79,28 +58,10 @@ int main(int argc, char* argv[]) {
 
 	server.setup_server(blocksize);
 
-	writer = pipe_depth;
-	server.get_packet(input[writer]);
-	count++;
+	writer = 0;
 
-	// get packet
-	unsigned char* buffer = input[writer];
-
-	// decode
-	done = buffer[1] & DONE_BIT_L;
-	length = buffer[0] | (buffer[1] << 8);
-	length &= ~DONE_BIT_H;
-	// printing takes time so be weary of transfer rate
-	//printf("length: %d offset %d\n",length,offset);
-
-	// we are just memcpy'ing here, but you should call your
-	// top function here.
-	memcpy(&file[offset], &buffer[HEADER], length);
-
-	offset += length;
-	// writer++;
-
-	// std::unordered_map<std::string, int> chunks_map;
+	// initialize the map for deduplication
+	std::unordered_map<std::string, int> chunks_map;
 	int sum_raw_length = 0, sum_lzw_cmprs_len = 0;
 
 	//last message
@@ -135,9 +96,6 @@ int main(int argc, char* argv[]) {
 		std::vector<std::string> chunks;
 		// get the chunked result
 		cdc(buffer, chunks, NUM_ELEMENTS + HEADER);
-
-		// initialize the map for deduplication
-		std::unordered_map<std::string, int> chunks_map;
 
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map
