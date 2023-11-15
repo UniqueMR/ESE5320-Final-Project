@@ -64,8 +64,13 @@ int main(int argc, char* argv[]) {
 	std::unordered_map<std::string, int> chunks_map;
 	int sum_raw_length = 0, sum_lzw_cmprs_len = 0;
 
+	int base = 0;
+
+	int ticks = 0;
+
 	//last message
 	while (!done) {
+		ticks++;
 		// reset ring buffer
 		if (writer == NUM_PACKETS) {
 			writer = 0;
@@ -107,13 +112,14 @@ int main(int argc, char* argv[]) {
 			std::string hash_hex_string = toHexString(hash_value);
 			
 			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
-				chunks_map.insert({hash_hex_string, i});
+				chunks_map.insert({hash_hex_string, base + i});
 				unsigned char* chunk_content = (unsigned char*)malloc(sizeof(unsigned char) * (chunks[i].length() + 1));
 				convert_string_char(chunks[i], chunk_content);
 				uint32_t header;
 				uint16_t* out_code = (uint16_t*)malloc(sizeof(uint16_t) * chunks[i].length() + 32);
 				int out_len;
-				hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len, argv[1]);
+				hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
+				write_encoded_file(out_code, out_len, header, argv[1]);
 				std::cout << "New chunk " << i << ": " << out_code << std::endl;
 				sum_raw_length += chunks[i].length();
 				sum_lzw_cmprs_len += out_len;
@@ -127,9 +133,11 @@ int main(int argc, char* argv[]) {
 				std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
 			}
 		}
+		base += chunks.size();
 	}
 	float lzw_compress_ratio = sum_raw_length / sum_lzw_cmprs_len;
 	std::cout << "LZW compress ratio: " << lzw_compress_ratio << std::endl;
+	std::cout << "Loop times: " << ticks << std::endl;
 
 
 	// write file to root and you can use diff tool on board

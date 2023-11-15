@@ -153,7 +153,7 @@ void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* h
 }
 
 #ifdef SOFTWARE
-static void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header, char* fileName){
+void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header, char* fileName){
     //printf("%d\n",out_code);
     int total_bits = out_len * 12;
     int total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
@@ -257,7 +257,7 @@ void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t *header, 
 #ifdef SOFTWARE
 //software
 //****************************************************************************************************************
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len, char *outputFile)
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len)
 {
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
@@ -332,7 +332,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
         i += 1;
     }
     out_len = j;
-    write_encoded_file(out_code, out_len, header, outputFile);
+    // write_encoded_file(out_code, out_len, header, outputFile);
 
     // header = static_cast<uint32_t>(out_len) << 1;
     
