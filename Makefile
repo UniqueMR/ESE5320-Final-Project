@@ -49,6 +49,10 @@ HOST_SOURCES = hls/host.cpp hls/EventTimer.cpp hls/utils.cpp Server/cdc.cpp Serv
 HOST_OBJECTS =$(HOST_SOURCES:.cpp=.o)
 HOST_EXE = host
 
+DECODER_SOURCES = Decoder/Decoder.cpp
+DECODER_OBJECTS =$(DECODER_SOURCES:.cpp=.o)
+DECODER_EXE = decoder
+
 # CPU_SOURCES = cpu/Host.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
 # CPU_OBJECTS=$(CPU_SOURCES:.cpp=.o)
 # CPU_EXE = mmult_cpu
@@ -60,6 +64,9 @@ HOST_EXE = host
 # 	$(HOST_CXX) -I./fpga/hls/ -o "$@" $(+) $(LDFLAGS)
 
 $(HOST_EXE): $(HOST_OBJECTS)
+	$(HOST_CXX) -o "$@" $(+) $(LDFLAGS)
+
+$(DECODER_EXE): $(DECODER_OBJECTS)
 	$(HOST_CXX) -o "$@" $(+) $(LDFLAGS)
 
 .cpp.o:

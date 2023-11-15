@@ -203,8 +203,8 @@ void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t &header, 
 }
 #endif
 
-#ifdef HARDWARE
-void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t *header, char* fileName){
+// #ifdef HARDWARE
+void write_encoded_file(uint16_t* out_code, int out_len, uint32_t *header, char* fileName){
     //printf("%d\n",out_code);
     int total_bits = out_len * 12;
     int total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
@@ -212,10 +212,7 @@ void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t *header, 
     unsigned char* file_buffer = (unsigned char*)malloc(sizeof(unsigned char) * (total_bytes + 4));
 
     int i = 0, j = 0;
-    // file_buffer[j++] = static_cast<unsigned char>(header >> 24);
-    // file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
-    // file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
-    // file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
+
     file_buffer[j++] = static_cast<unsigned char>(*header & 0xFF);
     file_buffer[j++] = static_cast<unsigned char>((*header >> 8) & 0xFF);
     file_buffer[j++] = static_cast<unsigned char>((*header >> 16) & 0xFF);
@@ -229,11 +226,7 @@ void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t *header, 
         file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
         file_buffer[j++] = static_cast<unsigned char>((out_code[i] << 4) & 0xF0);
     }
-    // std::filesystem::path file_path("encoded_data.bin");
-    // if (std::filesystem::exists(file_path)) {
-    //     // Delete the file if it exists
-    //     std::filesystem::remove(file_path);
-    // }
+
     std::ofstream outfile(fileName, std::ios::app);
     
     if(!outfile.is_open()) {
@@ -252,7 +245,7 @@ void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t *header, 
     // Close the file
     outfile.close();
 }
-#endif
+// #endif
 
 #ifdef SOFTWARE
 //software
