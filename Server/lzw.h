@@ -7,8 +7,8 @@
 #include <cmath>
 // #include <filesystem>
 
-#define HARDWARE 1
-// #define SOFTWARE 1
+// #define HARDWARE 1
+#define SOFTWARE 1
 
 //****************************************************************************************************************
 typedef struct

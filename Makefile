@@ -105,7 +105,7 @@ clean:
 	-$(RM) $(SERVER_EXE) $(SERVER_OBJECTS) $(DECODER_EXE) $(DECODER_OBJECTS) $(CLIENT_EXE) $(TEST_EXE) $(TEST_RESULTS)
 
 playground:
-	g++ -std=c++11 ./Server/playground.cpp ./Server/cdc.cpp ./Server/sha.cpp ./Server/utils.cpp ./Server/lzw.cpp ./Server/deduplication.cpp -o playground
+	g++ -v -std=c++11 ./Server/playground.cpp ./Server/cdc.cpp ./Server/sha.cpp ./Server/utils.cpp ./Server/lzw.cpp ./Server/deduplication.cpp -o playground
 
 # clean-cpu:
 # 	-$(RM) $(CPU_EXE) $(CPU_OBJECTS) 

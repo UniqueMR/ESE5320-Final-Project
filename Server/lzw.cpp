@@ -254,100 +254,104 @@ void write_encoded_file(uint16_t* out_code, uint32_t out_len, uint32_t *header, 
 }
 #endif
 
-// //software
-// //****************************************************************************************************************
-// void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len, char *outputFile)
-// {
-//     // create hash table and assoc mem
-//     unsigned long hash_table[CAPACITY];
-//     assoc_mem my_assoc_mem;
+#ifdef SOFTWARE
+//software
+//****************************************************************************************************************
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t &header, int &out_len, char *outputFile)
+{
+    // create hash table and assoc mem
+    unsigned long hash_table[CAPACITY];
+    assoc_mem my_assoc_mem;
 
-//     // make sure the memories are clear
-//     for(int i = 0; i < CAPACITY; i++)
-//     {
-//         hash_table[i] = 0;
-//     }
-//     my_assoc_mem.fill = 0;
-//     for(int i = 0; i < 512; i++)
-//     {
-//         my_assoc_mem.upper_key_mem[i] = 0;
-//         my_assoc_mem.lower_key_mem[i] = 0;
-//     }
+    // make sure the memories are clear
+    for(int i = 0; i < CAPACITY; i++)
+    {
+        hash_table[i] = 0;
+    }
+    my_assoc_mem.fill = 0;
+    for(int i = 0; i < 512; i++)
+    {
+        my_assoc_mem.upper_key_mem[i] = 0;
+            my_assoc_mem.middle_key_mem[i] = 0;
+        my_assoc_mem.lower_key_mem[i] = 0;
+    }
 
-//     // init the memories with the first 256 codes
-//     for(unsigned long i = 0; i < 256; i++)
-//     {
-//         bool collision = 0;
-//         unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
-//         insert(hash_table, &my_assoc_mem, key, i, &collision);
-//     }
-//     int next_code = 256;
+    // init the memories with the first 256 codes
+    for(unsigned long i = 0; i < 256; i++)
+    {
+        bool collision = 0;
+        unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
+        insert(hash_table, &my_assoc_mem, key, i, &collision);
+    }
+    int next_code = 256;
 
 
-//     int prefix_code = s1[0];
-//     unsigned int code = 0;
-//     char next_char = 0;
+    int prefix_code = s1[0];
+    unsigned int code = 0;
+    char next_char = 0;
 
-//     int i = 0, j = 0;
-//     while(i < length)
-//     {
-//         // if(i + 1 == length)
-//         // {
-//         //     //std::cout << prefix_code;
-//         //     //std::cout << "\n";
-//         //     // i++;
-//         //     break;
-//         // }
-//         next_char = s1[i + 1];
+    int i = 0, j = 0;
+    while(i < length)
+    {
+        // if(i + 1 == length)
+        // {
+        //     //std::cout << prefix_code;
+        //     //std::cout << "\n";
+        //     // i++;
+        //     break;
+        // }
+        next_char = s1[i + 1];
 
-//         bool hit = 0;
-//         //std::cout << "prefix_code " << prefix_code << " next_char " << next_char << std::endl;
-//         lookup(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, &hit, &code);
-//         if(!hit)
-//         {
-//             //std::cout << prefix_code;
-//             out_code[j++] = prefix_code;
-//             // out_code[i]=prefix_code;
-//             //std::cout << "\n";
+        bool hit = 0;
+        //std::cout << "prefix_code " << prefix_code << " next_char " << next_char << std::endl;
+        lookup(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, &hit, &code);
+        if(!hit)
+        {
+            //std::cout << prefix_code;
+            out_code[j++] = prefix_code;
+            // out_code[i]=prefix_code;
+            //std::cout << "\n";
 
-//             bool collision = 0;
-//             insert(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, next_code, &collision);
-//             if(collision)
-//             {
-//                 std::cout << "ERROR: FAILED TO INSERT! NO MORE ROOM IN ASSOC MEM!" << std::endl;
-//                 return;
-//             }
-//             next_code += 1;
+            bool collision = 0;
+            insert(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, next_code, &collision);
+            if(collision)
+            {
+                std::cout << "ERROR: FAILED TO INSERT! NO MORE ROOM IN ASSOC MEM!" << std::endl;
+                return;
+            }
+            next_code += 1;
 
-//             prefix_code = next_char;
-//         }
-//         else
-//         {
-//             prefix_code = code;
-//             if(i + 1 == length)
-//                 out_code[j++] = prefix_code;
-//         }
-//         i += 1;
-//     }
-//     out_len = j;
-//     write_encoded_file(out_code, out_len, header, outputFile);
+            prefix_code = next_char;
+        }
+        else
+        {
+            prefix_code = code;
+            if(i + 1 == length)
+                out_code[j++] = prefix_code;
+        }
+        i += 1;
+    }
+    out_len = j;
+    write_encoded_file(out_code, out_len, header, outputFile);
 
-//     // header = static_cast<uint32_t>(out_len) << 1;
+    // header = static_cast<uint32_t>(out_len) << 1;
     
-//     //std::cout << std::endl << "assoc mem entry count: " << my_assoc_mem.fill << std::endl;
+    //std::cout << std::endl << "assoc mem entry count: " << my_assoc_mem.fill << std::endl;
 
-//     // std::ofstream outfile("encoded_data.bin", std::ios::binary);
-//     // if (!outfile) {
-//     //     std::cerr << "Could not open the file for writing." << std::endl;
-//     //     return;
-//     // }
-//     // outfile.write(reinterpret_cast<const char*>(&header), sizeof(header));
-//     // for (int i = 0; i < out_len; ++i) {
-//     //     outfile.write(reinterpret_cast<const char*>(&out_code[i]), sizeof(uint16_t));
-//     // }
-//     // outfile.close();
-// }
+    // std::ofstream outfile("encoded_data.bin", std::ios::binary);
+    // if (!outfile) {
+    //     std::cerr << "Could not open the file for writing." << std::endl;
+    //     return;
+    // }
+    // outfile.write(reinterpret_cast<const char*>(&header), sizeof(header));
+    // for (int i = 0; i < out_len; ++i) {
+    //     outfile.write(reinterpret_cast<const char*>(&out_code[i]), sizeof(uint16_t));
+    // }
+    // outfile.close();
+}
+#endif
 
+#ifdef HARDWARE 
 //hardware
 //****************************************************************************************************************
 void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t *header, int *out_len)
@@ -365,6 +369,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
     for(int i = 0; i < 512; i++)
     {
         my_assoc_mem.upper_key_mem[i] = 0;
+        my_assoc_mem.middle_key_mem[i] = 0;
         my_assoc_mem.lower_key_mem[i] = 0;
     }
 
@@ -421,6 +426,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
     }
     *out_len = j;
 }
+#endif
 
 //****************************************************************************************************************
 std::vector<uint16_t> encoding(std::string s1)
