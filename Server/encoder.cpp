@@ -100,7 +100,7 @@ int main(int argc, char* argv[]) {
 		// initialize the vector to store the obtained chunks
 		std::vector<std::string> chunks;
 		// get the chunked result
-		cdc(buffer, chunks, NUM_ELEMENTS + HEADER);
+		cdc(&buffer[2], chunks, NUM_ELEMENTS + HEADER);
 
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map

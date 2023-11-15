@@ -5,7 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <vector>
-#define WIN_SIZE 4
+#define WIN_SIZE 16
 #define PRIME 3
 #define MODULUS 256
 #define TARGET 2
