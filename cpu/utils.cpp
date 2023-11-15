@@ -42,3 +42,20 @@ char* read_binary_file(const std::string &xclbin_file_name, unsigned &nb)
     bin_file.read(buf, nb);
     return buf;
 }
+
+void handle_input(int argc, char* argv[], int* blocksize) {
+	int x;
+	extern char *optarg;
+
+	while ((x = getopt(argc, argv, ":b:")) != -1) {
+		switch (x) {
+		case 'b':
+			*blocksize = atoi(optarg);
+			printf("blocksize is set to %d optarg\n", *blocksize);
+			break;
+		case ':':
+			printf("-%c without parameter\n", optopt);
+			break;
+		}
+	}
+}

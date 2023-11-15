@@ -66,7 +66,7 @@ TEST_EXE = ./Server/playground ./Server/playground.exe playground
 TEST_RESULTS = ./Server/*.txt ./Server/*.bin ./Decoder/*.txt ./Decoder/*.bin encoded.bin decoded.bin
 
 # CPU_SOURCES = cpu/Host.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
-CPU_SOURCES = cpu/host.cpp cpu/EventTimer.cpp cpu/utils.cpp
+CPU_SOURCES = cpu/host.cpp cpu/EventTimer.cpp cpu/utils.cpp Server/lzw.cpp Server/cdc.cpp Server/sha.cpp Server/deduplication.cpp Server/server.cpp Server/utils.cpp
 CPU_OBJECTS=$(CPU_SOURCES:.cpp=.o)
 CPU_EXE = host
 

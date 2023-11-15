@@ -14,3 +14,5 @@
 
 #include "utils.h"
 #include "EventTimer.h"
+#include "../Server/encoder.h"
+

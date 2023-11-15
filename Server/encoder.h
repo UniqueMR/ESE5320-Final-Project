@@ -28,3 +28,10 @@
 #include <vector>
 #include "stopwatch.h"
 #include "deduplication.h"
+
+#define NUM_PACKETS 8
+// #define pipe_depth 4
+#define DONE_BIT_L (1 << 7)
+#define DONE_BIT_H (1 << 15)
+
+void handle_input(int argc, char* argv[], int* blocksize);

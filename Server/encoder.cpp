@@ -1,10 +1,5 @@
 #include "encoder.h"
 
-#define NUM_PACKETS 8
-// #define pipe_depth 4
-#define DONE_BIT_L (1 << 7)
-#define DONE_BIT_H (1 << 15)
-
 int offset = 0;
 unsigned char* file;
 
@@ -159,4 +154,3 @@ int main(int argc, char* argv[]) {
 
 	return 0;
 }
-
