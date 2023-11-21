@@ -76,20 +76,10 @@ int main(int argc, char** argv)
     cl::Buffer header_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint32_t), NULL, &err);
     cl::Buffer out_len_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(int), NULL, &err);
 
-    // timer.add("Set kernel arguments");  
-    // // Map buffers to kernel arguments, thereby assigning them to specific device memory banks
-    // krnl_hardware_encoding.setArg(0, chunk_content_buf);
-    // krnl_hardware_encoding.setArg(1, *chunk_len_buf);
-    // krnl_hardware_encoding.setArg(2, out_code_buf);
-    // krnl_hardware_encoding.setArg(3, header_buf);
-    // krnl_hardware_encoding.setArg(4, out_len_buf);
-
     timer.add("Map buffers to userspace pointers");
     // Map host-side buffer memory to user-space pointers
     unsigned char* chunk_content = (unsigned char *)q.enqueueMapBuffer(chunk_content_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(unsigned char) * MAX_CHUNK_SIZE);
     uint16_t* out_code = (uint16_t*)q.enqueueMapBuffer(out_code_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(uint16_t) * MAX_CHUNK_SIZE);
-    // uint32_t* header = (uint32_t*)q.enqueueMapBuffer(header_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(uint32_t));
-    // int* out_len = (int*)q.enqueueMapBuffer(header_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(int));
     
     timer.add("Populating buffer inputs");
 

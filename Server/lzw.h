@@ -42,7 +42,7 @@ std::vector<uint16_t> encoding(std::string s1);
 extern "C"{
     void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t *header, int *out_len);
 };
-void write_encoded_file(uint16_t* out_code, int out_len, uint32_t *header, char* fileName);
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *out_len);
 #endif
 
 #ifdef SOFTWARE

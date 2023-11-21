@@ -347,7 +347,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
 #ifdef HARDWARE 
 //hardware
 //****************************************************************************************************************
-void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t *header, int *out_len)
+void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *out_len)
 {
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
