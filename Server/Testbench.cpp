@@ -25,8 +25,8 @@ int main()
     // hardware_encoding(chunk_uc, *in_len, out_code, header, out_len);
     hardware_encoding(chunk_uc, *in_len, out_code, out_len);
 
-
-    if(compare(golden, out_code, *out_len))
+    bool equal = compare(golden, out_code, *out_len);
+    if(equal)
     	std::cout << "TEST PASSED" << std::endl;
     else	std::cout << "TEST FAILED" << std::endl;
 
@@ -37,5 +37,5 @@ int main()
     delete out_len;
     
     // return Equal ? 0 : 1;
-    return 1;
+    return equal ? 0 : 1;;
 }
