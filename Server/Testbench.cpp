@@ -17,12 +17,14 @@ int main()
     int* in_len = new int;
     *in_len = s.length();
     uint16_t* out_code = new uint16_t(s.length());
-    uint32_t* header = new uint32_t;
+    // uint32_t* header = new uint32_t;
     int* out_len = new int;
 
     convert_string_char(s, chunk_uc);
     vector<uint16_t> golden = encoding(s);
-    hardware_encoding(chunk_uc, *in_len, out_code, header, out_len);
+    // hardware_encoding(chunk_uc, *in_len, out_code, header, out_len);
+    hardware_encoding(chunk_uc, *in_len, out_code, out_len);
+
 
     if(compare(golden, out_code, *out_len))
     	std::cout << "TEST PASSED" << std::endl;
@@ -31,7 +33,7 @@ int main()
     delete[] chunk_uc;
     delete in_len;
     delete[] out_code;
-    delete header;
+    // delete header;
     delete out_len;
     
     // return Equal ? 0 : 1;
