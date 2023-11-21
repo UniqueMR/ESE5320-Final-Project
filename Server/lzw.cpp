@@ -349,6 +349,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
 //****************************************************************************************************************
 void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *out_len)
 {
+    #pragma HLS dataflow
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
@@ -356,13 +357,11 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *o
     // make sure the memories are clear
     for(int i = 0; i < CAPACITY; i++)
     {
-        #pragma HLS pipeline II=1
         hash_table[i] = 0;
     }
     my_assoc_mem.fill = 0;
     for(int i = 0; i < 512; i++)
     {
-        #pragma HLS pipeline II=1
         my_assoc_mem.upper_key_mem[i] = 0;
         my_assoc_mem.middle_key_mem[i] = 0;
         my_assoc_mem.lower_key_mem[i] = 0;
@@ -371,7 +370,6 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *o
     // init the memories with the first 256 codes
     for(unsigned long i = 0; i < 256; i++)
     {
-        #pragma HLS pipeline II=1
         bool collision = 0;
         unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
         insert(hash_table, &my_assoc_mem, key, i, &collision);
