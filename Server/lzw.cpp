@@ -11,10 +11,11 @@ unsigned int my_hash(unsigned long key)
     key &= 0xFFFFF; // make sure the key is only 20 bits
 
     unsigned int hashed = 0;
-    
-    #pragma HLS UNROLL
+
+    // #pragma HLS UNROLL (no effect)
     for(int i = 0; i < 20; i++)
     {
+        // #pragma HLS UNROLL (not successful, the time consumed on insert gets longer)
         hashed += (key >> i)&0x01;
         hashed += hashed << 10;
         hashed ^= hashed >> 6;
