@@ -11,7 +11,8 @@ unsigned int my_hash(unsigned long key)
     key &= 0xFFFFF; // make sure the key is only 20 bits
 
     unsigned int hashed = 0;
-
+    
+    #pragma HLS UNROLL
     for(int i = 0; i < 20; i++)
     {
         hashed += (key >> i)&0x01;
@@ -349,7 +350,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
 //****************************************************************************************************************
 void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *out_len)
 {
-    #pragma HLS dataflow
+    // #pragma HLS dataflow
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
