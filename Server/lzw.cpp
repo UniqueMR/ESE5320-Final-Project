@@ -372,6 +372,7 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *o
     // init the memories with the first 256 codes
     for(unsigned long i = 0; i < 256; i++)
     {
+        #pragma HLS UNROLL
         bool collision = 0;
         unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
         insert(hash_table, &my_assoc_mem, key, i, &collision);
