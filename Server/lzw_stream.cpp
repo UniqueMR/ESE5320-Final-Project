@@ -30,7 +30,7 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
         
         // detect hit or not
         bool hit = 0;
-        lookup(*hash_table, my_assoc_mem, (prefix_code << 8) + nxt_char, &hit, &code);
+        lookup(hash_table, my_assoc_mem, (prefix_code << 8) + nxt_char, &hit, &code);
         
         if(!hit){
             cmprs_stream << prefix_code;
@@ -39,7 +39,7 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
             //detect hash collision
             //add to assoc_mem in the case of detecting hash collision
             bool collision = 0;
-            insert(*hash_table, my_assoc_mem, (prefix_code << 8) + nxt_char, nxt_code, &collision);
+            insert(hash_table, my_assoc_mem, (prefix_code << 8) + nxt_char, nxt_code, &collision);
             if(collision)    return;
             nxt_code += 1;
             prefix_code = nxt_char;
@@ -56,7 +56,7 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
     for(int i = 0; i < CAPACITY; i++)
     {
         #pragma HLS PIPELINE II=1
-        *hash_table[i] = 0;
+        hash_table[i] = 0;
     }
     my_assoc_mem->fill = 0;
     for(int i = 0; i < 512; i++)
@@ -73,7 +73,7 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
         #pragma HLS PIPELINE II=1
         bool collision = 0;
         unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
-        insert(*hash_table, my_assoc_mem, key, i, &collision);
+        insert(hash_table, my_assoc_mem, key, i, &collision);
     }
 }
 
