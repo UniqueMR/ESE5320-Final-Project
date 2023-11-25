@@ -109,7 +109,7 @@ $(XO): ./Server/lzw.cpp
 	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) -k hardware_encoding --compile -I"$(<D)" --config ./hls/design.cfg -o"$@" "$<"
 
 $(XCLBIN): $(XO)
-	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) --link --config ./hls/design.cfg -o"$@" $(+)
+	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) -g --link --profile.data --config ./hls/design.cfg -o"$@" $(+)
 
 package/sd_card.img: $(HOST_EXE) $(XCLBIN) ./hls/xrt.ini
 	$(VPP) --package $(VPP_OPTS) --config ./hls/package.cfg $(XCLBIN) \

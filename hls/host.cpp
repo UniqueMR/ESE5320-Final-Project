@@ -186,8 +186,8 @@ int main(int argc, char** argv)
 				krnl_hardware_encoding.setArg(0, chunk_content_buf);
 				krnl_hardware_encoding.setArg(1, chunk_len);
 				krnl_hardware_encoding.setArg(2, out_code_buf);
-				krnl_hardware_encoding.setArg(3, header_buf);
-				krnl_hardware_encoding.setArg(4, out_len_buf);
+				// krnl_hardware_encoding.setArg(3, header_buf);
+				krnl_hardware_encoding.setArg(3, out_len_buf);
 				timer.finish();
 
                 timer.add("Memory object migration enqueue host->device");
