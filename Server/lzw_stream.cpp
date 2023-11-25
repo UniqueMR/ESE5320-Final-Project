@@ -24,7 +24,7 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
     char nxt_char = 0;
     *out_len = 0;
 
-    for(int i = 0; i < length; i++){
+    for(int i = 1; i < length; i++){
 // #pragma HLS LOOP_TRIPCOUNT min = length max = length
         nxt_char = chr_stream.read();
         
@@ -34,7 +34,7 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
         
         if(!hit){
             cmprs_stream << prefix_code;
-            *out_len += 1;
+            (*out_len) += 1;
 
             //detect hash collision
             //add to assoc_mem in the case of detecting hash collision
@@ -78,8 +78,8 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
 }
 
 void lzw_stream(unsigned char* s1, int length, uint16_t* out_code, int *out_len){
-    static hls::stream<unsigned char> chr_stream("char_stream");
-    static hls::stream<uint16_t> cmprs_stream("compress_stream");
+    hls::stream<unsigned char> chr_stream("char_stream");
+    hls::stream<uint16_t> cmprs_stream("compress_stream");
 
 #pragma HLS STREAM variable = chr_stream depth = 32
 #pragma HLS STREAM variable = cmprs_stream depth = 32
