@@ -19,6 +19,7 @@ mem_wr:
 }
 
 static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint16_t>& cmprs_stream, int length, int *out_len, unsigned long *hash_table, assoc_mem* my_assoc_mem){
+execute:
     int nxt_code = 256, prefix_code = chr_stream.read();
     unsigned int code = 0;
     char nxt_char = 0;
@@ -52,7 +53,6 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
 }
 
 static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
-execute:
     // make sure the memories are clear
     for(int i = 0; i < CAPACITY; i++)
     {
