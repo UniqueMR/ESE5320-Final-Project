@@ -46,7 +46,7 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
         }
         else{
             prefix_code = code;
-            if(i + 1 == length) cmprs << prefix_code;
+            if(i + 1 == length) cmprs_stream << prefix_code;
         }
     }
 }
