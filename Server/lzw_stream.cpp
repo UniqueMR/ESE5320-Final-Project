@@ -5,7 +5,7 @@
 static void read_input(unsigned char *s1, hls::stream<unsigned char>& chr_stream, int length){
 mem_rd:
     for(int i = 1; i < length; i++){
-#pragma HLS LOOP_TRIPCOUNT min = length max = length
+// #pragma HLS LOOP_TRIPCOUNT min = MAX max = length
         chr_stream << s1[i];
     }
 }
@@ -13,7 +13,7 @@ mem_rd:
 static void write_result(uint16_t* out_code, hls::stream<uint16_t>& cmprs_stream, int *out_len){
 mem_wr:
     for(int i = 0; i < *out_len; i++){
-#pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
+// #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
         out_code[i] = cmprs_stream.read();
     }
 }
@@ -25,7 +25,7 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
     *out_len = 0;
 
     for(int i = 0; i < length; i++){
-#pragma HLS LOOP_TRIPCOUNT min = length max = length
+// #pragma HLS LOOP_TRIPCOUNT min = length max = length
         nxt_char = chr_stream.read();
         
         // detect hit or not
