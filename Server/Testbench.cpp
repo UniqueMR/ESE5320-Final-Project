@@ -23,7 +23,8 @@ int main()
     convert_string_char(s, chunk_uc);
     vector<uint16_t> golden = encoding(s);
     // hardware_encoding(chunk_uc, *in_len, out_code, header, out_len);
-    hardware_encoding(chunk_uc, *in_len, out_code, out_len);
+    // hardware_encoding(chunk_uc, *in_len, out_code, out_len);
+    lzw_stream(chunk_uc, *in_len, out_code, out_len);
 
     bool equal = compare(golden, out_code, *out_len);
     if(equal)

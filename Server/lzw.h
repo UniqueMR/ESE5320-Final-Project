@@ -8,6 +8,7 @@
 // #include <filesystem>
 
 #define HARDWARE 1
+#define CAPACITY 32768
 // #define SOFTWARE 1
 
 //****************************************************************************************************************
@@ -43,6 +44,7 @@ extern "C"{
     void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t *header, int *out_len);
 };
 void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *out_len);
+void lzw_stream(unsigned char* s1, int length, uint16_t* out_code, int *out_len);
 #endif
 
 #ifdef SOFTWARE

@@ -74,7 +74,7 @@ int main(int argc, char** argv)
     // Create the buffers and allocate memory   
     cl::Buffer chunk_content_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_READ_ONLY,  sizeof(unsigned char) * MAX_CHUNK_SIZE, NULL, &err);
     cl::Buffer out_code_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint16_t) * MAX_CHUNK_SIZE, NULL, &err);
-    cl::Buffer header_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint32_t), NULL, &err);
+    // cl::Buffer header_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint32_t), NULL, &err);
     cl::Buffer out_len_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(int), NULL, &err);
 	timer.finish();
 
@@ -178,7 +178,7 @@ int main(int argc, char** argv)
                 int chunk_len = chunks[i].length();
 				uint32_t header = 0;
 				int out_len = 0;
-				q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
+				// q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
 				q.enqueueWriteBuffer(out_len_buf, CL_TRUE, 0, sizeof(int), &out_len);
 
 				timer.add("Set kernel arguments");  
@@ -206,7 +206,7 @@ int main(int argc, char** argv)
                 timer.add("Read back computation results (implicit device->host migration)");
                 // q.enqueueMigrateMemObjects({out_code_buf, header_buf, out_len_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
                 q.enqueueMigrateMemObjects({out_code_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
-				q.enqueueReadBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
+				// q.enqueueReadBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
 				q.enqueueReadBuffer(out_len_buf, CL_TRUE, 0, sizeof(int), &out_len);
                 timer.finish();
 
