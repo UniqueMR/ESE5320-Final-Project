@@ -65,6 +65,7 @@ int main(int argc, char** argv)
     cl::Program program(context, devices, bins, NULL, &err);
     cl::CommandQueue q(context, device, CL_QUEUE_PROFILING_ENABLE, &err);
     cl::Kernel krnl_hardware_encoding(program,"hardware_encoding", &err);
+	timer.finish();
 
 // ------------------------------------------------------------------------------------
 // Step 2: Create buffers and initialize test values
@@ -75,13 +76,13 @@ int main(int argc, char** argv)
     cl::Buffer out_code_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint16_t) * MAX_CHUNK_SIZE, NULL, &err);
     cl::Buffer header_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint32_t), NULL, &err);
     cl::Buffer out_len_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(int), NULL, &err);
+	timer.finish();
 
     timer.add("Map buffers to userspace pointers");
     // Map host-side buffer memory to user-space pointers
     unsigned char* chunk_content = (unsigned char *)q.enqueueMapBuffer(chunk_content_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(unsigned char) * MAX_CHUNK_SIZE);
     uint16_t* out_code = (uint16_t*)q.enqueueMapBuffer(out_code_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(uint16_t) * MAX_CHUNK_SIZE);
-    
-    timer.add("Populating buffer inputs");
+    timer.finish();
 
 // ------------------------------------------------------------------------------------
 // Step 3: Run the kernel
@@ -122,7 +123,7 @@ int main(int argc, char** argv)
 
 	// initialize the map for deduplication
 	std::unordered_map<std::string, int> chunks_map;
-	int sum_raw_length = 0, sum_lzw_cmprs_len = 0;
+	float sum_lzw_raw_length = 0, sum_lzw_cmprs_len = 0, sum_dedup_raw_length = 0, sum_dedup_cmprs_len = 0;
 
 	int base = 0;
 
@@ -187,16 +188,19 @@ int main(int argc, char** argv)
 				krnl_hardware_encoding.setArg(2, out_code_buf);
 				krnl_hardware_encoding.setArg(3, header_buf);
 				krnl_hardware_encoding.setArg(4, out_len_buf);
+				timer.finish();
 
                 timer.add("Memory object migration enqueue host->device");
                 cl::Event event_sp;
                 q.enqueueMigrateMemObjects({chunk_content_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
                 clWaitForEvents(1, (const cl_event *)&event_sp);
+				timer.finish();
 
                 timer.add("Launch kernel");
                 q.enqueueTask(krnl_hardware_encoding, NULL, &event_sp);
-                timer.add("Wait for kernel to finish running");
+                // timer.add("Wait for kernel to finish running");
                 clWaitForEvents(1, (const cl_event *)&event_sp);
+				timer.finish();
 				// hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
 
                 timer.add("Read back computation results (implicit device->host migration)");
@@ -207,7 +211,7 @@ int main(int argc, char** argv)
                 timer.finish();
 
 				std::cout << "output length = " << out_len << std::endl;
-				std::cout << "header = " << header << std::endl;
+				// std::cout << "header = " << header << std::endl;
 				for(int k = 0; k < 10; k++){
 					std::cout << out_code[k] << " ";
 				}
@@ -215,7 +219,7 @@ int main(int argc, char** argv)
                                 
 				write_encoded_file(out_code, out_len, &header, "encoded.bin");
 				std::cout << "New chunk " << i << ": " << out_code << std::endl;
-				sum_raw_length += chunks[i].length();
+				sum_lzw_raw_length += chunks[i].length();
 				sum_lzw_cmprs_len += out_len;
 				// free(out_code);
 				// free(chunk_content); 
@@ -225,13 +229,20 @@ int main(int argc, char** argv)
 				uint32_t out_code;
 				duplicate_encoding(chunks_map.at(hash_hex_string), out_code, "encoded.bin");
 				std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
+				sum_dedup_raw_length += chunks[i].length();
+				sum_dedup_cmprs_len += 1.5;
 			}
 		}
 		base += chunks.size();
-		printf("........................");
 	}
-	float lzw_compress_ratio = sum_raw_length / sum_lzw_cmprs_len;
+	float lzw_compress_ratio = sum_lzw_raw_length / sum_lzw_cmprs_len;
+	float dedup_compress_ratio = sum_dedup_raw_length / sum_dedup_cmprs_len;
+	float total_compress_ratio = (sum_dedup_raw_length + sum_lzw_raw_length) / (sum_dedup_cmprs_len + sum_lzw_cmprs_len);
+
 	std::cout << "LZW compress ratio: " << lzw_compress_ratio << std::endl;
+	std::cout << "Deduplication compress ratio: " << dedup_compress_ratio << std::endl;
+	std::cout << "Total compress ratio: " << total_compress_ratio << std::endl;
+
 	std::cout << "Loop times: " << ticks << std::endl;
 
 	// write file to root and you can use diff tool on board
@@ -260,8 +271,6 @@ int main(int argc, char** argv)
     delete[] fileBuf;
     q.enqueueUnmapMemObject(chunk_content_buf, chunk_content);
     q.enqueueUnmapMemObject(out_code_buf, out_code);
-    // q.enqueueUnmapMemObject(header_buf, header);
-    // q.enqueueUnmapMemObject(out_len_buf, out_len);
     q.finish();
 
     // std::cout << "--------------- Key execution times ---------------" << std::endl;
