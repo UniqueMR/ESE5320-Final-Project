@@ -52,6 +52,7 @@ static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint
 }
 
 static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
+execute:
     // make sure the memories are clear
     for(int i = 0; i < CAPACITY; i++)
     {
