@@ -87,7 +87,7 @@ static void hardware_encoder(unsigned char* s1, int length, uint16_t* out_code, 
 
 #pragma HLS dataflow
     read_input(s1, chr_stream, length);
-    compute_lzw(chr_stream, cmprs_stream, length, out_len, hash_table, &my_assoc_mem);
+    compute_lzw(chr_stream, cmprs_stream, length, out_len, hash_table, my_assoc_mem);
     write_result(out_code, cmprs_stream, out_len);
 }
 
