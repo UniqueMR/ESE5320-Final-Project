@@ -77,20 +77,23 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
     }
 }
 
-void lzw_stream(unsigned char* s1, int length, uint16_t* out_code, int *out_len){
+static void hardware_encoder(unsigned char* s1, int length, uint16_t* out_code, int *out_len, unsigned long* hash_table, assoc_mem* my_assoc_mem){
     hls::stream<unsigned char> chr_stream("char_stream");
     hls::stream<uint16_t> cmprs_stream("compress_stream");
 
 #pragma HLS STREAM variable = chr_stream depth = 32
 #pragma HLS STREAM variable = cmprs_stream depth = 32
 
-    unsigned long hash_table[CAPACITY];
-    assoc_mem my_assoc_mem;
-
-    init_mem(hash_table, &my_assoc_mem);
-
 #pragma HLS dataflow
     read_input(s1, chr_stream, length);
     compute_lzw(chr_stream, cmprs_stream, length, out_len, hash_table, &my_assoc_mem);
     write_result(out_code, cmprs_stream, out_len);
+}
+
+void lzw_stream(unsigned char* s1, int length, uint16_t* out_code, int *out_len){
+    unsigned long hash_table[CAPACITY];
+    assoc_mem my_assoc_mem;
+
+    init_mem(hash_table, &my_assoc_mem);
+    hardware_encoder(s1, length, out_code, out_len, hash_table, &my_assoc_mem);
 }
