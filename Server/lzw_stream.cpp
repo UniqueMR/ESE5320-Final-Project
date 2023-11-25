@@ -12,7 +12,7 @@ mem_rd:
 
 static void write_result(uint16_t* out_code, hls::stream<uint16_t>& cmprs_stream, int *out_len){
 mem_wr:
-    for(int i = 0; i < out_len; i++){
+    for(int i = 0; i < *out_len; i++){
 #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
         out_code[i] = cmprs_stream.read();
     }
