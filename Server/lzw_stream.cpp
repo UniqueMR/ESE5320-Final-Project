@@ -60,13 +60,15 @@ execute:
     // cmprs_len_stream.write(local_cmprs_len);
 }
 
-static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
-    // make sure the memories are clear
+static void clear_hash_table(unsigned long *hash_table){
     for(int i = 0; i < CAPACITY; i++)
     {
         #pragma HLS PIPELINE II=1
         hash_table[i] = 0;
     }
+}
+
+static void clear_assoc_mem(assoc_mem* my_assoc_mem){
     my_assoc_mem->fill = 0;
     for(int i = 0; i < 512; i++)
     {
@@ -75,6 +77,16 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
         my_assoc_mem->middle_key_mem[i] = 0;
         my_assoc_mem->lower_key_mem[i] = 0;
     }
+}
+
+static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
+    #pragma HLS dataflow
+    clear_hash_table(hash_table);
+    clear_assoc_mem(my_assoc_mem);
+}
+
+static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
+    clear_mem(hash_table, my_assoc_mem);
 
     // init the memories with the first 256 codes
     for(unsigned long i = 0; i < 256; i++)
