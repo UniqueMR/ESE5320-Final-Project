@@ -4,7 +4,7 @@
 
 static void read_input(unsigned char *s1, hls::stream<unsigned char>& chr_stream, int length){
 mem_rd:
-    for(int i = 1; i < length; i++){
+    for(int i = 0; i < length; i++){
 // #pragma HLS LOOP_TRIPCOUNT min = MAX max = length
         chr_stream.write(s1[i]);
     }
