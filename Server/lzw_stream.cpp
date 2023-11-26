@@ -48,7 +48,10 @@ execute:
         }
         else{
             prefix_code = code;
-            if(i + 1 == length) cmprs_stream.write(prefix_code);
+            if(i + 1 == length){
+                cmprs_stream.write(prefix_code);
+                local_cmprs_len += 1;
+            }
         }
     }
     cmprs_len_stream.write(local_cmprs_len);
