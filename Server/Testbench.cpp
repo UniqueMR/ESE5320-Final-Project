@@ -3,9 +3,15 @@
 #include <vector>
 using namespace std;
 static bool compare(vector<uint16_t> golden, uint16_t *out_code, int len){
-	if(golden.size() != len)	return false;
+	if(golden.size() != len){
+        std::cout << "length not equal" << std::endl;
+        return false;
+    }	
 	for(int i = 0; i < len; i++){
-		if(golden[i] != out_code[i])	return false;
+		if(golden[i] != out_code[i]){
+            std::cout << "encoded character not correct" << std::endl;
+            return false;
+        }
 	}
 	return true;
 }
@@ -25,6 +31,8 @@ int main()
     // hardware_encoding(chunk_uc, *in_len, out_code, header, out_len);
     // hardware_encoding(chunk_uc, *in_len, out_code, out_len);
     lzw_stream(chunk_uc, *in_len, out_code, out_len);
+
+    for(int i = 0; i < *out_len; i++)   std::cout << out_code[i] << std::endl;
 
     bool equal = compare(golden, out_code, *out_len);
     if(equal)
