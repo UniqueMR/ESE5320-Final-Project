@@ -26,8 +26,15 @@ execute:
     char nxt_char = 0;
     int local_cmprs_len = 0;
 
-    for(int i = 1; i < length; i++){
+    for(int i = 0; i < length; i++){
 // #pragma HLS LOOP_TRIPCOUNT min = length max = length
+        if(i + 1 == length){
+            cmprs_stream.write(prefix_code);
+            local_cmprs_len += 1;
+            cmprs_len_stream.write(local_cmprs_len);
+            return;
+        }
+
         nxt_char = chr_stream.read();
         
         // detect hit or not
@@ -48,13 +55,9 @@ execute:
         }
         else{
             prefix_code = code;
-            if(i + 1 == length){
-                cmprs_stream.write(prefix_code);
-                local_cmprs_len += 1;
-            }
         }
     }
-    cmprs_len_stream.write(local_cmprs_len);
+    // cmprs_len_stream.write(local_cmprs_len);
 }
 
 static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
