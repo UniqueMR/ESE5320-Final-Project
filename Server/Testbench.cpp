@@ -22,7 +22,7 @@ static void write_encoded_file_buf(uint16_t* out_code, int out_len, unsigned cha
     total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
     uint32_t header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
     // unsigned char* file_buffer = (unsigned char*)malloc(sizeof(unsigned char) * (total_bytes + 4));
-    unsigned char* file_buffer = new unsigned char(total_bytes + 4);
+    file_buffer = new unsigned char(total_bytes + 4);
 
     int i = 0, j = 0;
 
