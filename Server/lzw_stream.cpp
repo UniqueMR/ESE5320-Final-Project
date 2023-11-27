@@ -1,6 +1,7 @@
 #include "lzw.h"
 #include <hls_stream.h>
 #include <ap_int.h>
+#include <ap_fixed.h>
 
 static void read_input(unsigned char *s1, hls::stream<unsigned char>& chr_stream, int length){
 mem_rd:
@@ -10,13 +11,62 @@ mem_rd:
     }
 }
 
-static void write_result(uint16_t* out_code, hls::stream<uint16_t>& cmprs_stream, hls::stream<int> &cmprs_len_stream, int *out_len){
-mem_wr:
-    *out_len = cmprs_len_stream.read();
-    for(int i = 0; i < *out_len; i++){
-// #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
-        out_code[i] = cmprs_stream.read();
+// static void write_result(uint16_t* out_code, hls::stream<uint16_t>& cmprs_stream, hls::stream<int> &cmprs_len_stream, int *out_len){
+// mem_wr:
+//     *out_len = cmprs_len_stream.read();
+//     for(int i = 0; i < *out_len; i++){
+// // #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
+//         out_code[i] = cmprs_stream.read();
+//     }
+// }
+
+static int ceil_fixed(float num){
+    int inum = (int)num;
+    if (num == (float)inum) {
+        return inum;
+    } else {
+        return inum + ((num > 0) ? 1 : 0);
     }
+}
+
+static void write_header(unsigned char* file_buffer, uint32_t header) {
+    //using HLS UNROLL to fully unroll the loop, hoping to make all j executed concurrently
+    #pragma HLS UNROLL
+    for (int i = 0; i < 4; ++i) {
+        file_buffer[i] = static_cast<unsigned char>((header >> (i * 8)) & 0xFF);
+    }
+}
+
+static void write_file_buffer(unsigned char* file_buffer, int j, uint16_t out_code_0, uint16_t out_code_1){
+    file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
+    file_buffer[j+1] = static_cast<unsigned char>(((out_code_0 << 4) & 0xF0) | ((out_code_1 >> 8) & 0x0F));
+    file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
+}
+
+static void write_result(hls::stream<uint16_t>& cmprs_stream, hls::stream<int> &cmprs_len_stream, unsigned char* file_buffer){
+mem_wr:
+    int out_len = cmprs_len_stream.read();
+    int total_bits = out_len * 12;
+    int total_bytes = static_cast<int>(ceil_fixed(total_bits / 8.0));
+    uint32_t header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
+
+    write_header(file_buffer, header);
+
+    int i = 0, j = 4;
+
+    for(i = 0; i + 1 < out_len; i += 2){
+// #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
+        uint16_t out_code_0 = cmprs_stream.read();
+        uint16_t out_code_1 = cmprs_stream.read();
+        write_file_buffer(file_buffer, j, out_code_0, out_code_1);
+        j += 3;
+    }
+    if(i != out_len){
+        uint16_t out_code_0 = cmprs_stream.read();
+        file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
+        file_buffer[j+1] = static_cast<unsigned char>((out_code_0 << 4) & 0xF0);
+    }
+    return;
 }
 
 static void compute_lzw(hls::stream<unsigned char>& chr_stream, hls::stream<uint16_t>& cmprs_stream, int length, hls::stream<int> &cmprs_len_stream, unsigned long *hash_table, assoc_mem* my_assoc_mem){
@@ -98,7 +148,7 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
     }
 }
 
-static void hardware_encoder(unsigned char* s1, int length, uint16_t* out_code, int *out_len, unsigned long* hash_table, assoc_mem* my_assoc_mem){
+static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_buffer, unsigned long* hash_table, assoc_mem* my_assoc_mem){
     hls::stream<unsigned char> chr_stream("char_stream");
     hls::stream<uint16_t> cmprs_stream("compress_stream");
     hls::stream<int> cmprs_len_stream("compress_length_stream");
@@ -110,13 +160,13 @@ static void hardware_encoder(unsigned char* s1, int length, uint16_t* out_code, 
 #pragma HLS dataflow
     read_input(s1, chr_stream, length);
     compute_lzw(chr_stream, cmprs_stream, length, cmprs_len_stream, hash_table, my_assoc_mem);
-    write_result(out_code, cmprs_stream, cmprs_len_stream, out_len);
+    write_result(cmprs_stream, cmprs_len_stream, file_buffer);
 }
 
-void lzw_stream(unsigned char* s1, int length, uint16_t* out_code, int *out_len){
+void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer){
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
 
     init_mem(hash_table, &my_assoc_mem);
-    hardware_encoder(s1, length, out_code, out_len, hash_table, &my_assoc_mem);
+    hardware_encoder(s1, length, file_buffer, hash_table, &my_assoc_mem);
 }
