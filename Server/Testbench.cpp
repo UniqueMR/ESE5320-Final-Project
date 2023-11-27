@@ -56,6 +56,7 @@ static bool compare_file_buffer(unsigned char* result, unsigned char* golden, in
         for(int i = 0; i < len_result; i++)
             if(result[i] != golden[i]){
                 std::cout << "file buffer " << i << " not match" << std::endl;
+                std::cout << "result: " << result[i] << " ;golden: " << golden[i] << std::endl;
                 flag = false;
             } 
         return flag;
