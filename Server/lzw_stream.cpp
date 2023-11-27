@@ -48,7 +48,7 @@ mem_wr:
     int out_len = cmprs_len_stream.read();
     int total_bits = out_len * 12;
     *total_bytes = static_cast<int>(ceil_fixed(total_bits / 8.0));
-    uint32_t header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
+    uint32_t header = static_cast<uint32_t>(*total_bytes & 0xFFFFFFFF) << 1;
 
     write_header(file_buffer, header);
 
