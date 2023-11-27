@@ -56,7 +56,7 @@ static bool compare_file_buffer(unsigned char* result, unsigned char* golden, in
         for(int i = 0; i < len_result; i++)
             if(result[i] != golden[i]){
                 std::cout << "file buffer " << i << " not match" << std::endl;
-                std::cout << "result: " << result[i] << " ;golden: " << golden[i] << std::endl;
+                std::cout << "result: " << std::hex << static_cast<int>(result[i]) << " ;golden: " << std::hex << static_cast<int>(golden[i]) << std::endl;
                 flag = false;
             } 
         return flag;
@@ -76,7 +76,7 @@ int main()
     // uint16_t* out_code = new uint16_t(s.length());
     // // uint32_t* header = new uint32_t;
     int* out_len = new int;
-    unsigned char* file_buffer = new unsigned char(s.length());
+    unsigned char* file_buffer = new unsigned char(100);
 
     convert_string_char(s, chunk_uc);
     vector<uint16_t> golden = encoding(s);

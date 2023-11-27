@@ -39,8 +39,11 @@ static void write_header(unsigned char* file_buffer, uint32_t header) {
 
 static void write_file_buffer(unsigned char* file_buffer, int j, uint16_t out_code_0, uint16_t out_code_1){
     file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
+    // std::cout << std::hex << static_cast<int>(file_buffer[j]) << std::endl;
     file_buffer[j+1] = static_cast<unsigned char>(((out_code_0 << 4) & 0xF0) | ((out_code_1 >> 8) & 0x0F));
+    // std::cout << std::hex << static_cast<int>(file_buffer[j+1]) << std::endl;
     file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
+    // std::cout << std::hex << static_cast<int>(file_buffer[j+2]) << std::endl;
 }
 
 static void write_result(hls::stream<uint16_t>& cmprs_stream, hls::stream<int> &cmprs_len_stream, unsigned char* file_buffer, int* total_bytes){
@@ -57,12 +60,15 @@ mem_wr:
     for(i = 0; i + 1 < out_len; i += 2){
 // #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
         uint16_t out_code_0 = cmprs_stream.read();
+        // std::cout << out_code_0 << std::endl;
         uint16_t out_code_1 = cmprs_stream.read();
+        // std::cout << out_code_1 << std::endl;
         write_file_buffer(file_buffer, j, out_code_0, out_code_1);
         j += 3;
     }
     if(i != out_len){
         uint16_t out_code_0 = cmprs_stream.read();
+        // std::cout << out_code_0 << std::endl;
         file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
         file_buffer[j+1] = static_cast<unsigned char>((out_code_0 << 4) & 0xF0);
     }
