@@ -43,11 +43,11 @@ static void write_file_buffer(unsigned char* file_buffer, int j, uint16_t out_co
     file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
 }
 
-static void write_result(hls::stream<uint16_t>& cmprs_stream, hls::stream<int> &cmprs_len_stream, unsigned char* file_buffer){
+static void write_result(hls::stream<uint16_t>& cmprs_stream, hls::stream<int> &cmprs_len_stream, unsigned char* file_buffer, int* total_bytes){
 mem_wr:
     int out_len = cmprs_len_stream.read();
     int total_bits = out_len * 12;
-    int total_bytes = static_cast<int>(ceil_fixed(total_bits / 8.0));
+    *total_bytes = static_cast<int>(ceil_fixed(total_bits / 8.0));
     uint32_t header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
 
     write_header(file_buffer, header);
@@ -148,7 +148,7 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
     }
 }
 
-static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_buffer, unsigned long* hash_table, assoc_mem* my_assoc_mem){
+static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes, unsigned long* hash_table, assoc_mem* my_assoc_mem){
     hls::stream<unsigned char> chr_stream("char_stream");
     hls::stream<uint16_t> cmprs_stream("compress_stream");
     hls::stream<int> cmprs_len_stream("compress_length_stream");
@@ -160,13 +160,13 @@ static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_
 #pragma HLS dataflow
     read_input(s1, chr_stream, length);
     compute_lzw(chr_stream, cmprs_stream, length, cmprs_len_stream, hash_table, my_assoc_mem);
-    write_result(cmprs_stream, cmprs_len_stream, file_buffer);
+    write_result(cmprs_stream, cmprs_len_stream, file_buffer, total_bytes);
 }
 
-void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer){
+void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
 
     init_mem(hash_table, &my_assoc_mem);
-    hardware_encoder(s1, length, file_buffer, hash_table, &my_assoc_mem);
+    hardware_encoder(s1, length, file_buffer, total_bytes, hash_table, &my_assoc_mem);
 }

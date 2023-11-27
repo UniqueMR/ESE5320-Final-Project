@@ -45,7 +45,7 @@ extern "C"{
 };
 void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, int *out_len);
 // void lzw_stream(unsigned char* s1, int length, uint16_t* out_code, int *out_len);
-void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer);
+void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes);
 #endif
 
 #ifdef SOFTWARE

@@ -2,18 +2,34 @@
 #include "utils.h"
 #include <vector>
 using namespace std;
-static bool compare(vector<uint16_t> golden, uint16_t *out_code, int len){
-	if(golden.size() != len){
-        std::cout << "length not equal" << std::endl;
+// static bool compare(vector<uint16_t> golden, uint16_t *out_code, int len){
+// 	if(golden.size() != len){
+//         std::cout << "length not equal" << std::endl;
+//         return false;
+//     }	
+// 	for(int i = 0; i < len; i++){
+// 		if(golden[i] != out_code[i]){
+//             std::cout << "encoded character not correct" << std::endl;
+//             return false;
+//         }
+// 	}
+// 	return true;
+// }
+
+static bool compare_file_buffer(unsigned char* result, unsigned char* golden, int len_result, int len_golden){
+    bool flag = true;
+    if(len_result == len_golden){
+        for(int i = 0; i < len_result; i++)
+            if(result[i] != golden[i]){
+                std::cout << "file buffer " << i << " not match" << std::endl;
+                flag = false;
+            } 
+        return flag;
+    }
+    else{
+        std::cout << "length not match" << std::endl;
         return false;
-    }	
-	for(int i = 0; i < len; i++){
-		if(golden[i] != out_code[i]){
-            std::cout << "encoded character not correct" << std::endl;
-            return false;
-        }
-	}
-	return true;
+    }
 }
 
 int main()
