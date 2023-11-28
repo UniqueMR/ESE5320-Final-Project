@@ -285,7 +285,7 @@ static void clear_assoc_mem(assoc_mem* my_assoc_mem){
 }
 
 static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
-    #pragma HLS dataflow
+    // #pragma HLS dataflow
     clear_hash_table(hash_table);
     clear_assoc_mem(my_assoc_mem);
 }
@@ -294,13 +294,13 @@ static void init_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
     clear_mem(hash_table, my_assoc_mem);
 
     // init the memories with the first 256 codes
-    for(unsigned long i = 0; i < 256; i++)
-    {
-        #pragma HLS PIPELINE II=1
-        bool collision = 0;
-        unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
-        insert(hash_table, my_assoc_mem, key, i, &collision);
-    }
+    // for(unsigned long i = 0; i < 256; i++)
+    // {
+    //     #pragma HLS PIPELINE II=1
+    //     bool collision = 0;
+    //     unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
+    //     insert(hash_table, my_assoc_mem, key, i, &collision);
+    // }
 }
 
 static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes, unsigned long* hash_table, assoc_mem* my_assoc_mem){
@@ -312,17 +312,17 @@ static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_
 #pragma HLS STREAM variable = cmprs_stream depth = 32
 #pragma HLS STREAM variable = cmprs_len_stream depth = 32
 
-#pragma HLS dataflow
+// #pragma HLS dataflow
     read_input(s1, chr_stream, length);
     compute_lzw(chr_stream, cmprs_stream, length, cmprs_len_stream, hash_table, my_assoc_mem);
     write_result(cmprs_stream, cmprs_len_stream, file_buffer, total_bytes);
 }
 
 void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
-#pragma HLS INTERFACE m_axi port=s1 bundle=aximm1 depth=32
-#pragma HLS INTERFACE m_axi port=length bundle=aximm2 depth=32
-#pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3 depth=32
-#pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4 depth=32
+// #pragma HLS INTERFACE m_axi port=s1 bundle=aximm1 depth=32
+// #pragma HLS INTERFACE m_axi port=length bundle=aximm2 depth=32
+// #pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3 depth=32
+// #pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4 depth=32
 
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
