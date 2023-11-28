@@ -319,10 +319,10 @@ static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_
 }
 
 void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
-#pragma HLS INTERFACE m_axi port=s1 bundle=aximm1
-#pragma HLS INTERFACE m_axi port=length bundle=aximm2
-#pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3
-#pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4
+#pragma HLS INTERFACE m_axi port=s1 bundle=aximm1 depth=32
+#pragma HLS INTERFACE m_axi port=length bundle=aximm2 depth=32
+#pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3 depth=32
+#pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4 depth=32
 
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
