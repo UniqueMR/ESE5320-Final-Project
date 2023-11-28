@@ -45,7 +45,7 @@ ALL_MESSAGE_FILES = $(subst .xo,.mdb,$(XO)) $(subst .xclbin,.mdb,$(XCLBIN))
 #
 # host files
 #
-HOST_SOURCES = hls/host.cpp hls/EventTimer.cpp hls/utils.cpp Server/cdc.cpp Server/sha.cpp Server/lzw.cpp Server/deduplication.cpp Server/utils.cpp Server/server.cpp
+HOST_SOURCES = hls/host.cpp hls/EventTimer.cpp hls/utils.cpp Server/cdc.cpp Server/sha.cpp Server/lzw_stream.cpp Server/deduplication.cpp Server/utils.cpp Server/server.cpp
 HOST_OBJECTS =$(HOST_SOURCES:.cpp=.o)
 HOST_EXE = host
 
@@ -104,9 +104,9 @@ clean: clean-cpu clean-host clean-accelerators clean-package
 # binary container: kernel.xclbin
 #
 
-$(XO): ./Server/lzw.cpp
+$(XO): ./Server/lzw_stream.cpp 
 	-@$(RM) $@
-	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) -k hardware_encoding --compile -I"$(<D)" --config ./hls/design.cfg -o"$@" "$<"
+	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) -k lzw_stream --compile -I"$(<D)" --config ./hls/design.cfg -o"$@" "$<"
 
 $(XCLBIN): $(XO)
 	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) -g --link --config ./hls/design.cfg -o"$@" $(+)

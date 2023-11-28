@@ -3,6 +3,155 @@
 #include <ap_int.h>
 #include <ap_fixed.h>
 
+static unsigned int my_hash(unsigned long key)
+{
+    key &= 0xFFFFF; // make sure the key is only 20 bits
+
+    unsigned int hashed = 0;
+
+    // #pragma HLS UNROLL (no effect)
+    for(int i = 0; i < 20; i++)
+    {
+        // #pragma HLS UNROLL (not successful, the time consumed on insert gets longer)
+        hashed += (key >> i)&0x01;
+        hashed += hashed << 10;
+        hashed ^= hashed >> 6;
+    }
+    hashed += hashed << 3;
+    hashed ^= hashed >> 11;
+    hashed += hashed << 15;
+    return hashed & 0x7FFF;          // hash output is 15 bits
+    //return hashed & 0xFFF;   
+}
+
+static void hash_lookup(unsigned long* hash_table, unsigned int key, bool* hit, unsigned int* result)
+{
+    //std::cout << "hash_lookup():" << std::endl;
+    key &= 0xFFFFF; // make sure key is only 20 bits 
+
+    unsigned long lookup = hash_table[my_hash(key)];
+
+    // [valid][value][key]
+    unsigned int stored_key = lookup&0xFFFFF;       // stored key is 20 bits
+    unsigned int value = (lookup >> 20)&0xFFF;      // value is 12 bits
+    unsigned int valid = (lookup >> (20 + 12))&0x1; // valid is 1 bit
+    
+    if(valid && (key == stored_key))
+    {
+        *hit = 1;
+        *result = value;
+        //std::cout << "\thit the hash" << std::endl;
+        //std::cout << "\t(k,v,h) = " << key << " " << value << " " << my_hash(key) << std::endl;
+    }
+    else
+    {
+        *hit = 0;
+        *result = 0;
+        //std::cout << "\tmissed the hash" << std::endl;
+    }
+}
+
+static void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value, bool* collision)
+{
+    //std::cout << "hash_insert():" << std::endl;
+    key &= 0xFFFFF;   // make sure key is only 20 bits
+    value &= 0xFFF;   // value is only 12 bits
+
+    unsigned long lookup = hash_table[my_hash(key)];
+    unsigned int valid = (lookup >> (20 + 12))&0x1;
+
+    if(valid)
+    {
+        *collision = 1;
+        //std::cout << "\tcollision in the hash" << std::endl;
+    }
+    else
+    {
+        hash_table[my_hash(key)] = (1UL << (20 + 12)) | (value << 20) | key;
+        *collision = 0;
+        //std::cout << "\tinserted into the hash table" << std::endl;
+        //std::cout << "\t(k,v,h) = " << key << " " << value << " " << my_hash(key) << std::endl;
+    }
+}
+
+// cast to struct and use ap types to pull out various feilds.
+
+static void assoc_insert(assoc_mem* mem,  unsigned int key, unsigned int value, bool* collision)
+{
+    //std::cout << "assoc_insert():" << std::endl;
+    key &= 0xFFFFF; // make sure key is only 20 bits
+    value &= 0xFFF;   // value is only 12 bits
+
+    if(mem->fill < 64)
+    {
+        mem->upper_key_mem[(key >> 18)%512] |= (1 << mem->fill);  // set the fill'th bit to 1, while preserving everything else
+        mem->middle_key_mem[(key >> 9)%512] |= (1 << mem->fill);  // set the fill'th bit to 1, while preserving everything else
+        mem->lower_key_mem[(key >> 0)%512] |= (1 << mem->fill);   // set the fill'th bit to 1, while preserving everything else
+        mem->value[mem->fill] = value;
+        mem->fill++;
+        *collision = 0;
+        //std::cout << "\tinserted into the assoc mem" << std::endl;
+        //std::cout << "\t(k,v) = " << key << " " << value << std::endl;
+    }
+    else
+    {
+        *collision = 1;
+        //std::cout << "\tcollision in the assoc mem" << std::endl;
+    }
+}
+
+static void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
+{
+    //std::cout << "assoc_lookup():" << std::endl;
+    key &= 0xFFFFF; // make sure key is only 20 bits
+
+    unsigned int match_high = mem->upper_key_mem[(key >> 18)%512];
+    unsigned int match_middle = mem->middle_key_mem[(key >> 9)%512];
+    unsigned int match_low  = mem->lower_key_mem[(key >> 0)%512];
+
+    unsigned int match = match_high & match_middle & match_low;
+
+    unsigned int address = 0;
+    for(; address < 64; address++)
+    {
+        if((match >> address) & 0x1)
+        {   
+            break;
+        }
+    }
+    if(address != 64)
+    {
+        *result = mem->value[address];
+        *hit = 1;
+        //std::cout << "\thit the assoc" << std::endl;
+        //std::cout << "\t(k,v) = " << key << " " << *result << std::endl;
+    }
+    else
+    {
+        *hit = 0;
+        //std::cout << "\tmissed the assoc" << std::endl;
+    }
+}
+//****************************************************************************************************************
+static void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, unsigned int value, bool* collision)
+{
+    hash_insert(hash_table, key, value, collision);
+    if(*collision)
+    {
+        assoc_insert(mem, key, value, collision);
+    }
+}
+
+static void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
+{
+    hash_lookup(hash_table, key, hit, result);
+    if(!*hit)
+    {
+        assoc_lookup(mem, key, hit, result);
+    }
+}
+
+
 static void read_input(unsigned char *s1, hls::stream<unsigned char>& chr_stream, int length){
 mem_rd:
     for(int i = 0; i < length; i++){
