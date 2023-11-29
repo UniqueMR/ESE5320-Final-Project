@@ -137,6 +137,7 @@ int main(int argc, char** argv)
 	int base = 0;
 
 	int ticks = 0;
+    timer.add("kernel time");
 
 	//last message
 	while (!done) {
@@ -238,7 +239,7 @@ int main(int argc, char** argv)
 			}
 		}
 		base += chunks.size();
-		printf("........................");
+		printf("........................\host");
 	}
 	float lzw_compress_ratio = sum_raw_length / sum_lzw_cmprs_len;
 	std::cout << "LZW compress ratio: " << lzw_compress_ratio << std::endl;

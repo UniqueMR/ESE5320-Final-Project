@@ -101,6 +101,41 @@ void assoc_insert(assoc_mem* mem,  unsigned int key, unsigned int value, bool* c
     }
 }
 
+static unsigned int findAddr(uint64_t match){
+    #pragma HLS INLINE
+
+    if(match == 0)  return 64; //find address failed
+
+    uint8_t segment[8]; // split 64-bits match into 8 x 8 bits
+    #pragma HLS ARRAY_PARTITION variable=segment complete
+    // initialize all the segments in parallel
+    for(int i = 0; i < 8; i++){
+        #pragma HLS UNROLL
+        segment[i] = (match >> (8 * i)) & 0xFF;
+    }
+
+    uint8_t mask[8];
+    #pragma HLS ARRAY_PARTITION variable=mask complete
+    for(int j = 0; j < 8; j++){
+        #pragma HLS UNROLL
+        mask[j] = 0x1 << j;
+    }
+
+    // check each segment in parallel
+    for(int i = 0; i < 8; i++){
+        #pragma HLS UNROLL
+        if(segment[i] != 0){
+            for(int j = 0; j < 8; j++){
+                #pragma HLS UNROLL
+                if(segment[i] & mask[j]){
+                    return 8 * i + j;
+                }
+            }
+        }
+    }
+    return 64;
+}
+
 void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
 {
     //std::cout << "assoc_lookup():" << std::endl;
@@ -112,14 +147,15 @@ void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* res
 
     unsigned int match = match_high & match_middle & match_low;
 
-    unsigned int address = 0;
-    for(; address < 64; address++)
-    {
-        if((match >> address) & 0x1)
-        {   
-            break;
-        }
-    }
+    unsigned int address = findAddr(match);
+
+    // for(; address < 64; address++)
+    // {
+    //     if((match >> address) & 0x1)
+    //     {   
+    //         break;
+    //     }
+    // }
     if(address != 64)
     {
         *result = mem->value[address];
@@ -367,12 +403,13 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
     }
 
     // init the memories with the first 256 codes
-    for(unsigned long i = 0; i < 256; i++)
-    {
-        bool collision = 0;
-        unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
-        insert(hash_table, &my_assoc_mem, key, i, &collision);
-    }
+    // Ezra told us this can be discard
+    // for(unsigned long i = 0; i < 256; i++)
+    // {
+    //     bool collision = 0;
+    //     unsigned int key = (i << 8) + 0UL; // lower 8 bits are the next char, the upper bits are the prefix code
+    //     insert(hash_table, &my_assoc_mem, key, i, &collision);
+    // }
     int next_code = 256;
 
     int prefix_code = s1[0];
