@@ -160,14 +160,6 @@ mem_rd:
     }
 }
 
-// static void write_result(uint16_t* out_code, hls::stream<uint16_t>& cmprs_stream, hls::stream<int> &cmprs_len_stream, int *out_len){
-// mem_wr:
-//     *out_len = cmprs_len_stream.read();
-//     for(int i = 0; i < *out_len; i++){
-// // #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
-//         out_code[i] = cmprs_stream.read();
-//     }
-// }
 
 static int ceil_fixed(float num){
     int inum = (int)num;
@@ -285,7 +277,7 @@ static void clear_assoc_mem(assoc_mem* my_assoc_mem){
 }
 
 static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
-    // #pragma HLS dataflow
+    #pragma HLS dataflow
     clear_hash_table(hash_table);
     clear_assoc_mem(my_assoc_mem);
 }
@@ -312,21 +304,60 @@ static void hardware_encoder(unsigned char* s1, int length, unsigned char* file_
 #pragma HLS STREAM variable = cmprs_stream depth = 32
 #pragma HLS STREAM variable = cmprs_len_stream depth = 32
 
-// #pragma HLS dataflow
+#pragma HLS dataflow
     read_input(s1, chr_stream, length);
     compute_lzw(chr_stream, cmprs_stream, length, cmprs_len_stream, hash_table, my_assoc_mem);
     write_result(cmprs_stream, cmprs_len_stream, file_buffer, total_bytes);
 }
 
 void lzw_stream(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
-// #pragma HLS INTERFACE m_axi port=s1 bundle=aximm1 depth=32
-// #pragma HLS INTERFACE m_axi port=length bundle=aximm2 depth=32
-// #pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3 depth=32
-// #pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4 depth=32
+#pragma HLS INTERFACE m_axi port=s1 bundle=aximm1 
+#pragma HLS INTERFACE m_axi port=length bundle=aximm2 
+#pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3 
+#pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4 
 
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
 
     init_mem(hash_table, &my_assoc_mem);
     hardware_encoder(s1, length, file_buffer, total_bytes, hash_table, &my_assoc_mem);
+}
+
+std::vector<uint16_t> encoding(std::string s1)
+{
+    std::cout << "Encoding\n";
+    std::unordered_map<std::string, int> table;
+    for (int i = 0; i <= 255; i++) {
+        std::string ch = "";
+        ch += char(i);
+        table[ch] = i;
+    }
+ 
+    std::string p = "", c = "";
+    p += s1[0];
+    int code = 256;
+    std::vector<uint16_t> output_code;
+    std::cout << "String\tOutput_Code\tAddition\n";
+    for (int i = 0; i < s1.length(); i++) {
+        if (i != s1.length() - 1)
+            c += s1[i + 1];
+        if (table.find(p + c) != table.end()) {
+            p = p + c;
+        }
+        else {
+            std::cout << p << "\t" << table[p] << "\t\t"
+                 << p + c << "\t" << code << std::endl;
+            output_code.push_back(table[p]);
+            table[p + c] = code;
+            code++;
+            p = c;
+        }
+        c = "";
+    }
+    std::cout << p << "\t" << table[p] << std::endl;
+    output_code.push_back(table[p]);
+    uint32_t header;
+    uint16_t* out_code = output_code.data();
+    // write_encoded_file(out_code, output_code.size(), header);
+    return output_code;
 }

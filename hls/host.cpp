@@ -1,7 +1,38 @@
 #include "host.h"
-
+using namespace std;
 int offset = 0;
 unsigned char* file;
+
+static void write_encoded_file_buf(uint16_t* out_code, int out_len, unsigned char* file_buffer, int &total_bytes){
+    int total_bits = out_len * 12;
+    total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
+    uint32_t header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
+
+    int i = 0, j = 0;
+
+    file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>(header >> 24);
+    for(i = 0; i + 1 < out_len; i += 2){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>(((out_code[i] << 4) & 0xF0) | ((out_code[i + 1] >> 8) & 0x0F));
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i + 1] & 0xFF);
+    }
+    if(i != out_len){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>((out_code[i] << 4) & 0xF0);
+    }
+    return;
+}
+
+static void vector_to_array(vector<uint16_t> vec, uint16_t* arr, int &len){
+    len = vec.size();
+    for(int i = 0; i < len; i++){
+        arr[i] = vec[i];
+    }
+    return;
+}
 
 static void write_file(unsigned char* file_buffer, int total_bytes, char* fileName){
     std::ofstream outfile(fileName, std::ios::app);
@@ -107,7 +138,6 @@ int main(int argc, char** argv)
 	float sum_lzw_raw_length = 0, sum_lzw_cmprs_len = 0, sum_dedup_raw_length = 0, sum_dedup_cmprs_len = 0;
 
 	int base = 0;
-
 	int ticks = 0;
 
 	//last message
@@ -157,34 +187,53 @@ int main(int argc, char** argv)
 				chunks_map.insert({hash_hex_string, base + i});
                 convert_string_char(chunks[i], chunk_content);
                 int chunk_len = chunks[i].length();
-				uint32_t header = 0;
 				int total_bytes = 0;
-				// q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
+				
+				//running hardware implementation on cpu
+				unsigned char* chunk_content_cpu = (unsigned char*)malloc(sizeof(unsigned char) * MAX_CHUNK_SIZE);
+				memcpy(chunk_content_cpu, chunk_content, chunks[i].length());
+				int chunk_len_cpu = chunk_len;
+				int total_bytes_cpu = 0;
+				unsigned char* file_buffer_cpu = (unsigned char*)malloc((std::ceil(MAX_CHUNK_SIZE * 1.5) + 4) * sizeof(unsigned char));
+				lzw_stream(chunk_content_cpu, chunk_len_cpu, file_buffer_cpu, &total_bytes_cpu);
+
+				//the actual software implementation
+				vector<uint16_t> golden = encoding(chunks[i]);
+				// uint16_t* golden_buf = new uint16_t(golden.size());
+				uint16_t* golden_buf = (uint16_t*)malloc(golden.size()*sizeof(uint16_t));
+				int golden_len; 
+				vector_to_array(golden, golden_buf, golden_len);
+				// unsigned char* golden_file_buf = new unsigned char(std::ceil(golden_len * 3 / 2) + 4);
+				unsigned char* golden_file_buf = (unsigned char*)malloc((std::ceil(golden_len * 3 / 2) + 4) * sizeof(unsigned char));
+				int golden_file_buf_len;
+				write_encoded_file_buf(golden_buf, golden_len, golden_file_buf, golden_file_buf_len);
+
+				// // q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
 				q.enqueueWriteBuffer(total_bytes_buf, CL_TRUE, 0, sizeof(int), &total_bytes);
 
 				timer.add("Set kernel arguments");  
-				// Map buffers to kernel arguments, thereby assigning them to specific device memory banks
+				// // Map buffers to kernel arguments, thereby assigning them to specific device memory banks
 				krnl_hardware_encoding.setArg(0, chunk_content_buf);
 				krnl_hardware_encoding.setArg(1, chunk_len);
 				krnl_hardware_encoding.setArg(2, file_buffer_buf);
 				krnl_hardware_encoding.setArg(3, total_bytes_buf);
-				// krnl_hardware_encoding.setArg(2, out_code_buf);
-				// krnl_hardware_encoding.setArg(3, header_buf);
-				// krnl_hardware_encoding.setArg(3, out_len_buf);
 				timer.finish();
+				std::cout << "finished setting kernel arguments" << std::endl;
 
                 timer.add("Memory object migration enqueue host->device");
                 cl::Event event_sp;
                 q.enqueueMigrateMemObjects({chunk_content_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
                 clWaitForEvents(1, (const cl_event *)&event_sp);
 				timer.finish();
+				std::cout << "chunk_content_buf is migrated to device" << std::endl;
 
                 timer.add("Launch kernel");
                 q.enqueueTask(krnl_hardware_encoding, NULL, &event_sp);
-                // timer.add("Wait for kernel to finish running");
+                timer.add("Wait for kernel to finish running");
                 clWaitForEvents(1, (const cl_event *)&event_sp);
 				timer.finish();
-				// hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
+				std::cout << "kernel is launched" << std::endl;
+				// // hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
 
                 timer.add("Read back computation results (implicit device->host migration)");
                 // q.enqueueMigrateMemObjects({out_code_buf, header_buf, out_len_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
@@ -192,18 +241,36 @@ int main(int argc, char** argv)
 				// q.enqueueReadBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
 				q.enqueueReadBuffer(total_bytes_buf, CL_TRUE, 0, sizeof(int), &total_bytes);
                 timer.finish();
+				std::cout << "file_buffer_buf and total_bytes_buf are migrated back to host" << std::endl;
 
-				for(int i = 0; i < total_bytes; i++)
-					std::cout << std::hex << static_cast<int>(file_buffer[i]) << " ";
+				std::cout << "len kernel: " << total_bytes << std::endl;
+				std::cout << "len cpu: " << total_bytes_cpu << std::endl;
+				std::cout << "len golden: " << golden_file_buf_len << std::endl;
 
-				printf("\n");
 
-				write_file(file_buffer, total_bytes, "encoded.bin");
+				for(int i = 0; i < total_bytes_cpu; i++)
+				// 	std::cout << "kernel: " << std::hex << static_cast<int>(file_buffer[i]) << "; cpu: " << std::hex << static_cast<int>(file_buffer_cpu[i]) << "; golden: " << std::hex << static_cast<int>(golden_file_buf[i]) << std::endl;
+					std::cout << "cpu: " << std::hex << static_cast<int>(file_buffer_cpu[i]) << "; golden: " << std::hex << static_cast<int>(golden_file_buf[i]) << std::endl;
+				// 	// std::cout << "; golden: " << std::hex << static_cast<int>(golden_file_buf[i]) << std::endl;
+
+				std::cout << "kernel has been executed" << std::endl;
+
+				// write_file(file_buffer, total_bytes, "encoded.bin");
+				write_file(file_buffer_cpu, total_bytes_cpu, "encoded.bin");
+
+				std::cout << "already written into file" << std::endl;
 
 				sum_lzw_raw_length += chunks[i].length() * 1.5;
 				sum_lzw_cmprs_len += total_bytes;
 				// free(out_code);
 				// free(chunk_content); 
+
+				std::cout << "release space" << std::endl;
+				free(chunk_content_cpu);
+				free(file_buffer_cpu);
+				free(golden_buf);
+				free(golden_file_buf);
+				std::cout << "space released" << std::endl;
 			}
 
 			else{
@@ -216,6 +283,7 @@ int main(int argc, char** argv)
 		}
 		base += chunks.size();
 	}
+	
 	float lzw_compress_ratio = sum_lzw_raw_length / sum_lzw_cmprs_len;
 	float dedup_compress_ratio = sum_dedup_raw_length / sum_dedup_cmprs_len;
 	float total_compress_ratio = (sum_dedup_raw_length + sum_lzw_raw_length) / (sum_dedup_cmprs_len + sum_lzw_cmprs_len);
