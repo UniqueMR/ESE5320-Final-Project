@@ -52,17 +52,3 @@ void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int b
     std::cout << "The number of chunk is " << chunks.size() << std::endl;
 }
 
-
-// void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size){
-//     // Define the size of each chunk
-//     unsigned int chunk_size = 50 ;  // Set your desired chunk size here
-
-//     // Loop through the buffer and create chunks
-//     for(unsigned int i = 0; i < buff_size; i += chunk_size){
-//         // Determine the size of the current chunk
-//         unsigned int current_chunk_size = std::min(chunk_size, buff_size - i);
-
-//         // Create a string from the current chunk of the buffer and add it to the vector
-//         chunks.push_back(std::string(buffer + i, buffer + i + current_chunk_size));
-//     }
-// }
