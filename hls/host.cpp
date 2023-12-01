@@ -3,6 +3,17 @@ using namespace std;
 int offset = 0;
 unsigned char* file;
 
+void duplicate_encoding(int duplicate_idx, uint32_t &dup_outcode, unsigned char* file_buffer){
+    
+    dup_outcode = static_cast<uint32_t>(duplicate_idx & 0xFFFFFFFF) << 1;
+    dup_outcode |= static_cast<uint32_t>(0x1);
+
+    file_buffer[0] = static_cast<unsigned char>(dup_outcode & 0xFF);
+    file_buffer[1] = static_cast<unsigned char>((dup_outcode >> 8) & 0xFF);
+    file_buffer[2] = static_cast<unsigned char>((dup_outcode >> 16) & 0xFF);
+    file_buffer[3] = static_cast<unsigned char>(dup_outcode >> 24);
+}
+
 void write_encoded_file(uint16_t* out_code, int out_len, uint32_t *header, char* fileName){
     //printf("%d\n",out_code);
     int total_bits = out_len * 12;
@@ -96,6 +107,8 @@ static void write_file(unsigned char* file_buffer, int total_bytes, char* fileNa
     outfile.close();
 }
 
+
+
 int main(int argc, char** argv)
 {
 // Initialize an event timer we'll use for monitoring the application
@@ -188,7 +201,14 @@ int main(int argc, char** argv)
 	int base = 0;
 
 	int ticks = 0;
-    timer.add("kernel time");
+
+	stopwatch total_time;
+	stopwatch cdc_time;
+	stopwatch sha_time;
+	stopwatch dedup_time;
+
+	int total_inputBits=0;
+	int dedup_chars = 0;
 
 	//last message
 	while (!done) {
@@ -211,6 +231,8 @@ int main(int argc, char** argv)
 		done = buffer[1] & DONE_BIT_L;
 		length = buffer[0] | (buffer[1] << 8);
 		length &= ~DONE_BIT_H;
+
+		total_inputBits+=length;
 		//printf("length: %d offset %d\n",length,offset);
 		memcpy(&file[offset], &buffer[HEADER], length);
 
@@ -221,8 +243,11 @@ int main(int argc, char** argv)
 
 		// initialize the vector to store the obtained chunks
 		std::vector<std::string> chunks;
-		// get the chunked result
+
+		total_time.start();
+		cdc_time.start();
 		cdc(&buffer[2], chunks, NUM_ELEMENTS + HEADER);
+		cdc_time.stop();
 
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map
@@ -230,7 +255,10 @@ int main(int argc, char** argv)
 		for(std::vector<std::string>::size_type i = 0; i < chunks.size(); i++){
 		// for(std::vector<std::string>::size_type i = 0; i < 10; i++){
 			hash_part hash_value;
+			sha_time.start();
 			sha(chunks[i], hash_value);
+			sha_time.stop();
+
 			std::string hash_hex_string = toHexString(hash_value);
 			
 			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
@@ -258,7 +286,8 @@ int main(int argc, char** argv)
                 q.enqueueTask(krnl_hardware_encoding, NULL, &event_sp);
                 timer.add("Wait for kernel to finish running");
                 clWaitForEvents(1, (const cl_event *)&event_sp);
-
+				
+				total_time.stop();
 				// running hardware implementation on cpu
 				unsigned char* chunk_content_cpu = (unsigned char*)malloc(sizeof(unsigned char) * MAX_CHUNK_SIZE);
 				memcpy(chunk_content_cpu, chunk_content, chunks[i].length());
@@ -275,15 +304,14 @@ int main(int argc, char** argv)
 				unsigned char* golden_file_buf = (unsigned char*)malloc((std::ceil(golden_len * 3 / 2) + 4) * sizeof(unsigned char));
 				int golden_file_buf_len;
 				write_encoded_file_buf(golden_buf, golden_len, golden_file_buf, golden_file_buf_len);
-
-				// q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
-				// q.enqueueWriteBuffer(total_bytes_buf, CL_TRUE, 0, sizeof(int), &total_bytes);
+				total_time.start();
 
                 timer.add("Read back computation results (implicit device->host migration)");
                 q.enqueueMigrateMemObjects({file_buffer_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
 				q.enqueueReadBuffer(total_bytes_buf, CL_TRUE, 0, sizeof(int), &total_bytes);
                 timer.finish();
 
+				total_time.stop();
 				std::cout << "len kernel: " << total_bytes << std::endl;
 				std::cout << "len cpu: " << total_bytes_cpu << std::endl;
 				std::cout << "len golden: " << golden_file_buf_len << std::endl;
@@ -301,19 +329,30 @@ int main(int argc, char** argv)
 				free(file_buffer_cpu);
 				free(golden_buf);
 				free(golden_file_buf);
+				total_time.start();
 			}
 
 			else{
 				uint32_t out_code;
-				duplicate_encoding(chunks_map.at(hash_hex_string), out_code, "encoded.bin");
+				unsigned char* file_buffer = (unsigned char*)malloc(sizeof(unsigned char) * 4);
+				dedup_chars += chunks[i].length();
+				dedup_time.start();
+				duplicate_encoding(chunks_map.at(hash_hex_string), out_code, file_buffer);
+				dedup_time.stop();
+				total_time.stop();
+				write_file(file_buffer, 0, "encoded.bin");
+				free(file_buffer);
 				std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
 				sum_dedup_raw_length += chunks[i].length() * 1.5;
 				sum_dedup_cmprs_len += 4;
+				total_time.start();
 			}
 		}
 		base += chunks.size();
-		printf("host\n");
 	}
+
+	total_time.stop();
+
 	float lzw_compress_ratio = sum_lzw_raw_length / sum_lzw_cmprs_len;
 	float dedup_compress_ratio = sum_dedup_raw_length / sum_dedup_cmprs_len;
 	float total_compress_ratio = (sum_dedup_raw_length + sum_lzw_raw_length) / (sum_dedup_cmprs_len + sum_lzw_cmprs_len);
@@ -340,6 +379,26 @@ int main(int argc, char** argv)
 	float input_throughput = (bytes_written * 8 / 1000000.0) / ethernet_latency; // Mb/s
 	std::cout << "Input Throughput to Encoder: " << input_throughput << " Mb/s."
 			<< " (Latency: " << ethernet_latency << "s)." << std::endl;
+
+	float cdc_latency = cdc_time.latency() / 1000.0;
+	float cdc_throughput = (bytes_written * 8 / 1000000.0) / cdc_latency; // Mb/s
+	std::cout << "cdc Throughput to Encoder: " << cdc_throughput << " Mb/s."
+			<< " (Latency: " << cdc_latency << "s)." << std::endl;
+
+	float sha_latency = sha_time.latency() / 1000.0;
+	float sha_throughput = (bytes_written * 8 / 1000000.0) / sha_latency; // Mb/s
+	std::cout << "sha Throughput to Encoder: " << sha_throughput << " Mb/s."
+			<< " (Latency: " << sha_latency << "s)." << std::endl;
+
+	float dedup_latency = dedup_time.latency() / 1000.0;
+	float dedup_throughput = (dedup_chars * 8 / 1000000.0) / dedup_latency; // Mb/s
+	std::cout << "dedup Throughput to Encoder: " << dedup_throughput << " Mb/s."
+			<< " (Latency: " << dedup_latency << "s)." << std::endl;
+
+	float output_latency = total_time.latency() / 1000.0;
+	float output_throughput = (total_inputBits * 8 / 1000000.0) / output_latency; // Mb/s
+	std::cout << "output Throughput to Encoder: " << output_throughput << " Mb/s."
+			<< " (Latency: " << output_latency << "s)." << std::endl;
 
 // ------------------------------------------------------------------------------------
 // Step 4: Check Results and Release Allocated Resources
