@@ -144,6 +144,10 @@ int main(int argc, char** argv)
 	stopwatch sha_time;
 
 	int total_inputBits=0;
+	int buffer_ptr;
+	int chunk_index;
+
+	
 	//last message
 	while (!done) {
 		ticks++;
@@ -176,32 +180,37 @@ int main(int argc, char** argv)
 		// encode the obtained information in buffer
 
 		// initialize the vector to store the obtained chunks
-		std::vector<std::string> chunks;
+		//std::vector<std::string> chunks;
+		std::string chunks;
 		// get the chunked result
 
 		output_runtime.start();
 
-		cdc_time.start();
-		cdc(&buffer[2], chunks, NUM_ELEMENTS + HEADER);
-		cdc_time.stop();
+		buffer_ptr=0;
+		chunk_index=0;
 
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map
 		//Question: do we need to consider the situation that different chunks share the same hash value calculated by SHA at this point
-		for(std::vector<std::string>::size_type i = 0; i < chunks.size(); i++){
-		// for(std::vector<std::string>::size_type i = 0; i < 10; i++){
+		while (buffer_ptr!=-1)
+		{
 			hash_part hash_value;
 
+		//attempt to generate one chunk at a time
+			cdc_time.start();
+			cdc(&buffer[2], chunks, NUM_ELEMENTS + HEADER,buffer_ptr);
+			cdc_time.stop();
+
 			sha_time.start();
-			sha(chunks[i], hash_value);
+			sha(chunks, hash_value);
 			sha_time.stop();
 
 			std::string hash_hex_string = toHexString(hash_value);
 			
 			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
-				chunks_map.insert({hash_hex_string, base + i});
-                convert_string_char(chunks[i], chunk_content);
-                int chunk_len = chunks[i].length();
+				chunks_map.insert({hash_hex_string, base + chunk_index});
+                convert_string_char(chunks, chunk_content);
+                int chunk_len = chunks.length();
 				uint32_t header = 0;
 				int out_len = 0;
 				q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
@@ -243,7 +252,7 @@ int main(int argc, char** argv)
 				write_encoded_file(out_code, out_len, &header, "encoded.bin");
 				output_runtime.start();
 				//std::cout << "New chunk " << i << ": " << out_code << std::endl;
-				sum_raw_length += chunks[i].length();
+				sum_raw_length += chunks.length();
 				sum_lzw_cmprs_len += out_len;
 				// free(out_code);
 				// free(chunk_content); 
@@ -256,8 +265,12 @@ int main(int argc, char** argv)
 				output_runtime.start();
 				//std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
 			}
+			chunk_index+=1;
+
 		}
-		base += chunks.size();
+
+		//base += chunks.size();
+		base+=chunk_index+1;
 		//printf("........................");
 
 		output_runtime.stop();
@@ -299,6 +312,8 @@ int main(int argc, char** argv)
 	float output_throughput = (total_inputBits * 8 / 1000000.0) / output_latency; // Mb/s
 	std::cout << "output Throughput to Encoder: " << output_throughput << " Mb/s."
 			<< " (Latency: " << output_latency << "s)." << std::endl;
+
+	std::cout<<"hello world1"<<std::endl;
 
 // ------------------------------------------------------------------------------------
 // Step 4: Check Results and Release Allocated Resources

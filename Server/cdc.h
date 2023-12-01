@@ -12,4 +12,4 @@
 
 #define BUFFER_SIZE 
 
-void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size);
+void cdc(unsigned char* buffer, std::string &chunks, unsigned int buff_size,int &current_i);

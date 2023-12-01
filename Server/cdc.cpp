@@ -21,54 +21,40 @@ static uint64_t hash_func(unsigned char *input, unsigned int pos)
 }
 
 
-void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size){
+void cdc(unsigned char* buffer, std::string &chunks, unsigned int buff_size,int &current_i){
     //do some operation to get the chunks 
     std::cout << "Using cdc to split the input into chunks ..." << std::endl;
     std::string chunk;
     //initialize the first chunk
-    // for(unsigned int i = 0; i < WIN_SIZE; i++){
-    //     chunk.push_back(buffer[i]);
-    // }
-
-    //unroll
-    chunk.push_back(buffer[0]);
-    chunk.push_back(buffer[1]);
-    chunk.push_back(buffer[2]);
-    chunk.push_back(buffer[3]);
-
-	for(unsigned int i = WIN_SIZE; i < buff_size - WIN_SIZE; i++){
-        chunk.push_back(buffer[i]);
-        uint64_t hash = hash_func(buffer, i);
-        if((hash % MODULUS) == TARGET){
-            chunks.push_back(chunk);
-            chunk.clear();
+    if (current_i==0){
+        for(; current_i < WIN_SIZE; current_i++){
+         chunk.push_back(buffer[current_i]);
         }
-	}
-
-    //push the remaining characters into the last chunk
-    //push the last chunk into chunks
-    for(unsigned int i = buff_size - WIN_SIZE; i < buff_size; i++){
-        chunk.push_back(buffer[i]);
     }
-    chunks.push_back(chunk);
-    chunk.clear();
 
-    last_hash = 0;
+
+    if (current_i==buff_size-WIN_SIZE){         //push the remaining characters into the last chunk
+        for(; current_i < buff_size; current_i++){
+            chunk.push_back(buffer[current_i]);
+        }
+        chunks=chunk;
+        chunk.clear();
+        current_i=-1;
+    }
+    else{   //normal case
+        for(; current_i < buff_size - WIN_SIZE; current_i++){
+            chunk.push_back(buffer[current_i]);
+            uint64_t hash = hash_func(buffer, current_i);
+
+            if((hash % MODULUS)== TARGET){
+                chunks=chunk;
+                chunk.clear();
+                break;
+            }
+        }
+    }
+
+    //last_hash = 0;
     std::cout << "Finish generating chunks using cdc." << std::endl;
     std::cout << "The number of chunk is " << chunks.size() << std::endl;
 }
-
-
-// void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int buff_size){
-//     // Define the size of each chunk
-//     unsigned int chunk_size = 50 ;  // Set your desired chunk size here
-
-//     // Loop through the buffer and create chunks
-//     for(unsigned int i = 0; i < buff_size; i += chunk_size){
-//         // Determine the size of the current chunk
-//         unsigned int current_chunk_size = std::min(chunk_size, buff_size - i);
-
-//         // Create a string from the current chunk of the buffer and add it to the vector
-//         chunks.push_back(std::string(buffer + i, buffer + i + current_chunk_size));
-//     }
-// }
