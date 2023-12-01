@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<Runs Version="1" Minor="0">
-	<Run Id="hardware_encoding" LaunchDir="/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/kernel/hardware_encoding" FlowId="Build_IP" FromStepId="vitis_hls" ToStepId="vitis_hls"/>
-</Runs>
-

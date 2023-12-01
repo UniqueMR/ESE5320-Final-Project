@@ -1,2 +1,0 @@
-Compiling (synthesis checkpoint) kernel/IP: u96v2_sbc_base_auto_ds_5
-Log file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_auto_ds_5_synth_1/runme.log
