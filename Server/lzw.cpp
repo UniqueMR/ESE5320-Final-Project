@@ -6,7 +6,7 @@
 // and see what happens to the number of entries in the assoc mem 
 // (make sure to also comment line 27 and uncomment line 28)
 
-unsigned int my_hash(unsigned long key)
+static unsigned int my_hash(unsigned long key)
 {
     key &= 0xFFFFF; // make sure the key is only 20 bits
 
@@ -25,7 +25,7 @@ unsigned int my_hash(unsigned long key)
     //return hashed & 0xFFF;   
 }
 
-void hash_lookup(unsigned long* hash_table, unsigned int key, bool* hit, unsigned int* result)
+static void hash_lookup(unsigned long* hash_table, unsigned int key, bool* hit, unsigned int* result)
 {
     //std::cout << "hash_lookup():" << std::endl;
     key &= 0xFFFFF; // make sure key is only 20 bits 
@@ -52,7 +52,7 @@ void hash_lookup(unsigned long* hash_table, unsigned int key, bool* hit, unsigne
     }
 }
 
-void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value, bool* collision)
+static void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value, bool* collision)
 {
     //std::cout << "hash_insert():" << std::endl;
     key &= 0xFFFFF;   // make sure key is only 20 bits
@@ -77,7 +77,7 @@ void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value
 
 // cast to struct and use ap types to pull out various feilds.
 
-void assoc_insert(assoc_mem* mem,  unsigned int key, unsigned int value, bool* collision)
+static void assoc_insert(assoc_mem* mem,  unsigned int key, unsigned int value, bool* collision)
 {
     //std::cout << "assoc_insert():" << std::endl;
     key &= 0xFFFFF; // make sure key is only 20 bits
@@ -136,7 +136,7 @@ static unsigned int findAddr(uint64_t match){
     return 64;
 }
 
-void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
+static void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
 {
     //std::cout << "assoc_lookup():" << std::endl;
     key &= 0xFFFFF; // make sure key is only 20 bits
@@ -170,7 +170,7 @@ void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* res
     }
 }
 //****************************************************************************************************************
-void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, unsigned int value, bool* collision)
+static void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, unsigned int value, bool* collision)
 {
     hash_insert(hash_table, key, value, collision);
     if(*collision)
@@ -179,7 +179,7 @@ void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, unsigne
     }
 }
 
-void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
+static void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
 {
     hash_lookup(hash_table, key, hit, result);
     if(!*hit)
@@ -456,133 +456,6 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
     }
     *out_len = j;
 }
-
-static void write_header(unsigned char* file_buffer, uint32_t header) {
-    for (int i = 0; i < 4; ++i) {
-        file_buffer[i] = static_cast<unsigned char>((header >> (i * 8)) & 0xFF);
-    }
-}
-
-static void write_file_buffer(unsigned char* file_buffer, int j, uint16_t out_code_0, uint16_t out_code_1){
-    file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
-    file_buffer[j+1] = static_cast<unsigned char>(((out_code_0 << 4) & 0xF0) | ((out_code_1 >> 8) & 0x0F));
-    file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
-}
-
-static void clear_hash_table(unsigned long *hash_table){
-    for(int i = 0; i < CAPACITY; i++)
-    {
-        hash_table[i] = 0;
-    }
-}
-
-static void clear_assoc_mem(assoc_mem* my_assoc_mem){
-    my_assoc_mem->fill = 0;
-    for(int i = 0; i < 512; i++)
-    {
-        my_assoc_mem->upper_key_mem[i] = 0;
-        my_assoc_mem->middle_key_mem[i] = 0;
-        my_assoc_mem->lower_key_mem[i] = 0;
-    }
-}
-
-static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
-    clear_hash_table(hash_table);
-    clear_assoc_mem(my_assoc_mem);
-}
-
-static int ceil_fixed(float num){
-    int inum = (int)num;
-    if (num == (float)inum) {
-        return inum;
-    } else {
-        return inum + ((num > 0) ? 1 : 0);
-    }
-}
-
-static void write_result(uint16_t* out_code, int out_len, unsigned char* file_buffer, int* total_bytes){
-mem_wr:
-    int total_bits = out_len * 12;
-    *total_bytes = static_cast<int>(ceil_fixed(total_bits / 8.0));
-    uint32_t header = static_cast<uint32_t>(*total_bytes & 0xFFFFFFFF) << 1;
-
-    write_header(file_buffer, header);
-
-    int i = 0, j = 4;
-
-    for(i = 0; i + 1 < out_len; i += 2){
-// #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
-        write_file_buffer(file_buffer, j, out_code[i], out_code[i+1]);
-        j += 3;
-    }
-
-    if(i != out_len){
-        uint16_t out_code_0 = out_code[i];
-        // std::cout << out_code_0 << std::endl;
-        file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
-        file_buffer[j+1] = static_cast<unsigned char>((out_code_0 << 4) & 0xF0);
-    }
-    return;
-}
-
-void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
-    unsigned long hash_table[CAPACITY];
-    assoc_mem my_assoc_mem;
-
-    clear_mem(hash_table, &my_assoc_mem);
-
-    uint16_t* out_code = (uint16_t*)malloc(length * sizeof(uint16_t));
-
-    int next_code = 256;
-
-    int prefix_code = s1[0];
-    unsigned int code = 0;
-    char next_char = 0;
-
-    int i = 0, j = 0;
-    while(i < length)
-    {
-        next_char = s1[i + 1];
-
-        bool hit = 0;
-        //std::cout << "prefix_code " << prefix_code << " next_char " << next_char << std::endl;
-        lookup(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, &hit, &code);
-        if(!hit)
-        {
-            std::cout << prefix_code;
-            out_code[j++] = prefix_code;
-            // out_code[i]=prefix_code;
-            std::cout << "\n";
-
-            bool collision = 0;
-            insert(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, next_code, &collision);
-            if(collision)
-            {
-                std::cout << "ERROR: FAILED TO INSERT! NO MORE ROOM IN ASSOC MEM!" << std::endl;
-                return;
-            }
-            next_code += 1;
-
-            prefix_code = next_char;
-        }
-        else
-        {
-            prefix_code = code;
-            if(i + 1 == length){
-                out_code[j++] = prefix_code;
-            	std::cout << prefix_code;
-            	std::cout << "\n";
-            }
-
-        }
-        i += 1;
-    }
-
-    int out_len = j;
-    write_result(out_code, out_len, file_buffer, total_bytes);
-    free(out_code);    
-}
-
 #endif
 
 //****************************************************************************************************************
