@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<autopilotfilemapping:AutoPilotFileMapping xmlns:autopilotfilemapping="www.autoesl.com/autopilotfilemapping">
+  <source>
+    <originFiles name="lzw.h" path="/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.h"/>
+    <originFiles name="lzw_stream.cpp" path="/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw_stream.cpp"/>
+    <originFiles name="utils.cpp" path="/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/utils.cpp"/>
+    <originFiles name="utils.h" path="/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/utils.h"/>
+    <originFiles name="lzw.cpp" path="/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp"/>
+  </source>
+  <testbench>
+    <originFiles name="Testbench.cpp" path="/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/Testbench.cpp"/>
+  </testbench>
+</autopilotfilemapping:AutoPilotFileMapping>

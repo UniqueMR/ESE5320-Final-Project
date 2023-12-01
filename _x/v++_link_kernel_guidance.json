@@ -1,0 +1,89 @@
+{
+ "session": {
+  "name": "v++_link_kernel",
+  "uuid": "441dd018-fd90-4272-9fa2-512125d4d397",
+  "description": "v++  --target hw --platform /home1/e/ese5320/u96v2_sbc_base/u96v2_sbc_base.xpfm --link --config ./hls/design.cfg -okernel.xclbin kernel.xo ",
+  "timestamp": "0",
+  "report_file": {
+   "scheme": "FILE",
+   "host": "",
+   "port": 0,
+   "path": "/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/reports/link/v++_link_kernel_guidance.html",
+   "query": "",
+   "fragment": "",
+   "media_type": "",
+   "encoding": "",
+   "data": ""
+  },
+  "proto_file": {
+   "scheme": "FILE",
+   "host": "",
+   "port": 0,
+   "path": "/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/v++_link_kernel_guidance.pb",
+   "query": "",
+   "fragment": "",
+   "media_type": "",
+   "encoding": "",
+   "data": ""
+  },
+  "build_target": "",
+  "config_files": [
+   {
+    "fileName": "./hls/design.cfg",
+    "contents": "platform=u96v2_sbc_base\ndebug=1\nsave-temps=1\n\n[connectivity]\nnk=hardware_encoding:1:hardware_encoding_1\n"
+   }
+  ]
+ },
+ "violation_count": 0,
+ "waived_count": 0,
+ "affirmation_count": 1,
+ "affirmations": {
+  "hashmap": {
+   "1": {
+    "id": 1,
+    "rule_key": "SYSLINK-1",
+    "examples": {
+     "uri": []
+    },
+    "build_target": "",
+    "expects": "",
+    "details": {
+     "text": "Created top level block diagram design dr.bd.tcl",
+     "args": {
+      "arg": [
+       {
+        "string_val": "dr.bd.tcl"
+       }
+      ]
+     }
+    },
+    "categories": {},
+    "extended_categories": {},
+    "group": ""
+   }
+  }
+ },
+ "specs_affirmed": {
+  "hashmap": {
+   "SYSLINK-1": {
+    "key": "SYSLINK-1",
+    "full_name": "system_link Top Level BD Creation",
+    "owner": "system_link",
+    "raw_msg": "Created top level block diagram design %STR",
+    "msg_abbrev": "",
+    "msg_id": "0",
+    "categories": {},
+    "resolution_msg": "",
+    "severity": "SEV_FATAL",
+    "disposition": "ENABLED",
+    "expects": "",
+    "affirm_msg": "",
+    "dynamic_categories": {},
+    "extensible_categories": [],
+    "impact": "IMPACT_UNKNOWN",
+    "group": ""
+   }
+  }
+ }
+}
+

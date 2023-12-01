@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<Project Version="1" Minor="7" DIGEST="">
+	<TOOL_VERSION Version="2020.2.2"/>
+	<MODE Name="Post-Synthesis"/>
+	<SYSTEMINFO BOARD="avnet.com:ultra96v2:1.2" PART="xczu3eg-sbva484-1-i" ARCH="zynquplus" PACKAGE="sbva484" DEVICE="xczu3eg" SPEED="-1" LUT="70560" FF="141120" BRAM="216" DSP="360"/>
+	<HIERARCHY Name="u96v2_sbc_base_wrapper"/>
+	<File Type="HW_HANDOFF" Name="u96v2_sbc_base.hwh" src_db="u96v2_sbc_base.hwdef" DESIGN_HIERARCHY="u96v2_sbc_base_i" BD_TYPE="DEFAULT_BD">
+	</File>
+	<File Type="BDA" Name="u96v2_sbc_base.bda" src_db="u96v2_sbc_base.hwdef">
+	</File>
+	<File Type="PS_FSBL_INIT" Name="psu_init.c" src_db="u96v2_sbc_base_zynq_ultra_ps_e_0_0.hwdef">
+	</File>
+	<File Type="PS_FSBL_INIT" Name="psu_init.h" src_db="u96v2_sbc_base_zynq_ultra_ps_e_0_0.hwdef">
+	</File>
+	<File Type="PS_FSBL_INIT_GPL" Name="psu_init_gpl.c" src_db="u96v2_sbc_base_zynq_ultra_ps_e_0_0.hwdef">
+	</File>
+	<File Type="PS_FSBL_INIT_GPL" Name="psu_init_gpl.h" src_db="u96v2_sbc_base_zynq_ultra_ps_e_0_0.hwdef">
+	</File>
+	<File Type="PS_INIT_HELP" Name="psu_init.html" src_db="u96v2_sbc_base_zynq_ultra_ps_e_0_0.hwdef">
+	</File>
+	<File Type="PS_XMD_INIT" Name="psu_init.tcl" src_db="u96v2_sbc_base_zynq_ultra_ps_e_0_0.hwdef">
+	</File>
+	<File Type="BIT" Name="u96v2_sbc_base.bit" src_db="temp.hdf">
+	</File>
+	<USEDRESOURCES LUT="12654" FF="14266" BRAM="4" DSP="0"/>
+</Project>
+

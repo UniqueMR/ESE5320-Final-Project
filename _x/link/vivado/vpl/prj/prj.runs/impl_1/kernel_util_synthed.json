@@ -1,0 +1,42 @@
+{
+    "schema_version": {
+        "major": "1",
+        "minor": "0",
+        "patch": "0"
+    },
+    "design_state": "Synthesized",
+    "user_budget": {
+        "actual_resources": {
+            "LUT": "4527",
+            "LUTAsMem": "507",
+            "REG": "3868",
+            "BRAM": "34",
+            "DSP": "0"
+        },
+        "supply_resources": {
+            "LUT": "52209",
+            "LUTAsMem": "27656",
+            "REG": "120110",
+            "BRAM": "212",
+            "DSP": "360"
+        }
+    },
+    "kernels": [
+        {
+            "name": "hardware_encoding",
+            "compute_unit_count": "1",
+            "compute_units": [
+                {
+                    "cu_name": "hardware_encoding_1",
+                    "actual_resources": {
+                        "LUT": "4527",
+                        "LUTAsMem": "507",
+                        "REG": "3868",
+                        "BRAM": "34",
+                        "DSP": "0"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,134 @@
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+len result: 21; len golden: 17
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+result: 12 ;golden: 22
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 5
+result: 0 ;golden: 70
+result: 0 ;golden: 59
+result: 0 ;golden: 5
+result: 0 ;golden: 30
+TEST PASSED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 12
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+result: 1c ;golden: 22
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 5
+result: 0 ;golden: 70
+result: 0 ;golden: 59
+result: 0 ;golden: 5
+result: 0 ;golden: 30
+result: 0 ;golden: 2a
+result: 0 ;golden: 10
+result: 0 ;golden: 0
+result: 0 ;golden: 47
+result: 0 ;golden: 10
+TEST PASSED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 12

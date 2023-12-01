@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# xsim v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon Nov 27 21:52:42 2023
+# Process ID: 20432
+# Current directory: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog
+# Command line: xsim -mode tcl -source {xsim.dir/lzw_stream/xsim_script.tcl}
+# Log file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/xsim.log
+# Journal file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/lzw_stream/xsim_script.tcl
+source lzw_stream.tcl

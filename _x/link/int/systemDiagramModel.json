@@ -1,0 +1,303 @@
+{
+ "system_diagram_metadata": {
+  "schema_version": {
+   "major": "2",
+   "minor": "0",
+   "patch": "0"
+  },
+  "xsa": {
+   "vendor": "xilinx.com",
+   "board_id": "u96v2_sbc_base",
+   "name": "u96v2_sbc_base",
+   "version_major": "1",
+   "version_minor": "0",
+   "description": "\nUltra96V2 Vitis platform based on the Single Board Computer image.  More information can be found at http://avnet.me/ultra96-v2\n    ",
+   "generated_by": {
+    "name": "Vivado",
+    "version": "2020.2.2",
+    "cl": "3118627",
+    "time_stamp": "Tue Apr 27 11:13:08 2021"
+   },
+   "board": {
+    "name": "avnet.com:ultra96v2:1.2",
+    "vendor": "avnet.com",
+    "part": "xczu3eg-sbva484-1-i",
+    "board_part": "avnet.com:ultra96v2:part0:1.2"
+   },
+   "available_resources": {
+    "LUT": "70560",
+    "REG": "126854",
+    "BRAM": "216",
+    "DSP": "360",
+    "URAM": ""
+   },
+   "device_topology": [
+    {
+     "id": "0",
+     "type": "Dram",
+     "used": "no",
+     "sizeKB": "0x3fffff",
+     "base_address": "0x0",
+     "tag": "HPC0",
+     "slr": "",
+     "spTag": "HPC0"
+    },
+    {
+     "id": "1",
+     "type": "Dram",
+     "used": "no",
+     "sizeKB": "0x3fffff",
+     "base_address": "0x0",
+     "tag": "HPC1",
+     "slr": "",
+     "spTag": "HPC1"
+    },
+    {
+     "id": "2",
+     "type": "Dram",
+     "used": "yes",
+     "sizeKB": "0x3fffff",
+     "base_address": "0x0",
+     "tag": "HP0",
+     "slr": "",
+     "spTag": "HP0"
+    },
+    {
+     "id": "3",
+     "type": "Dram",
+     "used": "no",
+     "sizeKB": "0x3fffff",
+     "base_address": "0x0",
+     "tag": "HP1",
+     "slr": "",
+     "spTag": "HP1"
+    },
+    {
+     "id": "4",
+     "type": "Dram",
+     "used": "no",
+     "sizeKB": "0x3fffff",
+     "base_address": "0x0",
+     "tag": "HP2",
+     "slr": "",
+     "spTag": "HP2"
+    },
+    {
+     "id": "5",
+     "type": "Dram",
+     "used": "no",
+     "sizeKB": "0x3fffff",
+     "base_address": "0x0",
+     "tag": "HP3",
+     "slr": "",
+     "spTag": "HP3"
+    }
+   ],
+   "design_intent": [
+    "embedded"
+   ]
+  },
+  "xclbin": {
+   "generated_by": {
+    "name": "v++",
+    "version": "2020.2",
+    "cl": "0",
+    "time_stamp": "2020-11-18-05:13:29",
+    "options": "/mnt/pollux/software/xilinx/2020.2/Vitis/2020.2/bin/unwrapped/lnx64.o/v++ --target hw --platform /home1/e/ese5320/u96v2_sbc_base/u96v2_sbc_base.xpfm --link --config ./hls/design.cfg -okernel.xclbin kernel.xo ",
+    "xclbin_name": "kernel",
+    "uuid": "3024c3fc-4b8c-45e0-a55f-635f8782eba3",
+    "link_uuid": "3024c3fc-4b8c-45e0-a55f-635f8782eba3",
+    "package_uuid": ""
+   },
+   "user_regions": [
+    {
+     "name": "OCL_REGION_0",
+     "type": "clc_region",
+     "instance_path": "",
+     "available_resources": {
+      "LUT": "57906",
+      "REG": "126854",
+      "BRAM": "212",
+      "DSP": "360",
+      "by_SLR": [],
+      "URAM": ""
+     },
+     "kernels": [
+      {
+       "name": "hardware_encoding",
+       "estimated_resources": {
+        "LUT": "405",
+        "REG": "66",
+        "BRAM": "",
+        "DSP": "",
+        "URAM": ""
+       },
+       "ports": [
+        {
+         "name": "M_AXI_GMEM",
+         "mode": "master",
+         "range": "0xFFFFFFFF",
+         "data_width": "32",
+         "port_type": "addressable",
+         "base": "0x0",
+         "direction": "DirUnknown"
+        },
+        {
+         "name": "S_AXI_CONTROL",
+         "mode": "slave",
+         "range": "0x1000",
+         "data_width": "32",
+         "port_type": "addressable",
+         "base": "0x0",
+         "direction": "DirUnknown"
+        }
+       ],
+       "arguments": [
+        {
+         "id": "0",
+         "name": "s1",
+         "address_qualifier": "1",
+         "port": "M_AXI_GMEM",
+         "size": "0x8",
+         "offset": "0x10",
+         "host_offset": "0x0",
+         "host_size": "0x8",
+         "type": "void*",
+         "direction": "DirUnknown"
+        },
+        {
+         "id": "1",
+         "name": "length",
+         "address_qualifier": "0",
+         "port": "S_AXI_CONTROL",
+         "size": "0x4",
+         "offset": "0x1C",
+         "host_offset": "0x0",
+         "host_size": "0x4",
+         "type": "unsigned int",
+         "direction": "DirUnknown"
+        },
+        {
+         "id": "2",
+         "name": "out_code",
+         "address_qualifier": "1",
+         "port": "M_AXI_GMEM",
+         "size": "0x8",
+         "offset": "0x24",
+         "host_offset": "0x0",
+         "host_size": "0x8",
+         "type": "void*",
+         "direction": "DirUnknown"
+        },
+        {
+         "id": "3",
+         "name": "header",
+         "address_qualifier": "1",
+         "port": "M_AXI_GMEM",
+         "size": "0x8",
+         "offset": "0x30",
+         "host_offset": "0x0",
+         "host_size": "0x8",
+         "type": "void*",
+         "direction": "DirUnknown"
+        },
+        {
+         "id": "4",
+         "name": "out_len",
+         "address_qualifier": "1",
+         "port": "M_AXI_GMEM",
+         "size": "0x8",
+         "offset": "0x3C",
+         "host_offset": "0x0",
+         "host_size": "0x8",
+         "type": "void*",
+         "direction": "DirUnknown"
+        }
+       ]
+      }
+     ],
+     "compute_units": [
+      {
+       "id": "0",
+       "kernel_name": "hardware_encoding",
+       "cu_name": "hardware_encoding_1",
+       "base_address": "",
+       "actual_resources": []
+      }
+     ],
+     "connectivity": [
+      {
+       "id": "0",
+       "node1": {
+        "type": "compute_unit",
+        "id": "0",
+        "kernel_argument_id": "0",
+        "arg_name": "s1",
+        "mode": "Master"
+       },
+       "node2": {
+        "type": "memory",
+        "id": "2",
+        "kernel_argument_id": "",
+        "arg_name": "",
+        "mode": ""
+       }
+      },
+      {
+       "id": "1",
+       "node1": {
+        "type": "compute_unit",
+        "id": "0",
+        "kernel_argument_id": "2",
+        "arg_name": "out_code",
+        "mode": "Master"
+       },
+       "node2": {
+        "type": "memory",
+        "id": "2",
+        "kernel_argument_id": "",
+        "arg_name": "",
+        "mode": ""
+       }
+      },
+      {
+       "id": "2",
+       "node1": {
+        "type": "compute_unit",
+        "id": "0",
+        "kernel_argument_id": "3",
+        "arg_name": "header",
+        "mode": "Master"
+       },
+       "node2": {
+        "type": "memory",
+        "id": "2",
+        "kernel_argument_id": "",
+        "arg_name": "",
+        "mode": ""
+       }
+      },
+      {
+       "id": "3",
+       "node1": {
+        "type": "compute_unit",
+        "id": "0",
+        "kernel_argument_id": "4",
+        "arg_name": "out_len",
+        "mode": "Master"
+       },
+       "node2": {
+        "type": "memory",
+        "id": "2",
+        "kernel_argument_id": "",
+        "arg_name": "",
+        "mode": ""
+       }
+      }
+     ]
+    }
+   ]
+  }
+ }
+}
+

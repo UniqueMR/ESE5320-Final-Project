@@ -1,0 +1,13 @@
+#-----------------------------------------------------------
+# Webtalk v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon Nov 27 21:52:49 2023
+# Process ID: 20578
+# Current directory: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog
+# Command line: wbtcv -mode batch -source /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/xsim.dir/lzw_stream/webtalk/xsim_webtalk.tcl -notrace
+# Log file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/webtalk.log
+# Journal file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/webtalk.jou
+#-----------------------------------------------------------
+source /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/xsim.dir/lzw_stream/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Mon Nov 27 21:52:50 2023...

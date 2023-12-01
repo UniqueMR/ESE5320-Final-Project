@@ -1,0 +1,1114 @@
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xczu3eg-sbva484-1-i'
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_max_widen_bitwidth=512
+INFO: [HLS 200-1464] Running solution command: config_interface -default_interface=kernel
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_offset=slave
+INFO: [HLS 200-1464] Running solution command: config_rtl -register_reset_num=3
+INFO: [HLS 200-1510] Running: set_part xczu3eg-sbva484-1-i 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512 -m_axi_offset slave 
+INFO: [HLS 200-1510] Running: config_rtl -register_reset_num 3 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 208.106 MB.
+INFO: [HLS 200-10] Analyzing design file 'Server/utils.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw_stream.cpp' ... 
+WARNING: [HLS 207-5537] '#pragma HLS unroll' can only be applied inside loop body: Server/lzw_stream.cpp:183:9
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 3.95 seconds. CPU system time: 1.46 seconds. Elapsed time: 7.63 seconds; current allocated memory: 209.695 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vitis' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::write(unsigned char const&)' into 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' (Server/lzw_stream.cpp:159:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read(unsigned char&)' into 'hls::stream<unsigned char, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:229:50)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:237:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:250:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::write(int const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:239:30)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:243:31)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read(int&)' into 'hls::stream<int, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read(unsigned short&)' into 'hls::stream<unsigned short, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:200:36)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:219:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:211:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:213:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:307:32)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:308:27)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:309:22)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:55:0)
+INFO: [HLS 214-178] Inlining function 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'assoc_insert(assoc_mem*, unsigned int, unsigned int, bool*) (.83)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:28:0)
+INFO: [HLS 214-178] Inlining function 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'assoc_lookup(assoc_mem*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::fp_struct(float)' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::mantissa() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::expv() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::__signbit() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' into 'int generic_cast_IEEE754<int, float>(float, bool)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:116:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, float>(float, bool)' into '__hls_fptosi_float_i32' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/src/lib_floatconversion.cpp:51:0)
+INFO: [HLS 214-178] Inlining function '__hls_fptosi_float_i32' into 'ceil_fixed(float)' (Server/lzw_stream.cpp:172:0)
+INFO: [HLS 214-178] Inlining function 'ceil_fixed(float)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_header(unsigned char*, unsigned int)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_file_buffer(unsigned char*, int, unsigned short, unsigned short)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.44 seconds. CPU system time: 0.54 seconds. Elapsed time: 4.47 seconds; current allocated memory: 212.411 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 212.412 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 4.2 seconds. CPU system time: 0.03 seconds. Elapsed time: 4.39 seconds; current allocated memory: 260.771 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 6.16 seconds. CPU system time: 0.02 seconds. Elapsed time: 6.21 seconds; current allocated memory: 276.530 MB.
+INFO: [XFORM 203-510] Pipelining loop 'mem_rd' (Server/lzw_stream.cpp:157) in function 'read_input' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_184_1' (Server/lzw_stream.cpp:184) in function 'write_result' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_209_1' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:0) in function 'write_result' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'init_mem' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'compute_lzw' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_115_1' (Server/lzw_stream.cpp:114) in function 'compute_lzw' completely with a factor of 64.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'init_mem' completely with a factor of 20.
+INFO: [XFORM 203-712] Applying dataflow to function 'clear_mem' (Server/lzw_stream.cpp:287:1), detected/extracted 2 process function(s): 
+	 'clear_hash_table'
+	 'clear_assoc_mem'.
+INFO: [XFORM 203-712] Applying dataflow to function 'hardware_encoder' (Server/lzw_stream.cpp:306:1), detected/extracted 3 process function(s): 
+	 'read_input8'
+	 'compute_lzw'
+	 'write_result'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (Server/lzw_stream.cpp:198:49) to (Server/lzw_stream.cpp:184:20) in function 'write_result'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 6.61 seconds. CPU system time: 0.01 seconds. Elapsed time: 6.72 seconds; current allocated memory: 325.587 MB.
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:70:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:272:16)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:281:33)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:282:41)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:283:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:70:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_value' (Server/lzw_stream.cpp:90:31)
+WARNING: [HLS 200-1449] Process compute_lzw has both a predecessor and reads an input from its caller (see the GUI dataflow viewer). This may lead to lower throughput. Consider copying this input via a predecessor process.
+WARNING: [HLS 200-1450] Process compute_lzw has both a successor and writes an output to its caller (see the GUI dataflow viewer). This may lead to lower throughput. Consider copying this output via a successor process.
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 1.71 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.81 seconds; current allocated memory: 414.551 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'lzw_stream' ...
+WARNING: [SYN 201-107] Renaming port name 'lzw_stream/length' to 'lzw_stream/length_r' to avoid the conflict with HDL keywords or other object names.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'clear_hash_table' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_269_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_269_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.04 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.36 seconds; current allocated memory: 415.151 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.02 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.06 seconds; current allocated memory: 415.294 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'clear_assoc_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_278_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_278_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.04 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.08 seconds; current allocated memory: 415.395 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0 seconds. Elapsed time: 0.05 seconds; current allocated memory: 415.492 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'clear_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.03 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.07 seconds; current allocated memory: 415.584 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.06 seconds; current allocated memory: 415.638 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'init_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_297_1'.
+WARNING: [HLS 200-880] The II Violation in module 'init_mem' (loop 'VITIS_LOOP_297_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('hash_table_addr_write_ln70', Server/lzw_stream.cpp:70) of variable 'or_ln2', Server/lzw_stream.cpp:70 on array 'hash_table' and 'load' operation ('lookup', Server/lzw_stream.cpp:60) on array 'hash_table'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 2, Depth = 6, loop 'VITIS_LOOP_297_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.13 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.18 seconds; current allocated memory: 416.424 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.09 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.14 seconds; current allocated memory: 417.338 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'read_input8' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'mem_rd'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 73, loop 'mem_rd'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.18 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.23 seconds; current allocated memory: 417.619 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.13 seconds. CPU system time: 0 seconds. Elapsed time: 0.17 seconds; current allocated memory: 418.040 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_234_1'.
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 1 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 2 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 3 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 4 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 7 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 9 cycles).
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 10, Depth = 11, loop 'VITIS_LOOP_234_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.32 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.42 seconds; current allocated memory: 420.319 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.25 seconds. CPU system time: 0 seconds. Elapsed time: 0.32 seconds; current allocated memory: 423.191 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'write_result' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_184_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_184_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_209_1'.
+WARNING: [HLS 200-880] The II Violation in module 'write_result' (loop 'VITIS_LOOP_209_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between fifo read on port 'cmprs_stream' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145) and fifo read on port 'cmprs_stream' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145).
+WARNING: [HLS 200-885] Unable to schedule bus request on port 'gmem' (Server/lzw_stream.cpp:216->Server/lzw_stream.cpp:306) due to limited memory ports. Please consider using a memory core with more ports or partitioning the array.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 3, Depth = 73, loop 'VITIS_LOOP_209_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.7 seconds. CPU system time: 0 seconds. Elapsed time: 0.96 seconds; current allocated memory: 424.509 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.55 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.62 seconds; current allocated memory: 426.512 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.2 seconds. CPU system time: 0 seconds. Elapsed time: 0.26 seconds; current allocated memory: 426.616 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.37 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.44 seconds; current allocated memory: 426.865 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.35 seconds. CPU system time: 0 seconds. Elapsed time: 0.39 seconds; current allocated memory: 426.969 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.32 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.37 seconds; current allocated memory: 427.182 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'clear_hash_table' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'clear_hash_table'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.44 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.5 seconds; current allocated memory: 427.413 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'clear_assoc_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'clear_assoc_mem'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.07 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.15 seconds; current allocated memory: 428.034 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'clear_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'clear_mem'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.03 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.1 seconds; current allocated memory: 428.758 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'init_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'init_mem'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.06 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.13 seconds; current allocated memory: 430.829 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'read_input8' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'read_input8'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.38 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.54 seconds; current allocated memory: 436.048 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_lzw'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.17 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.26 seconds; current allocated memory: 442.980 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'write_result' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_6_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fcmp_32ns_32ns_1_2_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitodp_32ns_64_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitofp_32ns_32_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'write_result'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.11 seconds. CPU system time: 0.04 seconds. Elapsed time: 1.43 seconds; current allocated memory: 457.913 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'hardware_encoder'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.36 seconds. CPU system time: 0.04 seconds. Elapsed time: 0.55 seconds; current allocated memory: 463.315 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/gmem' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/s1' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/length_r' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/file_buffer' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/total_bytes' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on function 'lzw_stream' to 's_axilite & ap_ctrl_chain'.
+INFO: [RTGEN 206-100] Bundling port 's1', 'length_r', 'file_buffer', 'total_bytes' and 'return' to AXI-Lite port control.
+INFO: [RTGEN 206-100] Finished creating RTL model for 'lzw_stream'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.46 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.58 seconds; current allocated memory: 465.049 MB.
+INFO: [RTMG 210-285] Implementing FIFO 'chr_stream_U(lzw_stream_fifo_w8_d32_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'length_c_U(lzw_stream_fifo_w32_d2_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'file_buffer_c_U(lzw_stream_fifo_w64_d3_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'total_bytes_c_U(lzw_stream_fifo_w64_d3_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'cmprs_stream_U(lzw_stream_fifo_w16_d32_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'cmprs_len_stream_U(lzw_stream_fifo_w32_d32_S)' using Shift Registers.
+INFO: [RTMG 210-285] Implementing FIFO 'start_for_write_result_U0_U(lzw_stream_start_for_write_result_U0)' using Shift Registers.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xczu3eg-sbva484-1-i'
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_max_widen_bitwidth=512
+INFO: [HLS 200-1464] Running solution command: config_interface -default_interface=kernel
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_offset=slave
+INFO: [HLS 200-1464] Running solution command: config_rtl -register_reset_num=3
+INFO: [HLS 200-1510] Running: set_part xczu3eg-sbva484-1-i 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512 -m_axi_offset slave 
+INFO: [HLS 200-1510] Running: config_rtl -register_reset_num 3 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.02 seconds; current allocated memory: 208.129 MB.
+INFO: [HLS 200-10] Analyzing design file 'Server/utils.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw_stream.cpp' ... 
+WARNING: [HLS 207-5537] '#pragma HLS unroll' can only be applied inside loop body: Server/lzw_stream.cpp:183:9
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 3.86 seconds. CPU system time: 0.63 seconds. Elapsed time: 5.26 seconds; current allocated memory: 209.716 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vitis' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::write(unsigned char const&)' into 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' (Server/lzw_stream.cpp:159:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read(unsigned char&)' into 'hls::stream<unsigned char, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:229:50)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:237:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:250:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::write(int const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:239:30)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:243:31)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read(int&)' into 'hls::stream<int, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read(unsigned short&)' into 'hls::stream<unsigned short, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:200:36)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:219:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:211:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:213:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:307:32)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:308:27)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:309:22)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:55:0)
+INFO: [HLS 214-178] Inlining function 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'assoc_insert(assoc_mem*, unsigned int, unsigned int, bool*) (.83)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:28:0)
+INFO: [HLS 214-178] Inlining function 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'assoc_lookup(assoc_mem*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::fp_struct(float)' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::mantissa() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::expv() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::__signbit() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' into 'int generic_cast_IEEE754<int, float>(float, bool)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:116:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, float>(float, bool)' into '__hls_fptosi_float_i32' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/src/lib_floatconversion.cpp:51:0)
+INFO: [HLS 214-178] Inlining function '__hls_fptosi_float_i32' into 'ceil_fixed(float)' (Server/lzw_stream.cpp:172:0)
+INFO: [HLS 214-178] Inlining function 'ceil_fixed(float)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_header(unsigned char*, unsigned int)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_file_buffer(unsigned char*, int, unsigned short, unsigned short)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 214-178] Inlining function 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.25 seconds. CPU system time: 0.26 seconds. Elapsed time: 3.14 seconds; current allocated memory: 212.455 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.01 seconds; current allocated memory: 212.456 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 4.2 seconds. CPU system time: 0.02 seconds. Elapsed time: 4.32 seconds; current allocated memory: 260.750 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 6.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 6.15 seconds; current allocated memory: 276.399 MB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'mem_rd' (Server/lzw_stream.cpp:157) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_184_1' (Server/lzw_stream.cpp:184) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_209_1' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:0) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'init_mem' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'compute_lzw' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_115_1' (Server/lzw_stream.cpp:114) in function 'compute_lzw' completely with a factor of 64.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'init_mem' completely with a factor of 20.
+INFO: [XFORM 203-712] Applying dataflow to function 'clear_mem' (Server/lzw_stream.cpp:287:1), detected/extracted 2 process function(s): 
+	 'clear_hash_table'
+	 'clear_assoc_mem'.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (Server/lzw_stream.cpp:317:5) to (Server/lzw_stream.cpp:184:20) in function 'hardware_encoder'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 6.55 seconds. CPU system time: 0.02 seconds. Elapsed time: 6.67 seconds; current allocated memory: 325.214 MB.
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:70:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:272:16)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:281:33)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:282:41)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:283:40)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 1.71 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.8 seconds; current allocated memory: 394.462 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'lzw_stream' ...
+WARNING: [SYN 201-107] Renaming port name 'lzw_stream/length' to 'lzw_stream/length_r' to avoid the conflict with HDL keywords or other object names.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'clear_hash_table' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_269_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_269_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.03 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.1 seconds; current allocated memory: 395.047 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.02 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.07 seconds; current allocated memory: 395.162 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'clear_assoc_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_278_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_278_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.05 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.1 seconds; current allocated memory: 395.280 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.03 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.07 seconds; current allocated memory: 395.407 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'clear_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.02 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.06 seconds; current allocated memory: 395.483 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.04 seconds. CPU system time: 0 seconds. Elapsed time: 0.07 seconds; current allocated memory: 395.538 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'init_mem' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_297_1'.
+WARNING: [HLS 200-880] The II Violation in module 'init_mem' (loop 'VITIS_LOOP_297_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('hash_table_addr_write_ln70', Server/lzw_stream.cpp:70) of variable 'or_ln1', Server/lzw_stream.cpp:70 on array 'hash_table' and 'load' operation ('lookup', Server/lzw_stream.cpp:60) on array 'hash_table'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 2, Depth = 6, loop 'VITIS_LOOP_297_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.12 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.18 seconds; current allocated memory: 396.309 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.1 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.16 seconds; current allocated memory: 397.211 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_234_1'.
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 1 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 2 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 3 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 4 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 7 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 9 cycles).
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 10, Depth = 11, loop 'VITIS_LOOP_234_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.43 seconds. CPU system time: 0 seconds. Elapsed time: 0.52 seconds; current allocated memory: 399.455 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.32 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.46 seconds; current allocated memory: 402.283 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'mem_rd'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 73, loop 'mem_rd'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_184_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_184_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_209_1'.
+WARNING: [HLS 200-880] The II Violation in module 'hardware_encoder' (loop 'VITIS_LOOP_209_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145) and fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145).
+WARNING: [HLS 200-885] Unable to schedule bus request on port 'gmem' (Server/lzw_stream.cpp:216) due to limited memory ports. Please consider using a memory core with more ports or partitioning the array.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 3, Depth = 73, loop 'VITIS_LOOP_209_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.74 seconds. CPU system time: 0.03 seconds. Elapsed time: 1.01 seconds; current allocated memory: 403.846 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.77 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.86 seconds; current allocated memory: 406.435 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.47 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.56 seconds; current allocated memory: 406.526 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.32 seconds. CPU system time: 0 seconds. Elapsed time: 0.37 seconds; current allocated memory: 406.730 MB.
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xczu3eg-sbva484-1-i'
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_max_widen_bitwidth=512
+INFO: [HLS 200-1464] Running solution command: config_interface -default_interface=kernel
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_offset=slave
+INFO: [HLS 200-1464] Running solution command: config_rtl -register_reset_num=3
+INFO: [HLS 200-1510] Running: set_part xczu3eg-sbva484-1-i 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512 -m_axi_offset slave 
+INFO: [HLS 200-1510] Running: config_rtl -register_reset_num 3 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 208.129 MB.
+INFO: [HLS 200-10] Analyzing design file 'Server/utils.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw_stream.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 3.88 seconds. CPU system time: 0.55 seconds. Elapsed time: 5.1 seconds; current allocated memory: 209.713 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vitis' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::write(unsigned char const&)' into 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' (Server/lzw_stream.cpp:159:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read(unsigned char&)' into 'hls::stream<unsigned char, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:229:50)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:237:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:250:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::write(int const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:239:30)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:243:31)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read(int&)' into 'hls::stream<int, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read(unsigned short&)' into 'hls::stream<unsigned short, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:200:36)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:219:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:211:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:213:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:307:32)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:308:27)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:309:22)
+INFO: [HLS 214-178] Inlining function 'clear_hash_table(unsigned long*)' into 'clear_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:287:0)
+INFO: [HLS 214-178] Inlining function 'clear_assoc_mem(assoc_mem*)' into 'clear_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:287:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:55:0)
+INFO: [HLS 214-178] Inlining function 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'assoc_insert(assoc_mem*, unsigned int, unsigned int, bool*) (.83)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'clear_mem(unsigned long*, assoc_mem*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:28:0)
+INFO: [HLS 214-178] Inlining function 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'assoc_lookup(assoc_mem*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::fp_struct(float)' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::mantissa() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::expv() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::__signbit() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' into 'int generic_cast_IEEE754<int, float>(float, bool)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:116:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, float>(float, bool)' into '__hls_fptosi_float_i32' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/src/lib_floatconversion.cpp:51:0)
+INFO: [HLS 214-178] Inlining function '__hls_fptosi_float_i32' into 'ceil_fixed(float)' (Server/lzw_stream.cpp:172:0)
+INFO: [HLS 214-178] Inlining function 'ceil_fixed(float)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_header(unsigned char*, unsigned int)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_file_buffer(unsigned char*, int, unsigned short, unsigned short)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 214-178] Inlining function 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 214-178] Inlining function 'init_mem(unsigned long*, assoc_mem*)' into 'lzw_stream' (Server/lzw_stream.cpp:321:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.22 seconds. CPU system time: 0.26 seconds. Elapsed time: 3.06 seconds; current allocated memory: 212.423 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 212.424 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.08 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.17 seconds; current allocated memory: 227.775 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.16 seconds. CPU system time: 0 seconds. Elapsed time: 0.2 seconds; current allocated memory: 249.787 MB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'mem_rd' (Server/lzw_stream.cpp:157) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_184_1' (Server/lzw_stream.cpp:184) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_209_1' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:0) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_269_1' (Server/lzw_stream.cpp:269) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_278_1' (Server/lzw_stream.cpp:278) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'lzw_stream' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'lzw_stream' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'compute_lzw' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_115_1' (Server/lzw_stream.cpp:114) in function 'compute_lzw' completely with a factor of 64.
+WARNING: [HLS 200-805] An internal stream 'chr_stream' (Server/lzw_stream.cpp:307) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+WARNING: [HLS 200-805] An internal stream 'cmprs_stream' (Server/lzw_stream.cpp:308) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+WARNING: [HLS 200-805] An internal stream 'cmprs_len_stream' (Server/lzw_stream.cpp:309) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (Server/lzw_stream.cpp:317:5) to (Server/lzw_stream.cpp:184:23) in function 'hardware_encoder'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.51 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.66 seconds; current allocated memory: 295.690 MB.
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:272:23)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.upper_key_mem' (Server/lzw_stream.cpp:281:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.middle_key_mem' (Server/lzw_stream.cpp:282:41)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.lower_key_mem' (Server/lzw_stream.cpp:283:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:70:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.91 seconds. CPU system time: 0.02 seconds. Elapsed time: 1 seconds; current allocated memory: 325.854 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'lzw_stream' ...
+WARNING: [SYN 201-107] Renaming port name 'lzw_stream/length' to 'lzw_stream/length_r' to avoid the conflict with HDL keywords or other object names.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_234_1'.
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 1 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 2 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 3 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 4 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 7 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 9 cycles).
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 10, Depth = 11, loop 'VITIS_LOOP_234_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.32 seconds. CPU system time: 0 seconds. Elapsed time: 0.39 seconds; current allocated memory: 328.601 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.32 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.52 seconds; current allocated memory: 331.447 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'mem_rd'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 73, loop 'mem_rd'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_184_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_184_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_209_1'.
+WARNING: [HLS 200-880] The II Violation in module 'hardware_encoder' (loop 'VITIS_LOOP_209_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145) and fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145).
+WARNING: [HLS 200-885] Unable to schedule bus request on port 'gmem' (Server/lzw_stream.cpp:216) due to limited memory ports. Please consider using a memory core with more ports or partitioning the array.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 3, Depth = 73, loop 'VITIS_LOOP_209_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.65 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.73 seconds; current allocated memory: 332.983 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.78 seconds. CPU system time: 0 seconds. Elapsed time: 0.83 seconds; current allocated memory: 335.573 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_269_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_269_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_278_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_278_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_297_1'.
+WARNING: [HLS 200-880] The II Violation in module 'lzw_stream' (loop 'VITIS_LOOP_297_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('hash_table_addr_1_write_ln70', Server/lzw_stream.cpp:70) of variable 'or_ln1', Server/lzw_stream.cpp:70 on array 'hash_table', Server/lzw_stream.cpp:322 and 'load' operation ('lookup', Server/lzw_stream.cpp:60) on array 'hash_table', Server/lzw_stream.cpp:322.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 2, Depth = 6, loop 'VITIS_LOOP_297_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.59 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.74 seconds; current allocated memory: 336.488 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.24 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.33 seconds; current allocated memory: 337.602 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_lzw'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.55 seconds. CPU system time: 0 seconds. Elapsed time: 0.61 seconds; current allocated memory: 343.471 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_6_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fcmp_32ns_32ns_1_2_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitodp_32ns_64_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitofp_32ns_32_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'hardware_encoder'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.12 seconds. CPU system time: 0.05 seconds. Elapsed time: 1.48 seconds; current allocated memory: 359.323 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/gmem' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/s1' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/length_r' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/file_buffer' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/total_bytes' to 's_axilite & ap_none'.
+INFO==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xczu3eg-sbva484-1-i'
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_max_widen_bitwidth=512
+INFO: [HLS 200-1464] Running solution command: config_interface -default_interface=kernel
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_offset=slave
+INFO: [HLS 200-1464] Running solution command: config_rtl -register_reset_num=3
+INFO: [HLS 200-1510] Running: set_part xczu3eg-sbva484-1-i 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512 -m_axi_offset slave 
+INFO: [HLS 200-1510] Running: config_rtl -register_reset_num 3 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 208.105 MB.
+INFO: [HLS 200-10] Analyzing design file 'Server/utils.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw_stream.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 3.95 seconds. CPU system time: 0.53 seconds. Elapsed time: 5.15 seconds; current allocated memory: 209.659 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vitis' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::write(unsigned char const&)' into 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' (Server/lzw_stream.cpp:159:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read(unsigned char&)' into 'hls::stream<unsigned char, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:229:50)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:237:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:250:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::write(int const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:239:30)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:243:31)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read(int&)' into 'hls::stream<int, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read(unsigned short&)' into 'hls::stream<unsigned short, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:200:36)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:219:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:211:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:213:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:307:32)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:308:27)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:309:22)
+INFO: [HLS 214-178] Inlining function 'clear_hash_table(unsigned long*)' into 'clear_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:287:0)
+INFO: [HLS 214-178] Inlining function 'clear_assoc_mem(assoc_mem*)' into 'clear_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:287:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:55:0)
+INFO: [HLS 214-178] Inlining function 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'assoc_insert(assoc_mem*, unsigned int, unsigned int, bool*) (.83)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'clear_mem(unsigned long*, assoc_mem*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:28:0)
+INFO: [HLS 214-178] Inlining function 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'assoc_lookup(assoc_mem*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::fp_struct(float)' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::mantissa() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::expv() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::__signbit() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' into 'int generic_cast_IEEE754<int, float>(float, bool)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:116:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, float>(float, bool)' into '__hls_fptosi_float_i32' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/src/lib_floatconversion.cpp:51:0)
+INFO: [HLS 214-178] Inlining function '__hls_fptosi_float_i32' into 'ceil_fixed(float)' (Server/lzw_stream.cpp:172:0)
+INFO: [HLS 214-178] Inlining function 'ceil_fixed(float)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_header(unsigned char*, unsigned int)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_file_buffer(unsigned char*, int, unsigned short, unsigned short)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 214-178] Inlining function 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 214-178] Inlining function 'init_mem(unsigned long*, assoc_mem*)' into 'lzw_stream' (Server/lzw_stream.cpp:321:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.25 seconds. CPU system time: 0.22 seconds. Elapsed time: 3.07 seconds; current allocated memory: 212.412 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 212.413 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.07 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.16 seconds; current allocated memory: 227.765 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.17 seconds. CPU system time: 0 seconds. Elapsed time: 0.21 seconds; current allocated memory: 249.775 MB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'mem_rd' (Server/lzw_stream.cpp:157) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_184_1' (Server/lzw_stream.cpp:184) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_209_1' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:0) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_269_1' (Server/lzw_stream.cpp:269) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_278_1' (Server/lzw_stream.cpp:278) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'lzw_stream' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'lzw_stream' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'compute_lzw' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_115_1' (Server/lzw_stream.cpp:114) in function 'compute_lzw' completely with a factor of 64.
+WARNING: [HLS 200-805] An internal stream 'chr_stream' (Server/lzw_stream.cpp:307) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+WARNING: [HLS 200-805] An internal stream 'cmprs_stream' (Server/lzw_stream.cpp:308) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+WARNING: [HLS 200-805] An internal stream 'cmprs_len_stream' (Server/lzw_stream.cpp:309) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (Server/lzw_stream.cpp:317:5) to (Server/lzw_stream.cpp:184:23) in function 'hardware_encoder'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.52 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.65 seconds; current allocated memory: 295.673 MB.
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:272:23)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.upper_key_mem' (Server/lzw_stream.cpp:281:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.middle_key_mem' (Server/lzw_stream.cpp:282:41)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.lower_key_mem' (Server/lzw_stream.cpp:283:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:70:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.93 seconds. CPU system time: 0.01 seconds. Elapsed time: 1.03 seconds; current allocated memory: 325.810 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'lzw_stream' ...
+WARNING: [SYN 201-107] Renaming port name 'lzw_stream/length' to 'lzw_stream/length_r' to avoid the conflict with HDL keywords or other object names.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_234_1'.
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 1 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 2 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 3 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 4 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 7 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 9 cycles).
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 10, Depth = 11, loop 'VITIS_LOOP_234_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.3 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.4 seconds; current allocated memory: 328.539 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.24 seconds. CPU system time: 0 seconds. Elapsed time: 0.28 seconds; current allocated memory: 331.415 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'mem_rd'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 73, loop 'mem_rd'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_184_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_184_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_209_1'.
+WARNING: [HLS 200-880] The II Violation in module 'hardware_encoder' (loop 'VITIS_LOOP_209_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145) and fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145).
+WARNING: [HLS 200-885] Unable to schedule bus request on port 'gmem' (Server/lzw_stream.cpp:216) due to limited memory ports. Please consider using a memory core with more ports or partitioning the array.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 3, Depth = 73, loop 'VITIS_LOOP_209_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.72 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.97 seconds; current allocated memory: 332.949 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.79 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.85 seconds; current allocated memory: 335.536 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_269_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_269_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_278_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_278_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_297_1'.
+WARNING: [HLS 200-880] The II Violation in module 'lzw_stream' (loop 'VITIS_LOOP_297_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('hash_table_addr_1_write_ln70', Server/lzw_stream.cpp:70) of variable 'or_ln1', Server/lzw_stream.cpp:70 on array 'hash_table', Server/lzw_stream.cpp:322 and 'load' operation ('lookup', Server/lzw_stream.cpp:60) on array 'hash_table', Server/lzw_stream.cpp:322.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 2, Depth = 6, loop 'VITIS_LOOP_297_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.57 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.68 seconds; current allocated memory: 336.422 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.23 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.3 seconds; current allocated memory: 337.519 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_lzw'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.55 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.68 seconds; current allocated memory: 343.404 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_6_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fcmp_32ns_32ns_1_2_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitodp_32ns_64_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitofp_32ns_32_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'hardware_encoder'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.19 seconds. CPU system time: 0.04 seconds. Elapsed time: 1.62 seconds; current allocated memory: 359.257 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/gmem' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/s1' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/length_r' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/file_buffer' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/total_bytes' to 's_axilite & ap_none'.
+INFO==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+INFO: [SYN 201-201] Setting up clock 'default' with a period of 10ns.
+INFO: [HLS 200-10] Setting target device to 'xczu3eg-sbva484-1-i'
+INFO: [HLS 200-1505] Using flow_target 'vitis'
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_latency=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_alignment_byte_size=64
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_max_widen_bitwidth=512
+INFO: [HLS 200-1464] Running solution command: config_interface -default_interface=kernel
+INFO: [HLS 200-1464] Running solution command: config_interface -m_axi_offset=slave
+INFO: [HLS 200-1464] Running solution command: config_rtl -register_reset_num=3
+INFO: [HLS 200-1510] Running: set_part xczu3eg-sbva484-1-i 
+INFO: [HLS 200-1510] Running: create_clock -period 10 -name default 
+INFO: [HLS 200-1510] Running: config_interface -m_axi_alignment_byte_size 64 -m_axi_latency 64 -m_axi_max_widen_bitwidth 512 -m_axi_offset slave 
+INFO: [HLS 200-1510] Running: config_rtl -register_reset_num 3 
+INFO: [HLS 200-1510] Running: csynth_design 
+INFO: [HLS 200-111] Finished File checks and directory preparation: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0.01 seconds; current allocated memory: 208.129 MB.
+INFO: [HLS 200-10] Analyzing design file 'Server/utils.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw_stream.cpp' ... 
+INFO: [HLS 200-10] Analyzing design file 'Server/lzw.cpp' ... 
+INFO: [HLS 200-111] Finished Source Code Analysis and Preprocessing: CPU user time: 3.95 seconds. CPU system time: 0.56 seconds. Elapsed time: 5.22 seconds; current allocated memory: 209.713 MB.
+INFO: [HLS 200-777] Using interface defaults for 'Vitis' flow target.
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::write(unsigned char const&)' into 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' (Server/lzw_stream.cpp:159:20)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read(unsigned char&)' into 'hls::stream<unsigned char, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:229:50)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:237:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::write(unsigned short const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:250:26)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::write(int const&)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:239:30)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::read()' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:243:31)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read(int&)' into 'hls::stream<int, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read(unsigned short&)' into 'hls::stream<unsigned short, 0>::read()' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:156:9)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:200:36)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:219:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:211:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::read()' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:213:44)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned char, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:307:32)
+INFO: [HLS 214-131] Inlining function 'hls::stream<unsigned short, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:308:27)
+INFO: [HLS 214-131] Inlining function 'hls::stream<int, 0>::stream(char const*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:309:22)
+INFO: [HLS 214-178] Inlining function 'clear_hash_table(unsigned long*)' into 'clear_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:287:0)
+INFO: [HLS 214-178] Inlining function 'clear_assoc_mem(assoc_mem*)' into 'clear_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:287:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:55:0)
+INFO: [HLS 214-178] Inlining function 'hash_insert(unsigned long*, unsigned int, unsigned int, bool*)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'assoc_insert(assoc_mem*, unsigned int, unsigned int, bool*) (.83)' into 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' (Server/lzw_stream.cpp:137:0)
+INFO: [HLS 214-178] Inlining function 'clear_mem(unsigned long*, assoc_mem*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'init_mem(unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:293:0)
+INFO: [HLS 214-178] Inlining function 'my_hash(unsigned long)' into 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:28:0)
+INFO: [HLS 214-178] Inlining function 'hash_lookup(unsigned long*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'assoc_lookup(assoc_mem*, unsigned int, bool*, unsigned int*)' into 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' (Server/lzw_stream.cpp:146:0)
+INFO: [HLS 214-178] Inlining function 'lookup(unsigned long*, assoc_mem*, unsigned int, bool*, unsigned int*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'insert(unsigned long*, assoc_mem*, unsigned int, unsigned int, bool*)' into 'compute_lzw(hls::stream<unsigned char, 0>&, hls::stream<unsigned short, 0>&, int, hls::stream<int, 0>&, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:227:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::fp_struct(float)' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::mantissa() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::expv() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'fp_struct<float>::__signbit() const' into 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:12:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, (ap_q_mode)6, float>(float, bool, hls::enable_if<std::numeric_limits<int>::is_signed, bool>::type)' into 'int generic_cast_IEEE754<int, float>(float, bool)' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/include/FloatingPoint/hls_case_IEEE754.h:116:0)
+INFO: [HLS 214-178] Inlining function 'int generic_cast_IEEE754<int, float>(float, bool)' into '__hls_fptosi_float_i32' (/wrk/ci/prod/2020.2/rdi_builds/continuous/2020_11_18_3064766/src/shared/hls/clib/hlsmath/src/lib_floatconversion.cpp:51:0)
+INFO: [HLS 214-178] Inlining function '__hls_fptosi_float_i32' into 'ceil_fixed(float)' (Server/lzw_stream.cpp:172:0)
+INFO: [HLS 214-178] Inlining function 'ceil_fixed(float)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_header(unsigned char*, unsigned int)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'write_file_buffer(unsigned char*, int, unsigned short, unsigned short)' into 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' (Server/lzw_stream.cpp:198:0)
+INFO: [HLS 214-178] Inlining function 'read_input(unsigned char*, hls::stream<unsigned char, 0>&, int)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 214-178] Inlining function 'write_result(hls::stream<unsigned short, 0>&, hls::stream<int, 0>&, unsigned char*, int*)' into 'hardware_encoder(unsigned char*, int, unsigned char*, int*, unsigned long*, assoc_mem*)' (Server/lzw_stream.cpp:306:0)
+INFO: [HLS 214-178] Inlining function 'init_mem(unsigned long*, assoc_mem*)' into 'lzw_stream' (Server/lzw_stream.cpp:321:0)
+INFO: [HLS 200-111] Finished Compiling Optimization and Transform: CPU user time: 2.35 seconds. CPU system time: 0.22 seconds. Elapsed time: 3.18 seconds; current allocated memory: 212.422 MB.
+INFO: [HLS 200-111] Finished Checking Pragmas: CPU user time: 0 seconds. CPU system time: 0 seconds. Elapsed time: 0 seconds; current allocated memory: 212.424 MB.
+INFO: [HLS 200-10] Starting code transformations ...
+INFO: [HLS 200-111] Finished Standard Transforms: CPU user time: 0.07 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.17 seconds; current allocated memory: 227.774 MB.
+INFO: [HLS 200-10] Checking synthesizability ...
+INFO: [HLS 200-111] Finished Checking Synthesizability: CPU user time: 0.18 seconds. CPU system time: 0 seconds. Elapsed time: 0.22 seconds; current allocated memory: 249.787 MB.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'mem_rd' (Server/lzw_stream.cpp:157) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_184_1' (Server/lzw_stream.cpp:184) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_209_1' (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:0) in function 'hardware_encoder' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_269_1' (Server/lzw_stream.cpp:269) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_278_1' (Server/lzw_stream.cpp:278) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-510] Pipelining loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'lzw_stream' automatically.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_297_1' (Server/lzw_stream.cpp:297) in function 'lzw_stream' for pipelining.
+INFO: [XFORM 203-502] Unrolling all sub-loops inside loop 'VITIS_LOOP_234_1' (Server/lzw_stream.cpp:232) in function 'compute_lzw' for pipelining.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'lzw_stream' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_13_1' (Server/lzw_stream.cpp:13) in function 'compute_lzw' completely with a factor of 20.
+INFO: [HLS 200-489] Unrolling loop 'VITIS_LOOP_115_1' (Server/lzw_stream.cpp:114) in function 'compute_lzw' completely with a factor of 64.
+WARNING: [HLS 200-805] An internal stream 'chr_stream' (Server/lzw_stream.cpp:307) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+WARNING: [HLS 200-805] An internal stream 'cmprs_stream' (Server/lzw_stream.cpp:308) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+WARNING: [HLS 200-805] An internal stream 'cmprs_len_stream' (Server/lzw_stream.cpp:309) with default size can result in deadlock. Please consider resizing the stream using the directive 'set_directive_stream' or the 'HLS stream' pragma.
+INFO: [XFORM 203-401] Performing if-conversion on hyperblock from (Server/lzw_stream.cpp:317:5) to (Server/lzw_stream.cpp:184:23) in function 'hardware_encoder'... converting 3 basic blocks.
+INFO: [HLS 200-111] Finished Loop, function and other optimizations: CPU user time: 0.53 seconds. CPU system time: 0.03 seconds. Elapsed time: 0.72 seconds; current allocated memory: 295.690 MB.
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:272:23)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.upper_key_mem' (Server/lzw_stream.cpp:281:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.middle_key_mem' (Server/lzw_stream.cpp:282:41)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.lower_key_mem' (Server/lzw_stream.cpp:283:40)
+INFO: [HLS 200-472] Inferring partial write operation for 'hash_table' (Server/lzw_stream.cpp:70:34)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem.value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_upper_key_mem' (Server/lzw_stream.cpp:87:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_middle_key_mem' (Server/lzw_stream.cpp:88:45)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_lower_key_mem' (Server/lzw_stream.cpp:89:44)
+INFO: [HLS 200-472] Inferring partial write operation for 'my_assoc_mem_value' (Server/lzw_stream.cpp:90:31)
+INFO: [HLS 200-111] Finished Architecture Synthesis: CPU user time: 0.91 seconds. CPU system time: 0.01 seconds. Elapsed time: 1 seconds; current allocated memory: 325.859 MB.
+INFO: [HLS 200-10] Starting hardware synthesis ...
+INFO: [HLS 200-10] Synthesizing 'lzw_stream' ...
+WARNING: [SYN 201-107] Renaming port name 'lzw_stream/length' to 'lzw_stream/length_r' to avoid the conflict with HDL keywords or other object names.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_234_1'.
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 1 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 2 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 3 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 4 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 7 cycles).
+WARNING: [HLS 200-878] Unable to schedule the loop exit test ('icmp' operation ('icmp_ln85', Server/lzw_stream.cpp:85)) in the first pipeline iteration (II = 9 cycles).
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 10, Depth = 11, loop 'VITIS_LOOP_234_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.33 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.42 seconds; current allocated memory: 328.602 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.31 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.5 seconds; current allocated memory: 331.450 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'mem_rd'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 73, loop 'mem_rd'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_184_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_184_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_209_1'.
+WARNING: [HLS 200-880] The II Violation in module 'hardware_encoder' (loop 'VITIS_LOOP_209_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145) and fifo read on port 'cmprs_stream', Server/lzw_stream.cpp:308 (/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/common/technology/autopilot/hls_stream_39.h:145).
+WARNING: [HLS 200-885] Unable to schedule bus request on port 'gmem' (Server/lzw_stream.cpp:216) due to limited memory ports. Please consider using a memory core with more ports or partitioning the array.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 3, Depth = 73, loop 'VITIS_LOOP_209_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.65 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.74 seconds; current allocated memory: 332.986 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.79 seconds. CPU system time: 0 seconds. Elapsed time: 0.84 seconds; current allocated memory: 335.574 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-42] -- Implementing module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [SCHED 204-11] Starting scheduling ...
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_269_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_269_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_278_1'.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_278_1'
+INFO: [SCHED 204-61] Pipelining loop 'VITIS_LOOP_297_1'.
+WARNING: [HLS 200-880] The II Violation in module 'lzw_stream' (loop 'VITIS_LOOP_297_1'): Unable to enforce a carried dependence constraint (II = 1, distance = 1, offset = 1) between 'store' operation ('hash_table_addr_1_write_ln70', Server/lzw_stream.cpp:70) of variable 'or_ln1', Server/lzw_stream.cpp:70 on array 'hash_table', Server/lzw_stream.cpp:322 and 'load' operation ('lookup', Server/lzw_stream.cpp:60) on array 'hash_table', Server/lzw_stream.cpp:322.
+INFO: [HLS 200-1470] Pipelining result : Target II = 1, Final II = 2, Depth = 6, loop 'VITIS_LOOP_297_1'
+INFO: [SCHED 204-11] Finished scheduling.
+INFO: [HLS 200-111] Finished Scheduling: CPU user time: 0.63 seconds. CPU system time: 0.02 seconds. Elapsed time: 0.8 seconds; current allocated memory: 336.491 MB.
+INFO: [BIND 205-100] Starting micro-architecture generation ...
+INFO: [BIND 205-101] Performing variable lifetime analysis.
+INFO: [BIND 205-101] Exploring resource sharing.
+INFO: [BIND 205-101] Binding ...
+INFO: [BIND 205-100] Finished micro-architecture generation.
+INFO: [HLS 200-111] Finished Binding: CPU user time: 0.23 seconds. CPU system time: 0 seconds. Elapsed time: 0.31 seconds; current allocated memory: 337.602 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'compute_lzw' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Finished creating RTL model for 'compute_lzw'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 0.54 seconds. CPU system time: 0.01 seconds. Elapsed time: 0.61 seconds; current allocated memory: 343.471 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'hardware_encoder' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [RTGEN 206-100] Generating core module 'dmul_64ns_64ns_64_6_max_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fcmp_32ns_32ns_1_2_no_dsp_1': 2 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'fptrunc_64ns_32_2_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitodp_32ns_64_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Generating core module 'sitofp_32ns_32_4_no_dsp_1': 1 instance(s).
+INFO: [RTGEN 206-100] Finished creating RTL model for 'hardware_encoder'.
+INFO: [HLS 200-111] Finished Creating RTL model: CPU user time: 1.08 seconds. CPU system time: 0.02 seconds. Elapsed time: 1.23 seconds; current allocated memory: 359.328 MB.
+INFO: [HLS 200-10] ----------------------------------------------------------------
+INFO: [HLS 200-10] -- Generating RTL for module 'lzw_stream' 
+INFO: [HLS 200-10] ----------------------------------------------------------------
+WARNING: [RTGEN 206-101] Design contains AXI ports. Reset is fixed to synchronous and active low.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/gmem' to 'm_axi'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/s1' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/length_r' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/file_buffer' to 's_axilite & ap_none'.
+INFO: [RTGEN 206-500] Setting interface mode on port 'lzw_stream/total_bytes' to 's_axilite & ap_none'.
+INFO==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================
+==============================================================
+Vitis HLS - High-Level Synthesis from C, C++ and OpenCL v2020.2 (64-bit)
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+==============================================================

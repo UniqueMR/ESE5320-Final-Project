@@ -1,0 +1,827 @@
+#-----------------------------------------------------------
+# Vivado v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Tue Nov 28 20:16:31 2023
+# Process ID: 16547
+# Current directory: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1
+# Command line: vivado -log u96v2_sbc_base_hardware_encoding_1_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source u96v2_sbc_base_hardware_encoding_1_0.tcl
+# Log file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1/u96v2_sbc_base_hardware_encoding_1_0.vds
+# Journal file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1/vivado.jou
+#-----------------------------------------------------------
+source u96v2_sbc_base_hardware_encoding_1_0.tcl -notrace
+INFO: Dispatch client connection id - 35127
+create_project: Time (s): cpu = 00:00:02 ; elapsed = 00:00:06 . Memory (MB): peak = 2375.500 ; gain = 0.020 ; free physical = 3190 ; free virtual = 9119
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/int/xo/ip_repo/xilinx_com_hls_hardware_encoding_1_0'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/.local/hw_platform/iprepo'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/mnt/pollux/software/xilinx/2020.2/Vitis/2020.2/data/cache/xilinx'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/.local/hw_platform/ipcache'.
+INFO: [IP_Flow 19-1700] Loaded user IP repository '/mnt/pollux/software/xilinx/2020.2/Vitis/2020.2/data/ip'.
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/mnt/pollux/software/xilinx/2020.2/Vivado/2020.2/data/ip'.
+update_ip_catalog: Time (s): cpu = 00:00:04 ; elapsed = 00:00:13 . Memory (MB): peak = 2375.500 ; gain = 0.000 ; free physical = 2896 ; free virtual = 8825
+Command: synth_design -top u96v2_sbc_base_hardware_encoding_1_0 -part xczu3eg-sbva484-1-i -directive sdx_optimization_effort_high -mode out_of_context
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xczu3eg'
+INFO: [Device 21-403] Loading part xczu3eg-sbva484-1-i
+INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 1 processes.
+INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
+INFO: [Synth 8-7075] Helper process launched with PID 17169
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:07 . Memory (MB): peak = 2768.805 ; gain = 29.906 ; free physical = 185 ; free virtual = 4478
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'u96v2_sbc_base_hardware_encoding_1_0' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ip/u96v2_sbc_base_hardware_encoding_1_0/synth/u96v2_sbc_base_hardware_encoding_1_0.vhd:124]
+	Parameter C_S_AXI_CONTROL_ADDR_WIDTH bound to: 7 - type: integer 
+	Parameter C_S_AXI_CONTROL_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_GMEM_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_M_AXI_GMEM_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_GMEM_AWUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_ARUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_WUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_RUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_BUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_M_AXI_GMEM_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_M_AXI_GMEM_CACHE_VALUE bound to: 3 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:12' bound to instance 'U0' of component 'hardware_encoding' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ip/u96v2_sbc_base_hardware_encoding_1_0/synth/u96v2_sbc_base_hardware_encoding_1_0.vhd:303]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:104]
+	Parameter C_M_AXI_GMEM_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_M_AXI_GMEM_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_AWUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_GMEM_WUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_ARUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_RUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_GMEM_BUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_S_AXI_CONTROL_ADDR_WIDTH bound to: 7 - type: integer 
+	Parameter C_S_AXI_CONTROL_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_GMEM_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_M_AXI_GMEM_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_M_AXI_GMEM_CACHE_VALUE bound to: 3 - type: integer 
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_control_s_axi' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_control_s_axi.vhd:9' bound to instance 'control_s_axi_U' of component 'hardware_encoding_control_s_axi' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2039]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_control_s_axi' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_control_s_axi.vhd:94]
+	Parameter C_S_AXI_ADDR_WIDTH bound to: 7 - type: integer 
+	Parameter C_S_AXI_DATA_WIDTH bound to: 32 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_control_s_axi' (1#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_control_s_axi.vhd:94]
+	Parameter CONSERVATIVE bound to: 1 - type: integer 
+	Parameter USER_DW bound to: 32 - type: integer 
+	Parameter USER_AW bound to: 64 - type: integer 
+	Parameter USER_MAXREQS bound to: 69 - type: integer 
+	Parameter NUM_READ_OUTSTANDING bound to: 16 - type: integer 
+	Parameter NUM_WRITE_OUTSTANDING bound to: 16 - type: integer 
+	Parameter MAX_READ_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter MAX_WRITE_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_AWUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ARUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_WUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_RUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_BUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_CACHE_VALUE bound to: 3 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:9' bound to instance 'gmem_m_axi_U' of component 'hardware_encoding_gmem_m_axi' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2077]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:140]
+	Parameter CONSERVATIVE bound to: 1 - type: integer 
+	Parameter NUM_READ_OUTSTANDING bound to: 16 - type: integer 
+	Parameter NUM_WRITE_OUTSTANDING bound to: 16 - type: integer 
+	Parameter MAX_READ_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter MAX_WRITE_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_TARGET_ADDR bound to: 0 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_AWUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ARUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_WUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_RUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_BUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_CACHE_VALUE bound to: 3 - type: integer 
+	Parameter USER_DW bound to: 32 - type: integer 
+	Parameter USER_AW bound to: 64 - type: integer 
+	Parameter USER_MAXREQS bound to: 69 - type: integer 
+	Parameter USED_FIX bound to: 0 - type: bool 
+	Parameter FIX_VALUE bound to: 4 - type: integer 
+	Parameter ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter DEPTH bound to: 16 - type: integer 
+	Parameter USER_MAXREQS bound to: 16 - type: integer 
+	Parameter CONSERVATIVE bound to: 1 - type: integer 
+	Parameter AVERAGE_MODE bound to: 0 - type: bool 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_throttl' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:953' bound to instance 'wreq_throttl' of component 'hardware_encoding_gmem_m_axi_throttl' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:307]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_throttl' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1010]
+	Parameter USED_FIX bound to: 0 - type: bool 
+	Parameter FIX_VALUE bound to: 4 - type: integer 
+	Parameter ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter DATA_WIDTH bound to: 32 - type: integer 
+	Parameter DEPTH bound to: 16 - type: integer 
+	Parameter USER_MAXREQS bound to: 16 - type: integer 
+	Parameter CONSERVATIVE bound to: 1 - type: integer 
+	Parameter AVERAGE_MODE bound to: 0 - type: bool 
+	Parameter DATA_BITS bound to: 72 - type: integer 
+	Parameter DEPTH bound to: 16 - type: integer 
+	Parameter DEPTH_BITS bound to: 4 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'req_fifo' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1151]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 72 - type: integer 
+	Parameter DEPTH bound to: 16 - type: integer 
+	Parameter DEPTH_BITS bound to: 4 - type: integer 
+WARNING: [Synth 8-614] signal 'sclk_en' is read in the process but is not in the sensitivity list [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:704]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_fifo' (2#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter n bound to: 72 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_reg_slice' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:470' bound to instance 'rs_req' of component 'hardware_encoding_gmem_m_axi_reg_slice' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1167]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_reg_slice' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:487]
+	Parameter N bound to: 72 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_reg_slice' (3#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:487]
+	Parameter DATA_BITS bound to: 37 - type: integer 
+	Parameter DEPTH bound to: 16 - type: integer 
+	Parameter DEPTH_BITS bound to: 4 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'data_fifo' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1209]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized1' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 37 - type: integer 
+	Parameter DEPTH bound to: 16 - type: integer 
+	Parameter DEPTH_BITS bound to: 4 - type: integer 
+WARNING: [Synth 8-614] signal 'sclk_en' is read in the process but is not in the sensitivity list [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:704]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized1' (3#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_throttl' (4#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1010]
+	Parameter NUM_WRITE_OUTSTANDING bound to: 16 - type: integer 
+	Parameter MAX_WRITE_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_TARGET_ADDR bound to: 0 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_AWUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_WUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_BUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_CACHE_VALUE bound to: 3 - type: integer 
+	Parameter USER_DW bound to: 32 - type: integer 
+	Parameter USER_AW bound to: 64 - type: integer 
+	Parameter USER_MAXREQS bound to: 69 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_write' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:2176' bound to instance 'bus_write' of component 'hardware_encoding_gmem_m_axi_write' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:346]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_write' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:2264]
+	Parameter NUM_WRITE_OUTSTANDING bound to: 16 - type: integer 
+	Parameter MAX_WRITE_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_TARGET_ADDR bound to: 0 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_AWUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_WUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_BUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_CACHE_VALUE bound to: 3 - type: integer 
+	Parameter USER_DW bound to: 32 - type: integer 
+	Parameter USER_AW bound to: 64 - type: integer 
+	Parameter USER_MAXREQS bound to: 69 - type: integer 
+	Parameter N bound to: 96 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_reg_slice' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:470' bound to instance 'rs_wreq' of component 'hardware_encoding_gmem_m_axi_reg_slice' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:2400]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized1' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:487]
+	Parameter N bound to: 96 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized1' (4#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:487]
+	Parameter DATA_BITS bound to: 96 - type: integer 
+	Parameter DEPTH bound to: 69 - type: integer 
+	Parameter DEPTH_BITS bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'fifo_wreq' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:2413]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized3' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 96 - type: integer 
+	Parameter DEPTH bound to: 69 - type: integer 
+	Parameter DEPTH_BITS bound to: 7 - type: integer 
+WARNING: [Synth 8-614] signal 'sclk_en' is read in the process but is not in the sensitivity list [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:704]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized3' (4#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter MEM_STYLE bound to: block - type: string 
+	Parameter DATA_WIDTH bound to: 36 - type: integer 
+	Parameter ADDR_WIDTH bound to: 8 - type: integer 
+	Parameter DEPTH bound to: 256 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_buffer' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:721' bound to instance 'buff_wdata' of component 'hardware_encoding_gmem_m_axi_buffer' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:2812]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_buffer' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:743]
+	Parameter MEM_STYLE bound to: block - type: string 
+	Parameter DATA_WIDTH bound to: 36 - type: integer 
+	Parameter ADDR_WIDTH bound to: 8 - type: integer 
+	Parameter DEPTH bound to: 256 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_buffer' (5#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:743]
+	Parameter DATA_BITS bound to: 8 - type: integer 
+	Parameter DEPTH bound to: 69 - type: integer 
+	Parameter DEPTH_BITS bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'fifo_burst' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:2844]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized5' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 8 - type: integer 
+	Parameter DEPTH bound to: 69 - type: integer 
+	Parameter DEPTH_BITS bound to: 7 - type: integer 
+WARNING: [Synth 8-614] signal 'sclk_en' is read in the process but is not in the sensitivity list [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:704]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized5' (5#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 2 - type: integer 
+	Parameter DEPTH bound to: 15 - type: integer 
+	Parameter DEPTH_BITS bound to: 4 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'fifo_resp' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:3276]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized7' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 2 - type: integer 
+	Parameter DEPTH bound to: 15 - type: integer 
+	Parameter DEPTH_BITS bound to: 4 - type: integer 
+WARNING: [Synth 8-614] signal 'sclk_en' is read in the process but is not in the sensitivity list [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:704]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized7' (5#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 2 - type: integer 
+	Parameter DEPTH bound to: 69 - type: integer 
+	Parameter DEPTH_BITS bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'fifo_resp_to_user' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:3292]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized9' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+	Parameter DATA_BITS bound to: 2 - type: integer 
+	Parameter DEPTH bound to: 69 - type: integer 
+	Parameter DEPTH_BITS bound to: 7 - type: integer 
+WARNING: [Synth 8-614] signal 'sclk_en' is read in the process but is not in the sensitivity list [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:704]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_fifo__parameterized9' (5#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:611]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_write' (6#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:2264]
+	Parameter NUM_READ_OUTSTANDING bound to: 16 - type: integer 
+	Parameter MAX_READ_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_TARGET_ADDR bound to: 0 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_ARUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_RUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_CACHE_VALUE bound to: 3 - type: integer 
+	Parameter USER_DW bound to: 32 - type: integer 
+	Parameter USER_AW bound to: 64 - type: integer 
+	Parameter USER_MAXREQS bound to: 69 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_read' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1233' bound to instance 'bus_read' of component 'hardware_encoding_gmem_m_axi_read' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:410]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_read' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1311]
+	Parameter NUM_READ_OUTSTANDING bound to: 16 - type: integer 
+	Parameter MAX_READ_BURST_LENGTH bound to: 16 - type: integer 
+	Parameter C_M_AXI_ID_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_ADDR_WIDTH bound to: 64 - type: integer 
+	Parameter C_TARGET_ADDR bound to: 0 - type: integer 
+	Parameter C_M_AXI_DATA_WIDTH bound to: 32 - type: integer 
+	Parameter C_M_AXI_ARUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_M_AXI_RUSER_WIDTH bound to: 1 - type: integer 
+	Parameter C_USER_VALUE bound to: 0 - type: integer 
+	Parameter C_PROT_VALUE bound to: 0 - type: integer 
+	Parameter C_CACHE_VALUE bound to: 3 - type: integer 
+	Parameter USER_DW bound to: 32 - type: integer 
+	Parameter USER_AW bound to: 64 - type: integer 
+	Parameter USER_MAXREQS bound to: 69 - type: integer 
+	Parameter N bound to: 96 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_reg_slice' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:470' bound to instance 'rs_rreq' of component 'hardware_encoding_gmem_m_axi_reg_slice' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1444]
+	Parameter DATA_BITS bound to: 96 - type: integer 
+	Parameter DEPTH bound to: 69 - type: integer 
+	Parameter DEPTH_BITS bound to: 7 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'fifo_rreq' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1457]
+	Parameter MEM_STYLE bound to: block - type: string 
+	Parameter DATA_WIDTH bound to: 35 - type: integer 
+	Parameter ADDR_WIDTH bound to: 8 - type: integer 
+	Parameter DEPTH bound to: 256 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_buffer' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:721' bound to instance 'fifo_rdata' of component 'hardware_encoding_gmem_m_axi_buffer' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1834]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_buffer__parameterized1' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:743]
+	Parameter MEM_STYLE bound to: block - type: string 
+	Parameter DATA_WIDTH bound to: 35 - type: integer 
+	Parameter ADDR_WIDTH bound to: 8 - type: integer 
+	Parameter DEPTH bound to: 256 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_buffer__parameterized1' (6#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:743]
+	Parameter N bound to: 34 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_reg_slice' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:470' bound to instance 'rs_rdata' of component 'hardware_encoding_gmem_m_axi_reg_slice' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1852]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized3' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:487]
+	Parameter N bound to: 34 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized3' (6#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:487]
+	Parameter DATA_BITS bound to: 2 - type: integer 
+	Parameter DEPTH bound to: 15 - type: integer 
+	Parameter DEPTH_BITS bound to: 4 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_gmem_m_axi_fifo' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:594' bound to instance 'fifo_rctl' of component 'hardware_encoding_gmem_m_axi_fifo' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1865]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi_read' (7#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:1311]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_gmem_m_axi' (8#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_gmem_m_axi.vhd:140]
+	Parameter DataWidth bound to: 33 - type: integer 
+	Parameter AddressRange bound to: 32768 - type: integer 
+	Parameter AddressWidth bound to: 15 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_hash_table' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_hash_table.vhd:67' bound to instance 'hash_table_U' of component 'hardware_encoding_hash_table' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2193]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_hash_table' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_hash_table.vhd:82]
+	Parameter DataWidth bound to: 33 - type: integer 
+	Parameter AddressRange bound to: 32768 - type: integer 
+	Parameter AddressWidth bound to: 15 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_hash_table_ram' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_hash_table.vhd:10' bound to instance 'hardware_encoding_hash_table_ram_U' of component 'hardware_encoding_hash_table_ram' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_hash_table.vhd:96]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_hash_table_ram' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_hash_table.vhd:27]
+	Parameter DWIDTH bound to: 33 - type: integer 
+	Parameter AWIDTH bound to: 15 - type: integer 
+	Parameter MEM_SIZE bound to: 32768 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_hash_table_ram' (9#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_hash_table.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_hash_table' (10#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_hash_table.vhd:82]
+	Parameter DataWidth bound to: 64 - type: integer 
+	Parameter AddressRange bound to: 512 - type: integer 
+	Parameter AddressWidth bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_my_assoc_mem_upper_key_mem' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:67' bound to instance 'my_assoc_mem_upper_key_mem_U' of component 'hardware_encoding_my_assoc_mem_upper_key_mem' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2207]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_my_assoc_mem_upper_key_mem' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:82]
+	Parameter DataWidth bound to: 64 - type: integer 
+	Parameter AddressRange bound to: 512 - type: integer 
+	Parameter AddressWidth bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_my_assoc_mem_upper_key_mem_ram' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:10' bound to instance 'hardware_encoding_my_assoc_mem_upper_key_mem_ram_U' of component 'hardware_encoding_my_assoc_mem_upper_key_mem_ram' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:96]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_my_assoc_mem_upper_key_mem_ram' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:27]
+	Parameter DWIDTH bound to: 64 - type: integer 
+	Parameter AWIDTH bound to: 9 - type: integer 
+	Parameter MEM_SIZE bound to: 512 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_my_assoc_mem_upper_key_mem_ram' (11#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_my_assoc_mem_upper_key_mem' (12#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:82]
+	Parameter DataWidth bound to: 64 - type: integer 
+	Parameter AddressRange bound to: 512 - type: integer 
+	Parameter AddressWidth bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_my_assoc_mem_upper_key_mem' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:67' bound to instance 'my_assoc_mem_middle_key_mem_U' of component 'hardware_encoding_my_assoc_mem_upper_key_mem' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2221]
+	Parameter DataWidth bound to: 64 - type: integer 
+	Parameter AddressRange bound to: 512 - type: integer 
+	Parameter AddressWidth bound to: 9 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_my_assoc_mem_upper_key_mem' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_upper_key_mem.vhd:67' bound to instance 'my_assoc_mem_lower_key_mem_U' of component 'hardware_encoding_my_assoc_mem_upper_key_mem' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2235]
+	Parameter DataWidth bound to: 12 - type: integer 
+	Parameter AddressRange bound to: 64 - type: integer 
+	Parameter AddressWidth bound to: 6 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_my_assoc_mem_value' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_value.vhd:67' bound to instance 'my_assoc_mem_value_U' of component 'hardware_encoding_my_assoc_mem_value' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2249]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_my_assoc_mem_value' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_value.vhd:82]
+	Parameter DataWidth bound to: 12 - type: integer 
+	Parameter AddressRange bound to: 64 - type: integer 
+	Parameter AddressWidth bound to: 6 - type: integer 
+INFO: [Synth 8-3491] module 'hardware_encoding_my_assoc_mem_value_ram' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_value.vhd:10' bound to instance 'hardware_encoding_my_assoc_mem_value_ram_U' of component 'hardware_encoding_my_assoc_mem_value_ram' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_value.vhd:96]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_my_assoc_mem_value_ram' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_value.vhd:27]
+	Parameter DWIDTH bound to: 12 - type: integer 
+	Parameter AWIDTH bound to: 6 - type: integer 
+	Parameter MEM_SIZE bound to: 64 - type: integer 
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_my_assoc_mem_value_ram' (13#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_value.vhd:27]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_my_assoc_mem_value' (14#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_my_assoc_mem_value.vhd:82]
+INFO: [Synth 8-3491] module 'hardware_encoding_assoc_lookup' declared at '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_assoc_lookup.vhd:12' bound to instance 'grp_assoc_lookup_fu_570' of component 'hardware_encoding_assoc_lookup' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:2263]
+INFO: [Synth 8-638] synthesizing module 'hardware_encoding_assoc_lookup' [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_assoc_lookup.vhd:42]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding_assoc_lookup' (15#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding_assoc_lookup.vhd:42]
+INFO: [Synth 8-256] done synthesizing module 'hardware_encoding' (16#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ipshared/0b6a/hdl/vhdl/hardware_encoding.vhd:104]
+INFO: [Synth 8-256] done synthesizing module 'u96v2_sbc_base_hardware_encoding_1_0' (17#1) [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ip/u96v2_sbc_base_hardware_encoding_1_0/synth/u96v2_sbc_base_hardware_encoding_1_0.vhd:124]
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:19 . Memory (MB): peak = 2928.477 ; gain = 189.578 ; free physical = 3304 ; free virtual = 5291
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:13 ; elapsed = 00:00:22 . Memory (MB): peak = 2937.383 ; gain = 198.484 ; free physical = 3240 ; free virtual = 5290
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:22 . Memory (MB): peak = 2937.383 ; gain = 198.484 ; free physical = 3238 ; free virtual = 5290
+---------------------------------------------------------------------------------
+Netlist sorting complete. Time (s): cpu = 00:00:00.40 ; elapsed = 00:00:00.39 . Memory (MB): peak = 2937.383 ; gain = 0.000 ; free physical = 2807 ; free virtual = 5004
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ip/u96v2_sbc_base_hardware_encoding_1_0/constraints/hardware_encoding_ooc.xdc] for cell 'U0'
+Finished Parsing XDC File [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.gen/sources_1/bd/u96v2_sbc_base/ip/u96v2_sbc_base_hardware_encoding_1_0/constraints/hardware_encoding_ooc.xdc] for cell 'U0'
+Parsing XDC File [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1/dont_touch.xdc]
+Finished Parsing XDC File [/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1/dont_touch.xdc]
+Completed Processing XDC Constraints
+
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3077.789 ; gain = 0.000 ; free physical = 2273 ; free virtual = 4557
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+Constraint Validation Runtime : Time (s): cpu = 00:00:00.33 ; elapsed = 00:00:00.35 . Memory (MB): peak = 3091.727 ; gain = 13.938 ; free physical = 2243 ; free virtual = 4529
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:28 ; elapsed = 00:00:40 . Memory (MB): peak = 3091.727 ; gain = 352.828 ; free physical = 2294 ; free virtual = 4584
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xczu3eg-sbva484-1-i
+INFO: [Synth 8-6742] Reading net delay rules and data
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:28 ; elapsed = 00:00:40 . Memory (MB): peak = 3091.727 ; gain = 352.828 ; free physical = 2295 ; free virtual = 4585
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying 'set_property' XDC Constraints
+---------------------------------------------------------------------------------
+Applied set_property KEEP_HIERARCHY = SOFT for U0. (constraint file  /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1/dont_touch.xdc, line 9).
+---------------------------------------------------------------------------------
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:28 ; elapsed = 00:00:40 . Memory (MB): peak = 3091.727 ; gain = 352.828 ; free physical = 2313 ; free virtual = 4604
+---------------------------------------------------------------------------------
+INFO: [Synth 8-802] inferred FSM for state register 'wstate_reg' in module 'hardware_encoding_control_s_axi'
+INFO: [Synth 8-802] inferred FSM for state register 'rstate_reg' in module 'hardware_encoding_control_s_axi'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'hardware_encoding_gmem_m_axi_reg_slice'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized1'
+INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized3'
+INFO: [Synth 8-4490] FSM extraction disabled for register 'ap_CS_fsm_reg' through user attribute
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                             0001 |                              011
+*
+                  wridle |                             0010 |                              000
+                  wrdata |                             0100 |                              001
+                  wrresp |                             1000 |                              010
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'wstate_reg' using encoding 'one-hot' in module 'hardware_encoding_control_s_axi'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                  iSTATE |                              001 |                              110
+*
+                  rdidle |                              010 |                              100
+                  rddata |                              100 |                              101
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'rstate_reg' using encoding 'one-hot' in module 'hardware_encoding_control_s_axi'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    zero |                               00 |                               10
+                     one |                               10 |                               11
+                     two |                               01 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'hardware_encoding_gmem_m_axi_reg_slice'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    zero |                               00 |                               10
+                     one |                               10 |                               11
+                     two |                               01 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized1'
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                    zero |                               00 |                               10
+                     one |                               10 |                               11
+                     two |                               01 |                               01
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'hardware_encoding_gmem_m_axi_reg_slice__parameterized3'
+INFO: [Synth 8-5779] Default cascade height of 8 will be used for BRAM '"hardware_encoding_hash_table_ram:/ram_reg"'.
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 18 for RAM "hardware_encoding_hash_table_ram:/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 18 for RAM "hardware_encoding_hash_table_ram:/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 9 for RAM "hardware_encoding_hash_table_ram:/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 4 and width 4 for RAM "hardware_encoding_hash_table_ram:/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 2 and width 2 for RAM "hardware_encoding_hash_table_ram:/ram_reg"
+INFO: [Synth 8-6904] The RAM "hardware_encoding_my_assoc_mem_value_ram:/ram_reg" of size (depth=64 x width=12) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:34 ; elapsed = 00:00:47 . Memory (MB): peak = 3091.727 ; gain = 352.828 ; free physical = 2519 ; free virtual = 4814
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input   64 Bit       Adders := 6     
+	   2 Input   52 Bit       Adders := 2     
+	   2 Input   32 Bit       Adders := 39    
+	   2 Input   31 Bit       Adders := 1     
+	   2 Input   26 Bit       Adders := 2     
+	   3 Input   26 Bit       Adders := 17    
+	   2 Input   23 Bit       Adders := 1     
+	   2 Input   22 Bit       Adders := 1     
+	   2 Input   20 Bit       Adders := 1     
+	   2 Input   19 Bit       Adders := 1     
+	   2 Input   18 Bit       Adders := 1     
+	   2 Input   17 Bit       Adders := 1     
+	   2 Input   16 Bit       Adders := 2     
+	   2 Input   15 Bit       Adders := 3     
+	   3 Input   15 Bit       Adders := 17    
+	   2 Input   14 Bit       Adders := 1     
+	   2 Input   13 Bit       Adders := 1     
+	   2 Input   12 Bit       Adders := 4     
+	   2 Input   11 Bit       Adders := 1     
+	   2 Input   10 Bit       Adders := 1     
+	   2 Input    9 Bit       Adders := 3     
+	   2 Input    8 Bit       Adders := 7     
+	   2 Input    7 Bit       Adders := 4     
+	   2 Input    6 Bit       Adders := 2     
+	   2 Input    5 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 4     
+	   2 Input    2 Bit       Adders := 3     
++---XORs : 
+	   2 Input     32 Bit         XORs := 17    
+	   2 Input     26 Bit         XORs := 18    
+	   2 Input     22 Bit         XORs := 1     
+	   2 Input     15 Bit         XORs := 19    
+	   2 Input      1 Bit         XORs := 2     
++---Registers : 
+	              234 Bit    Registers := 1     
+	               96 Bit    Registers := 6     
+	               72 Bit    Registers := 3     
+	               64 Bit    Registers := 16    
+	               52 Bit    Registers := 2     
+	               37 Bit    Registers := 1     
+	               36 Bit    Registers := 3     
+	               35 Bit    Registers := 3     
+	               34 Bit    Registers := 2     
+	               33 Bit    Registers := 1     
+	               32 Bit    Registers := 31    
+	               31 Bit    Registers := 1     
+	               26 Bit    Registers := 9     
+	               23 Bit    Registers := 1     
+	               22 Bit    Registers := 1     
+	               20 Bit    Registers := 1     
+	               16 Bit    Registers := 14    
+	               15 Bit    Registers := 11    
+	               12 Bit    Registers := 5     
+	               10 Bit    Registers := 5     
+	                9 Bit    Registers := 5     
+	                8 Bit    Registers := 10    
+	                7 Bit    Registers := 5     
+	                6 Bit    Registers := 2     
+	                5 Bit    Registers := 10    
+	                4 Bit    Registers := 8     
+	                2 Bit    Registers := 16    
+	                1 Bit    Registers := 134   
++---RAMs : 
+	            1056K Bit	(32768 X 33 bit)          RAMs := 1     
+	              32K Bit	(512 X 64 bit)          RAMs := 3     
+	               9K Bit	(256 X 36 bit)          RAMs := 1     
+	               8K Bit	(256 X 35 bit)          RAMs := 1     
+	              768 Bit	(64 X 12 bit)          RAMs := 1     
++---Muxes : 
+	   2 Input  234 Bit        Muxes := 1     
+	 235 Input  234 Bit        Muxes := 1     
+	   2 Input  167 Bit        Muxes := 1     
+	   2 Input  166 Bit        Muxes := 1     
+	   2 Input  165 Bit        Muxes := 3     
+	   2 Input  164 Bit        Muxes := 1     
+	   2 Input  149 Bit        Muxes := 1     
+	   2 Input   96 Bit        Muxes := 2     
+	   2 Input   79 Bit        Muxes := 1     
+	   2 Input   78 Bit        Muxes := 1     
+	   2 Input   76 Bit        Muxes := 1     
+	   2 Input   72 Bit        Muxes := 1     
+	   2 Input   64 Bit        Muxes := 14    
+	   2 Input   52 Bit        Muxes := 2     
+	   2 Input   36 Bit        Muxes := 1     
+	   2 Input   35 Bit        Muxes := 1     
+	   2 Input   34 Bit        Muxes := 1     
+	   2 Input   33 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 2     
+	   2 Input   31 Bit        Muxes := 1     
+	   3 Input   16 Bit        Muxes := 1     
+	   2 Input   16 Bit        Muxes := 3     
+	   2 Input   15 Bit        Muxes := 2     
+	   4 Input   12 Bit        Muxes := 2     
+	   2 Input   12 Bit        Muxes := 1     
+	   2 Input   10 Bit        Muxes := 4     
+	   2 Input    9 Bit        Muxes := 9     
+	   2 Input    8 Bit        Muxes := 10    
+	   4 Input    8 Bit        Muxes := 1     
+	   2 Input    6 Bit        Muxes := 2     
+	   2 Input    5 Bit        Muxes := 3     
+	   4 Input    4 Bit        Muxes := 1     
+	   2 Input    4 Bit        Muxes := 8     
+	   3 Input    3 Bit        Muxes := 1     
+	   2 Input    3 Bit        Muxes := 3     
+	   8 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 57    
+	   3 Input    2 Bit        Muxes := 12    
+	   5 Input    2 Bit        Muxes := 4     
+	   2 Input    1 Bit        Muxes := 90    
+	   3 Input    1 Bit        Muxes := 4     
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 360 (col length:72)
+BRAMs: 432 (col length: RAMB18 72 RAMB36 36)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6904] The RAM "U0/my_assoc_mem_value_U/hardware_encoding_my_assoc_mem_value_ram_U/ram_reg" of size (depth=64 x width=12) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+INFO: [Synth 8-5779] Default cascade height of 8 will be used for BRAM '"U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"'.
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 18 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 18 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 9 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 4 and width 4 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 2 and width 2 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-6904] The RAM "U0/my_assoc_mem_value_U/hardware_encoding_my_assoc_mem_value_ram_U/ram_reg" of size (depth=64 x width=12) is automatically implemented using LUTRAM. BRAM implementation would be inefficient 
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:52 ; elapsed = 00:01:07 . Memory (MB): peak = 3091.727 ; gain = 352.828 ; free physical = 2357 ; free virtual = 4709
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Preliminary Mapping	Report (see note below)
++----------------+------------------------------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name     | RTL Object                                                                               | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++----------------+------------------------------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|U0/gmem_m_axi_U | bus_write/buff_wdata/mem_reg                                                             | 256 x 36(READ_FIRST)   | W |   | 256 x 36(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|U0/gmem_m_axi_U | bus_read/fifo_rdata/mem_reg                                                              | 256 x 35(READ_FIRST)   | W |   | 256 x 35(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|U0/hash_table_U | hardware_encoding_hash_table_ram_U/ram_reg                                               | 32 K x 33(READ_FIRST)  | W | R |                        |   |   | Port A           | 0      | 30     | 8,8,8,4,2       | 
+|U0              | my_assoc_mem_upper_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg  | 512 x 64(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      |                 | 
+|U0              | my_assoc_mem_middle_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg | 512 x 64(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      |                 | 
+|U0              | my_assoc_mem_lower_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg  | 512 x 64(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      |                 | 
++----------------+------------------------------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+Note: The table above is a preliminary report that shows the Block RAMs at the current stage of the synthesis flow. Some Block RAMs may be reimplemented as non Block RAM primitives later in the synthesis flow. Multiple instantiated Block RAMs are reported only once. 
+
+Distributed RAM: Preliminary Mapping	Report (see note below)
++------------+-------------------------------------------------------------------------+-----------+----------------------+----------------+
+|Module Name | RTL Object                                                              | Inference | Size (Depth x Width) | Primitives     | 
++------------+-------------------------------------------------------------------------+-----------+----------------------+----------------+
+|U0          | my_assoc_mem_value_U/hardware_encoding_my_assoc_mem_value_ram_U/ram_reg | Implied   | 64 x 12              | RAM64X1S x 12	 | 
++------------+-------------------------------------------------------------------------+-----------+----------------------+----------------+
+
+Note: The table above is a preliminary report that shows the Distributed RAMs at the current stage of the synthesis flow. Some Distributed RAMs may be reimplemented as non Distributed RAM primitives later in the synthesis flow. Multiple instantiated RAMs are reported only once.
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Applying XDC Timing Constraints
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:09 ; elapsed = 00:01:38 . Memory (MB): peak = 3400.273 ; gain = 661.375 ; free physical = 269 ; free virtual = 2666
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+INFO: [Synth 8-5556] The block RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg" may be mapped as a cascade chain, because it is not timing critical.
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 18 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 18 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 8 and width 9 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 4 and width 4 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+INFO: [Synth 8-5555] Implemented Block Ram Cascade chain of height 2 and width 2 for RAM "U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg"
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:01:14 ; elapsed = 00:01:43 . Memory (MB): peak = 3489.805 ; gain = 750.906 ; free physical = 313 ; free virtual = 2705
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Block RAM: Final Mapping	Report
++----------------+------------------------------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|Module Name     | RTL Object                                                                               | PORT A (Depth x Width) | W | R | PORT B (Depth x Width) | W | R | Ports driving FF | RAMB18 | RAMB36 | Cascade Heights | 
++----------------+------------------------------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+|U0/gmem_m_axi_U | bus_write/buff_wdata/mem_reg                                                             | 256 x 36(READ_FIRST)   | W |   | 256 x 36(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|U0/gmem_m_axi_U | bus_read/fifo_rdata/mem_reg                                                              | 256 x 35(READ_FIRST)   | W |   | 256 x 35(WRITE_FIRST)  |   | R | Port A and B     | 1      | 0      |                 | 
+|U0/hash_table_U | hardware_encoding_hash_table_ram_U/ram_reg                                               | 32 K x 33(READ_FIRST)  | W | R |                        |   |   | Port A           | 0      | 30     | 8,8,8,4,2       | 
+|U0              | my_assoc_mem_upper_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg  | 512 x 64(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      |                 | 
+|U0              | my_assoc_mem_middle_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg | 512 x 64(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      |                 | 
+|U0              | my_assoc_mem_lower_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg  | 512 x 64(READ_FIRST)   | W | R |                        |   |   | Port A           | 0      | 1      |                 | 
++----------------+------------------------------------------------------------------------------------------+------------------------+---+---+------------------------+---+---+------------------+--------+--------+-----------------+
+
+
+Distributed RAM: Final Mapping	Report
++------------+-------------------------------------------------------------------------+-----------+----------------------+----------------+
+|Module Name | RTL Object                                                              | Inference | Size (Depth x Width) | Primitives     | 
++------------+-------------------------------------------------------------------------+-----------+----------------------+----------------+
+|U0          | my_assoc_mem_value_U/hardware_encoding_my_assoc_mem_value_ram_U/ram_reg | Implied   | 64 x 12              | RAM64X1S x 12	 | 
++------------+-------------------------------------------------------------------------+-----------+----------------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+INFO: [Synth 8-7052] The timing for the instance U0/gmem_m_axi_U/bus_write/buff_wdata/mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/gmem_m_axi_U/bus_read/fifo_rdata/mem_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg_bram_8 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg_bram_16 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg_bram_24 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/hash_table_U/hardware_encoding_hash_table_ram_U/ram_reg_bram_30 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/my_assoc_mem_upper_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/my_assoc_mem_upper_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/my_assoc_mem_middle_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/my_assoc_mem_middle_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/my_assoc_mem_lower_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance U0/my_assoc_mem_lower_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:01:19 ; elapsed = 00:01:48 . Memory (MB): peak = 3513.828 ; gain = 774.930 ; free physical = 683 ; free virtual = 3073
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:01:22 ; elapsed = 00:01:51 . Memory (MB): peak = 3525.922 ; gain = 787.023 ; free physical = 2553 ; free virtual = 4958
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:22 ; elapsed = 00:01:51 . Memory (MB): peak = 3525.922 ; gain = 787.023 ; free physical = 2552 ; free virtual = 4957
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:23 ; elapsed = 00:01:52 . Memory (MB): peak = 3525.922 ; gain = 787.023 ; free physical = 2504 ; free virtual = 4921
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:23 ; elapsed = 00:01:52 . Memory (MB): peak = 3525.922 ; gain = 787.023 ; free physical = 2504 ; free virtual = 4921
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:23 ; elapsed = 00:01:52 . Memory (MB): peak = 3525.922 ; gain = 787.023 ; free physical = 2502 ; free virtual = 4920
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:23 ; elapsed = 00:01:52 . Memory (MB): peak = 3525.922 ; gain = 787.023 ; free physical = 2502 ; free virtual = 4920
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+
+Dynamic Shift Register Report:
++------------+-------------+--------+------------+--------+---------+--------+--------+--------+
+|Module Name | RTL Name    | Length | Data Width | SRL16E | SRLC32E | Mux F7 | Mux F8 | Mux F9 | 
++------------+-------------+--------+------------+--------+---------+--------+--------+--------+
+|dsrl        | mem_reg[15] | 72     | 72         | 72     | 0       | 0      | 0      | 0      | 
+|dsrl__1     | mem_reg[15] | 37     | 37         | 37     | 0       | 0      | 0      | 0      | 
+|dsrl__2     | mem_reg[68] | 96     | 96         | 0      | 288     | 192    | 96     | 0      | 
+|dsrl__3     | mem_reg[68] | 8      | 8          | 0      | 24      | 16     | 8      | 0      | 
+|dsrl__4     | mem_reg[14] | 2      | 2          | 2      | 0       | 0      | 0      | 0      | 
+|dsrl__5     | mem_reg[68] | 2      | 2          | 0      | 6       | 4      | 2      | 0      | 
++------------+-------------+--------+------------+--------+---------+--------+--------+--------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP, Shift Register and Retiming Reporting
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+---------+------+
+|      |Cell     |Count |
++------+---------+------+
+|1     |CARRY8   |   347|
+|2     |LUT1     |    81|
+|3     |LUT2     |  1820|
+|4     |LUT3     |  1258|
+|5     |LUT4     |   524|
+|6     |LUT5     |   263|
+|7     |LUT6     |   861|
+|8     |MUXF7    |   130|
+|9     |RAM64X1S |    12|
+|10    |RAMB18E2 |     2|
+|11    |RAMB36E2 |    33|
+|23    |SRL16E   |   105|
+|24    |SRLC32E  |   390|
+|25    |FDRE     |  3860|
+|26    |FDSE     |     8|
++------+---------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:23 ; elapsed = 00:01:52 . Memory (MB): peak = 3525.922 ; gain = 787.023 ; free physical = 2502 ; free virtual = 4920
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:12 ; elapsed = 00:01:39 . Memory (MB): peak = 3525.922 ; gain = 632.680 ; free physical = 2543 ; free virtual = 4961
+Synthesis Optimization Complete : Time (s): cpu = 00:01:23 ; elapsed = 00:01:52 . Memory (MB): peak = 3525.930 ; gain = 787.023 ; free physical = 2543 ; free virtual = 4961
+INFO: [Project 1-571] Translating synthesized netlist
+Netlist sorting complete. Time (s): cpu = 00:00:00.08 ; elapsed = 00:00:00.08 . Memory (MB): peak = 3536.891 ; gain = 0.000 ; free physical = 2642 ; free virtual = 5061
+INFO: [Netlist 29-17] Analyzing 489 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell U0/my_assoc_mem_lower_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
+INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell U0/my_assoc_mem_middle_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
+INFO: [Opt 31-422] The CLOCK_DOMAINS attribute on the BRAM cell U0/my_assoc_mem_upper_key_mem_U/hardware_encoding_my_assoc_mem_upper_key_mem_ram_U/ram_reg has been changed from INDEPENDENT to COMMON to match the clocking topology used for the BRAM.
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 3536.891 ; gain = 0.000 ; free physical = 2555 ; free virtual = 4984
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 12 instances were transformed.
+  RAM64X1S => RAM64X1S (RAMS64E): 12 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+148 Infos, 6 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:01:39 ; elapsed = 00:02:15 . Memory (MB): peak = 3536.891 ; gain = 1161.391 ; free physical = 2743 ; free virtual = 5172
+INFO: [Common 17-600] The following parameters have non-default value.
+general.maxThreads
+INFO: [Common 17-1381] The checkpoint '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1/u96v2_sbc_base_hardware_encoding_1_0.dcp' has been generated.
+WARNING: [Common 17-576] 'use_project_ipc' is deprecated. This option is deprecated and no longer used.
+INFO: [Coretcl 2-1648] Added synthesis output to IP cache for IP u96v2_sbc_base_hardware_encoding_1_0, cache-ID = f7fa47fd5f0d3421
+INFO: [Coretcl 2-1174] Renamed 31 cell refs.
+INFO: [Common 17-1381] The checkpoint '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/link/vivado/vpl/prj/prj.runs/u96v2_sbc_base_hardware_encoding_1_0_synth_1/u96v2_sbc_base_hardware_encoding_1_0.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file u96v2_sbc_base_hardware_encoding_1_0_utilization_synth.rpt -pb u96v2_sbc_base_hardware_encoding_1_0_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Tue Nov 28 20:19:44 2023...

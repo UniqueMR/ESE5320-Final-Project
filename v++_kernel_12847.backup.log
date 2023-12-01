@@ -1,0 +1,31 @@
+INFO: [v++ 60-1306] Additional information associated with this v++ compile can be found at:
+	Reports: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/reports/kernel
+	Log files: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/logs/kernel
+INFO: [v++ 60-1548] Creating build summary session with primary output /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/kernel.xo.compile_summary, at Tue Nov 28 20:11:40 2023
+INFO: [v++ 60-1316] Initiating connection to rulecheck server, at Tue Nov 28 20:11:41 2023
+INFO: [v++ 60-1315] Creating rulecheck session with output '/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/reports/kernel/v++_compile_kernel_guidance.html', at Tue Nov 28 20:11:42 2023
+INFO: [v++ 60-895]   Target platform: /home1/e/ese5320/u96v2_sbc_base/u96v2_sbc_base.xpfm
+INFO: [v++ 60-1578]   This platform contains Xilinx Shell Archive '/home1/e/ese5320/u96v2_sbc_base/hw/u96v2_sbc_base.xsa'
+INFO: [v++ 60-585] Compiling for hardware target
+INFO: [v++ 60-423]   Target device: u96v2_sbc_base
+INFO: [v++ 60-242] Creating kernel: 'hardware_encoding'
+
+===>The following messages were generated while  performing high-level synthesis for kernel: hardware_encoding Log file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/kernel/hardware_encoding/vitis_hls.log :
+INFO: [v++ 204-61] Pipelining function 'assoc_lookup'.
+INFO: [v++ 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 3, function 'assoc_lookup'
+INFO: [v++ 204-61] Pipelining loop 'VITIS_LOOP_393_1'.
+INFO: [v++ 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_393_1'
+INFO: [v++ 204-61] Pipelining loop 'VITIS_LOOP_398_2'.
+INFO: [v++ 200-1470] Pipelining result : Target II = 1, Final II = 1, Depth = 1, loop 'VITIS_LOOP_398_2'
+INFO: [v++ 204-61] Pipelining loop 'VITIS_LOOP_420_3'.
+INFO: [v++ 200-1470] Pipelining result : Target II = 1, Final II = 87, Depth = 157, loop 'VITIS_LOOP_420_3'
+INFO: [v++ 200-790] **** Loop Constraint Status: All loop constraints were NOT satisfied.
+INFO: [v++ 200-789] **** Estimated Fmax: 205.47 MHz
+INFO: [v++ 60-594] Finished kernel compilation
+INFO: [v++ 60-244] Generating system estimate report...
+INFO: [v++ 60-1092] Generated system estimate report: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/reports/kernel/system_estimate_kernel.xtxt
+INFO: [v++ 60-586] Created kernel.xo
+INFO: [v++ 60-2343] Use the vitis_analyzer tool to visualize and navigate the relevant reports. Run the following command. 
+    vitis_analyzer /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/kernel.xo.compile_summary 
+INFO: [v++ 60-791] Total elapsed time: 0h 1m 35s
+INFO: [v++ 60-1653] Closing dispatch client.

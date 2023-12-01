@@ -1,0 +1,20 @@
+INFO: [SIM 2] *************** CSIM start ***************
+INFO: [SIM 4] CSIM will launch GCC as the compiler.
+make: 'csim.exe' is up to date.
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+TEST PASSED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+INFO: [SIM 1] CSim done with 0 errors.
+INFO: [SIM 3] *************** CSIM finish ***************

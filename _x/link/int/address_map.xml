@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:addressMap xmlns:xd="http://www.xilinx.com/xd">
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_PWM_w_Int_0_reg0" xd:slaveRef="PWM_w_Int_0" xd:slaveInterface="s00_axi" xd:slaveSegment="reg0" xd:baseAddr="0x00A0010000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_PWM_w_Int_1_reg0" xd:slaveRef="PWM_w_Int_1" xd:slaveInterface="s00_axi" xd:slaveSegment="reg0" xd:baseAddr="0x00A0020000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_axi_bram_ctrl_0_Mem0" xd:slaveRef="axi_bram_ctrl_0" xd:slaveInterface="S_AXI" xd:slaveSegment="Mem0" xd:baseAddr="0x00A0000000" xd:range="0x4000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_axi_gpio_0_Reg" xd:slaveRef="axi_gpio_0" xd:slaveInterface="S_AXI" xd:slaveSegment="Reg" xd:baseAddr="0x00A0030000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_axi_gpio_1_Reg" xd:slaveRef="axi_gpio_1" xd:slaveInterface="S_AXI" xd:slaveSegment="Reg" xd:baseAddr="0x00A0040000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_axi_gpio_2_Reg" xd:slaveRef="axi_gpio_2" xd:slaveInterface="S_AXI" xd:slaveSegment="Reg" xd:baseAddr="0x00A0050000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_axi_intc_0_Reg" xd:slaveRef="axi_intc_0" xd:slaveInterface="s_axi" xd:slaveSegment="Reg" xd:baseAddr="0x00A0090000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_axi_uart16550_0_Reg" xd:slaveRef="axi_uart16550_0" xd:slaveInterface="S_AXI" xd:slaveSegment="Reg" xd:baseAddr="0x00A0060000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_axi_uart16550_1_Reg" xd:slaveRef="axi_uart16550_1" xd:slaveInterface="S_AXI" xd:slaveSegment="Reg" xd:baseAddr="0x00A0070000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_system_management_wiz_0_Reg" xd:slaveRef="system_management_wiz_0" xd:slaveInterface="S_AXI_LITE" xd:slaveSegment="Reg" xd:baseAddr="0x00A0080000" xd:range="0x10000"/>
+  <xd:addressRange xd:componentRef="hardware_encoding_1" xd:addressSpace="Data_m_axi_gmem" xd:segment="SEG_zynq_ultra_ps_e_0_HP0_DDR_LOW" xd:slaveRef="zynq_ultra_ps_e_0" xd:slaveInterface="S_AXI_HP0_FPD" xd:slaveSegment="HP0_DDR_LOW" xd:baseAddr="0x0000000000000000" xd:range="0x80000000"/>
+  <xd:addressRange xd:componentRef="zynq_ultra_ps_e_0" xd:addressSpace="Data" xd:segment="SEG_hardware_encoding_1_Reg" xd:slaveRef="hardware_encoding_1" xd:slaveInterface="s_axi_control" xd:slaveSegment="Reg" xd:baseAddr="0x00B0000000" xd:range="0x10000"/>
+</xd:addressMap>

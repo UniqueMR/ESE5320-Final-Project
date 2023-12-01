@@ -1,0 +1,467 @@
+Begin Function 'hardware_encoding'
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage0)
+# ST_77
+local i_2 <phi_422> <integer> <Phi> 'phi' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422>
+add_ln422 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422
+reg: i_2_reg_512[30:0] lv
+
+local icmp_ln420_1 <icmp_420> <integer> <Comparator> 'icmp' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:420>
+icmp_ln420_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:420
+reg: icmp_ln420_1_reg_3787[0:0] lv
+
+local add_ln422 <add_422> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422>
+add_ln422 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422
+reg: add_ln422_reg_3791[30:0] lv
+
+local gmem_addr_1 <getelementptr_422> <integer> <> 'getelementptr' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422>
+gmem_addr_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422
+reg: gmem_addr_1_reg_3797[63:0] lv
+
+local add_ln422_3 <add_422> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422>
+add_ln422_3 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422
+reg: add_ln422_3_reg_3803[1:0] lv
+
+# ST_164
+local shl_ln430_1 <shl_430> <integer> <Shift> 'shl' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430>
+shl_ln430_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430
+reg: shl_ln430_1_reg_4267[31:0] lv
+
+local mem_upper_key_mem_addr <getelementptr_88> <integer> <GetArrayAddress> 'getelementptr' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:88>
+mem_upper_key_mem_addr /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:88
+reg: mem_upper_key_mem_addr_reg_4272[8:0] lv
+
+local mem_middle_key_mem_addr <getelementptr_89> <integer> <GetArrayAddress> 'getelementptr' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:89>
+mem_middle_key_mem_addr /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:89
+reg: mem_middle_key_mem_addr_reg_4277[8:0] lv
+
+local mem_lower_key_mem_addr <getelementptr_90> <integer> <GetArrayAddress> 'getelementptr' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:90>
+mem_lower_key_mem_addr /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:90
+reg: mem_lower_key_mem_addr_reg_4282[8:0] lv
+
+local shl_ln449_1 <shl_449> <integer> <Shift> 'shl' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449>
+shl_ln449_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449
+reg: shl_ln449_1_reg_4287[31:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage1)
+# ST_165
+local prefix_code_1 <> <integer> <Phi> 'phi' <>
+reg: prefix_code_1_reg_543[15:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage71)
+# ST_148
+local gmem_addr_1_read <read_422> <integer> <> 'read' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422>
+gmem_addr_1_read /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422
+reg: gmem_addr_1_read_reg_3808[31:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage72)
+# ST_149
+local next_char <trunc_422> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422>
+next_char /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422
+reg: next_char_reg_3813[7:0] lv
+
+local add_ln17_1 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_1_reg_3828[22:0] lv
+
+local trunc_ln18 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_reg_3834[21:0] lv
+
+local trunc_ln18_17 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_17 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_17_reg_3839[15:0] lv
+
+local trunc_ln19 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_reg_3844[14:0] lv
+
+local trunc_ln19_2 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_2 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_2_reg_3849[4:0] lv
+
+local tmp_2 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_2 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_2_reg_3854[0:0] lv
+
+local tmp_3 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_3 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_3_reg_3861[0:0] lv
+
+local tmp_4 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_4 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_4_reg_3868[0:0] lv
+
+local tmp_5 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_5 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_5_reg_3875[0:0] lv
+
+local tmp_6 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_6 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_6_reg_3882[0:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage73)
+# ST_150
+local xor_ln17_1 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_1_reg_3889[25:0] lv
+
+local add_ln17_3 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_3 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_3_reg_3894[31:0] lv
+
+local xor_ln18_1 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_1_reg_3900[14:0] lv
+
+local trunc_ln18_19 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_19 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_19_reg_3905[15:0] lv
+
+local trunc_ln19_6 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_6 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_6_reg_3910[4:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage74)
+# ST_151
+local xor_ln17_3 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_3 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_3_reg_3915[25:0] lv
+
+local add_ln17_5 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_5 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_5_reg_3920[31:0] lv
+
+local xor_ln18_3 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_3 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_3_reg_3926[14:0] lv
+
+local trunc_ln18_21 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_21 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_21_reg_3931[15:0] lv
+
+local trunc_ln19_11 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_11 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_11_reg_3936[4:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage75)
+# ST_152
+local add_ln17_6 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_6 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_6_reg_3941[31:0] lv
+
+local add_ln19_10 <add_19> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+add_ln19_10 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: add_ln19_10_reg_3947[25:0] lv
+
+local add_ln17_24 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_24 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_24_reg_3952[14:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage76)
+# ST_153
+local prefix_code_2 <> <integer> <Phi> 'phi' <>
+reg: prefix_code_2_reg_523[15:0] lv
+
+local add_ln182_9 <add_182> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:182>
+add_ln182_9 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:182
+reg: add_ln182_9_reg_3957[8:0] lv
+
+local trunc_ln17_2 <partselect_17> <integer> <> 'partselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+trunc_ln17_2 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: trunc_ln17_2_reg_3962[8:0] lv
+
+local tmp_8 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_8 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_8_reg_3967[0:0] lv
+
+local xor_ln17_6 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_6 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_6_reg_3973[25:0] lv
+
+local add_ln17_8 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_8 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_8_reg_3978[31:0] lv
+
+local xor_ln18_6 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_6 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_6_reg_3984[14:0] lv
+
+local trunc_ln18_24 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_24 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_24_reg_3989[15:0] lv
+
+local trunc_ln19_17 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_17 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_17_reg_3994[4:0] lv
+
+local tmp_16 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_16 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_16_reg_3999[0:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage77)
+# ST_154
+local tmp_10 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_10 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_10_reg_4006[0:0] lv
+
+local xor_ln17_8 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_8 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_8_reg_4012[25:0] lv
+
+local add_ln17_10 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_10 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_10_reg_4017[31:0] lv
+
+local xor_ln18_8 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_8 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_8_reg_4023[14:0] lv
+
+local trunc_ln18_26 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_26 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_26_reg_4028[15:0] lv
+
+local trunc_ln19_21 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_21 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_21_reg_4033[4:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage78)
+# ST_155
+local tmp_12 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_12 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_12_reg_4038[0:0] lv
+
+local xor_ln17_10 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_10 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_10_reg_4044[25:0] lv
+
+local add_ln17_12 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_12 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_12_reg_4049[31:0] lv
+
+local xor_ln18_10 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_10 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_10_reg_4055[14:0] lv
+
+local trunc_ln18_28 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_28 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_28_reg_4060[15:0] lv
+
+local trunc_ln19_25 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_25 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_25_reg_4065[4:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage79)
+# ST_156
+local sext_ln426 <sext_426> <integer> <> 'sext' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:426>
+sext_ln426 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:426
+reg: sext_ln426_reg_4070[15:0] lv
+
+local tmp_14 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_14 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_14_reg_4075[0:0] lv
+
+local xor_ln17_12 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_12 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_12_reg_4081[25:0] lv
+
+local add_ln17_14 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_14 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_14_reg_4086[31:0] lv
+
+local xor_ln18_12 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_12 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_12_reg_4092[14:0] lv
+
+local trunc_ln18_30 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_30 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_30_reg_4097[15:0] lv
+
+local trunc_ln19_29 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_29 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_29_reg_4102[4:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage80)
+# ST_157
+local xor_ln17_14 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_14 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_14_reg_4107[25:0] lv
+
+local add_ln17_16 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_16 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_16_reg_4112[31:0] lv
+
+local xor_ln18_14 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_14 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_14_reg_4118[14:0] lv
+
+local trunc_ln18_32 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_32 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_32_reg_4123[15:0] lv
+
+local trunc_ln19_33 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_33 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_33_reg_4128[4:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage81)
+# ST_158
+local key <add_426> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:426>
+key /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:426
+reg: key_reg_4133[19:0] lv
+
+local tmp_18 <bitselect_17> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+tmp_18 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: tmp_18_reg_4141[0:0] lv
+
+local xor_ln17_16 <xor_17> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+xor_ln17_16 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: xor_ln17_16_reg_4147[25:0] lv
+
+local add_ln17_18 <add_17> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17>
+add_ln17_18 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:17
+reg: add_ln17_18_reg_4152[31:0] lv
+
+local xor_ln18_16 <xor_18> <integer> <Logic> 'xor' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+xor_ln18_16 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: xor_ln18_16_reg_4158[14:0] lv
+
+local trunc_ln18_34 <trunc_18> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18>
+trunc_ln18_34 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:18
+reg: trunc_ln18_34_reg_4163[15:0] lv
+
+local trunc_ln19_38 <trunc_19> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19>
+trunc_ln19_38 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:19
+reg: trunc_ln19_38_reg_4168[4:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage82)
+# ST_159
+local hash_table_addr_1 <getelementptr_33> <integer> <GetArrayAddress> 'getelementptr' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:33>
+hash_table_addr_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:33
+reg: hash_table_addr_1_reg_4173[14:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage83)
+# ST_160
+local code_2 <partselect_37> <integer> <> 'partselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:37>
+value /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:37
+reg: code_2_reg_4178[11:0] lv
+
+local valid <bitselect_38> <integer> <> 'bitselect' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:38>
+valid /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:38
+reg: valid_reg_4183[0:0] lv
+
+local and_ln40 <and_40> <integer> <Logic> 'and' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:40>
+and_ln40 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:40
+reg: and_ln40_reg_4187[0:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage84)
+# ST_161
+local j_1 <load_449> <integer> <> 'load' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449>
+j /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449
+reg: j_1_reg_4191[31:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_pp2_stage86)
+# ST_163
+local empty_41 <> <integer> <> 'trunc' <>
+reg: empty_41_reg_4201[11:0] lv
+
+local hit <extractvalue_187> <integer> <> 'extractvalue' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:187>
+hit /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:187
+reg: hit_reg_4211[0:0] lv
+
+local add_ln430_1 <add_430> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430>
+add_ln430_1 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430
+reg: add_ln430_1_reg_4220[1:0] lv
+
+local shl_ln430 <shl_430> <integer> <Shift> 'shl' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430>
+shl_ln430 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430
+reg: shl_ln430_reg_4225[3:0] lv
+
+local gmem_addr_3 <getelementptr_430> <integer> <> 'getelementptr' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430>
+gmem_addr_3 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:430
+reg: gmem_addr_3_reg_4230[63:0] lv
+
+local my_assoc_mem_fill_1_load <load_86> <integer> <> 'load' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:86>
+my_assoc_mem_fill_1_load /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:86
+reg: my_assoc_mem_fill_1_load_reg_4236[31:0] lv
+
+local icmp_ln86 <icmp_86> <integer> <Comparator> 'icmp' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:86>
+icmp_ln86 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:86
+reg: icmp_ln86_reg_4243[0:0] lv
+
+local icmp_ln448 <icmp_448> <integer> <Comparator> 'icmp' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:448>
+icmp_ln448 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:448
+reg: icmp_ln448_reg_4247[0:0] lv
+
+local add_ln449_2 <add_449> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449>
+add_ln449_2 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449
+reg: add_ln449_2_reg_4251[1:0] lv
+
+local shl_ln449 <shl_449> <integer> <Shift> 'shl' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449>
+shl_ln449 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449
+reg: shl_ln449_reg_4256[3:0] lv
+
+local gmem_addr_4 <getelementptr_449> <integer> <> 'getelementptr' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449>
+gmem_addr_4 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449
+reg: gmem_addr_4_reg_4261[63:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state2)
+# ST_2
+local i <phi_393> <integer> <Phi> 'phi' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:393>
+add_ln393 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:393
+reg: i_reg_490[15:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state236)
+# ST_236
+local j_0_lcssa <> <integer> <Phi> 'phi' <>
+reg: j_0_lcssa_reg_558[31:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state4)
+# ST_4
+local i_1 <phi_398> <integer> <Phi> 'phi' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:398>
+add_ln398 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:398
+reg: i_1_reg_501[9:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state75)
+# ST_75
+local prefix_code <trunc_415> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:415>
+prefix_code /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:415
+reg: prefix_code_reg_3740[7:0] lv
+
+
+RTL state condition: (1'b1 == ap_CS_fsm_state76)
+# ST_76
+local icmp_ln420 <icmp_420> <integer> <Comparator> 'icmp' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:420>
+icmp_ln420 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:420
+reg: icmp_ln420_reg_3750[0:0] lv
+
+local trunc_ln449 <trunc_449> <integer> <> 'trunc' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449>
+trunc_ln449 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:449
+reg: trunc_ln449_reg_3776[1:0] lv
+
+local add_ln422_2 <add_422> <integer> <Arithmetic> 'add' </mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422>
+add_ln422_2 /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/Server/lzw.cpp:422
+reg: add_ln422_2_reg_3782[1:0] lv
+
+
+End Function 'hardware_encoding'
+

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xd:repository xmlns:xd="http://www.xilinx.com/xd">
+    <xd:fcnMap xd:fcnName="hardware_encoding" xd:type="hls_opencl" xd:clockId="0" xd:flow="explicit" xd:componentRef="hardware_encoding">
+        <xd:interrupt xd:busInterfaceRef="interrupt"/>
+        <xd:ctrlReg xd:busInterface="s_axi_control" xd:portInterfaceType="axilite" xd:name="control" xd:type="ap_ctrl_chain" xd:offset="0x0"/>
+        <xd:arg xd:name="s1" xd:swRootName="s1" xd:dataWidth="64" xd:offset="0x10" xd:portInterfaceType="axilite" xd:direction="in" xd:id="0" xd:busInterfaceRef="s_axi_control" xd:aximmMasterRef="m_axi_gmem" xd:aximmMasterDirection="inout" xd:aximmMasterDataWidth="32"/>
+        <xd:arg xd:name="length" xd:swRootName="length" xd:dataWidth="32" xd:offset="0x1C" xd:portInterfaceType="axilite" xd:direction="in" xd:id="1" xd:busInterfaceRef="s_axi_control"/>
+        <xd:arg xd:name="out_code" xd:swRootName="out_code" xd:dataWidth="64" xd:offset="0x24" xd:portInterfaceType="axilite" xd:direction="in" xd:id="2" xd:busInterfaceRef="s_axi_control" xd:aximmMasterRef="m_axi_gmem" xd:aximmMasterDirection="inout" xd:aximmMasterDataWidth="32"/>
+        <xd:arg xd:name="header" xd:swRootName="header" xd:dataWidth="64" xd:offset="0x30" xd:portInterfaceType="axilite" xd:direction="in" xd:id="3" xd:busInterfaceRef="s_axi_control" xd:aximmMasterRef="m_axi_gmem" xd:aximmMasterDirection="inout" xd:aximmMasterDataWidth="32"/>
+        <xd:arg xd:name="out_len" xd:swRootName="out_len" xd:dataWidth="64" xd:offset="0x3C" xd:portInterfaceType="axilite" xd:direction="in" xd:id="4" xd:busInterfaceRef="s_axi_control" xd:aximmMasterRef="m_axi_gmem" xd:aximmMasterDirection="inout" xd:aximmMasterDataWidth="32"/>
+    </xd:fcnMap>
+</xd:repository>

@@ -1,0 +1,28 @@
+#-----------------------------------------------------------
+# xsim v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Mon Nov 27 21:52:42 2023
+# Process ID: 20432
+# Current directory: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog
+# Command line: xsim -mode tcl -source {xsim.dir/lzw_stream/xsim_script.tcl}
+# Log file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/xsim.log
+# Journal file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/xsim.jou
+#-----------------------------------------------------------
+source xsim.dir/lzw_stream/xsim_script.tcl
+# xsim {lzw_stream} -autoloadwcfg -tclbatch {lzw_stream.tcl}
+Vivado Simulator 2020.2
+Time resolution is 1 ps
+source lzw_stream.tcl
+## run all
+////////////////////////////////////////////////////////////////////////////////////
+// Inter-Transaction Progress: Completed Transaction / Total Transaction
+// Intra-Transaction Progress: Measured Latency / Latency Estimation * 100%
+//
+// RTL Simulation : "Inter-Transaction Progress" ["Intra-Transaction Progress"] @ "Simulation Time"
+////////////////////////////////////////////////////////////////////////////////////
+// RTL Simulation : 0 / 1 [n/a] @ "155000"
+/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/AESL_axi_master_gmem.v: Read request address                    4 exceed AXI master gmem array depth:          3
+$finish called at time : 340145 ns : File "/mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/test_1127/solution1/sim/verilog/AESL_axi_master_gmem.v" Line 687
+## quit
+INFO: [Common 17-206] Exiting xsim at Mon Nov 27 21:52:50 2023...

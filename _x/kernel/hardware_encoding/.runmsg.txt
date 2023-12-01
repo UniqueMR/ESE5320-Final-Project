@@ -1,0 +1,2 @@
+performing high-level synthesis for kernel: hardware_encoding
+Log file: /mnt/castor/seas_home/c/chen3xn/ese532_code/project_1127/ESE5320-Final-Project/_x/kernel/hardware_encoding/vitis_hls.log

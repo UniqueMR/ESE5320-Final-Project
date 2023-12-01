@@ -1,0 +1,16 @@
+{
+ "kernels": [],
+ "computeUnits": [
+  {
+   "id": "",
+   "kernelName": "",
+   "cuName": "hardware_encoding_1",
+   "baseAddress": "",
+   "instancePath": "u96v2_sbc_base_i/hardware_encoding_1/U0",
+   "slr": [
+    "0"
+   ]
+  }
+ ]
+}
+

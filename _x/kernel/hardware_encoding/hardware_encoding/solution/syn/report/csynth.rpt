@@ -1,0 +1,28 @@
+
+
+================================================================
+== Synthesis Summary Report of 'hardware_encoding'
+================================================================
++ General Information: 
+    * Date:           Tue Nov 28 20:12:22 2023
+    * Version:        2020.2 (Build 3064766 on Wed Nov 18 09:12:47 MST 2020)
+    * Project:        hardware_encoding
+    * Solution:       solution (Vitis Kernel Flow Target)
+    * Product family: zynquplus
+    * Target device:  xczu3eg-sbva484-1-i
+    
+
++ Performance & Resource Estimates: 
+    
+    PS: '+' for module; 'o' for loop; '*' for dataflow
+    +----------------------------+--------+-------+---------+-----------+----------+---------+-------+----------+----------+----+-----------+------------+-----+
+    |           Modules          |  Issue |       | Latency |  Latency  | Iteration|         |  Trip |          |          |    |           |            |     |
+    |           & Loops          |  Type  | Slack | (cycles)|    (ns)   |  Latency | Interval| Count | Pipelined|   BRAM   | DSP|     FF    |     LUT    | URAM|
+    +----------------------------+--------+-------+---------+-----------+----------+---------+-------+----------+----------+----+-----------+------------+-----+
+    |+ hardware_encoding         |  Timing|   0.00|        -|          -|         -|        -|      -|        no|  68 (15%)|   -|  2905 (2%)|  8755 (12%)|    -|
+    | + grp_assoc_lookup_fu_570  |      II|  -1.45|        2|     13.334|         -|        1|      -|       yes|         -|   -|   66 (~0%)|   405 (~0%)|    -|
+    | o VITIS_LOOP_393_1         |       -|  -4.87|    32768|  2.185e+05|         1|        1|  32768|       yes|         -|   -|          -|           -|    -|
+    | o VITIS_LOOP_398_2         |       -|  -4.87|      512|  3.414e+03|         1|        1|    512|       yes|         -|   -|          -|           -|    -|
+    | o VITIS_LOOP_420_3         |      II|  -4.87|        -|          -|       157|       87|      -|       yes|         -|   -|          -|           -|    -|
+    +----------------------------+--------+-------+---------+-----------+----------+---------+-------+----------+----------+----+-----------+------------+-----+
+

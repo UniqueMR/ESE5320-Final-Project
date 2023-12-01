@@ -1,0 +1,17 @@
+Tue Nov 28 20:35:35 2023: Server was asked to start on port: '34649'
+Tue Nov 28 20:35:35 2023: Server is using token UUID: 'b7dafffb-44ea-4272-9c22-7756395a3043'
+Tue Nov 28 20:35:35 2023: SESSION_MGR: creating session with session uuid: '6d04a3e9-ade5-4ab9-8d63-1f78fcd2ec76' and name 'default'
+Tue Nov 28 20:35:35 2023: Attempting to start server on port '34649'
+Tue Nov 28 20:35:35 2023: XCD main fifo: created main fifo '/tmp/xcdmainb7dafffb-44ea-4272-9c22-7756395a3043', fd read = 13
+Tue Nov 28 20:35:35 2023: Running Dispatch Server
+Tue Nov 28 20:35:35 2023: Version 2.1.0
+Tue Nov 28 20:35:43 2023: Dispatch Server: Accepted socket connection from client
+Tue Nov 28 20:35:43 2023: EXCHANGE_TOKEN received, server token: b7dafffb-44ea-4272-9c22-7756395a3043, passed token: b7dafffb-44ea-4272-9c22-7756395a3043
+Tue Nov 28 20:35:43 2023: SESSION_MGR: creating session with session uuid: 'aa409e4e-4374-47c4-a903-03aae9c2ac5a' and name 'v++_package_a'
+Tue Nov 28 20:35:43 2023: GUIDANCE_SMGR: creating guidance session with uuid: 'aa409e4e-4374-47c4-a903-03aae9c2ac5a' and name 'v++_package_a'
+Tue Nov 28 20:35:50 2023: Entering handleGetXclBinGeneratedByRequest
+Tue Nov 28 20:35:50 2023: Leaving handleGetXclBinGeneratedByRequest
+Tue Nov 28 20:37:33 2023: Entering handleUpsertXclBinGeneratedByRequest
+Tue Nov 28 20:37:33 2023: Leaving handleUpsertXclBinGeneratedByRequest
+Tue Nov 28 20:37:34 2023: SESSION_MGR: closing session for UUID 'aa409e4e-4374-47c4-a903-03aae9c2ac5a' with name 'v++_package_a'
+Tue Nov 28 20:37:34 2023: GUIDANCE_SMGR: closing session for UUID 'aa409e4e-4374-47c4-a903-03aae9c2ac5a' with name 'v++_package_a'

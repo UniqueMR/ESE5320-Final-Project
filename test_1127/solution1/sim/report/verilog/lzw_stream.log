@@ -1,0 +1,155 @@
+INFO: [COSIM-47] Using XSIM for RTL simulation.
+INFO: [COSIM-14] Instrumenting C test bench ...
+WARNING: [COSIM-369] AXI_master port 's1' has a depth of '0'. Insufficient depth may result in simulation mismatch or freeze.
+WARNING: [COSIM-369] AXI_master port 'file_buffer' has a depth of '0'. Insufficient depth may result in simulation mismatch or freeze.
+WARNING: [COSIM-369] AXI_master port 'total_bytes' has a depth of '0'. Insufficient depth may result in simulation mismatch or freeze.
+   Build using "/mnt/pollux/software/xilinx/2020.2/Vitis_HLS/2020.2/tps/lnx64/gcc-6.2.0/bin/g++"
+   Compiling utils.cpp_pre.cpp.tb.cpp
+   Compiling Testbench.cpp_pre.cpp.tb.cpp
+   Compiling lzw_stream.cpp_pre.cpp.tb.cpp
+   Compiling lzw.cpp_pre.cpp.tb.cpp
+   Compiling apatb_lzw_stream.cpp
+   Compiling apatb_lzw_stream_ir.ll
+   Generating cosim.tv.exe
+INFO: [COSIM-302] Starting C TB testing ... 
+INFO: [COSIM-333] Generating C post check test bench ...
+INFO: [COSIM-12] Generating RTL test bench ...
+INFO: [COSIM-1] *** C/RTL co-simulation file generation completed. ***
+INFO: [COSIM-323] Starting verilog simulation. 
+INFO: [COSIM-15] Starting XSIM ...
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+length not match
+len result: 21; len golden: 17
+TEST FAILED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 18
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+result: 12 ;golden: 22
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 5
+result: 0 ;golden: 70
+result: 0 ;golden: 59
+result: 0 ;golden: 5
+result: 0 ;golden: 30
+TEST PASSED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 12
+Encoding
+String	Output_Code	Addition
+W	87		WY	256
+Y	89		YS	257
+S	83		S*	258
+*	42		*W	259
+WY	256		WYG	260
+G	71		GW	261
+WY	256		WYS	262
+S*	258		S*W	263
+WYS	262		WYSW	264
+WYS	262		WYSG	265
+G	71
+result: 1c ;golden: 22
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 0
+result: 0 ;golden: 5
+result: 0 ;golden: 70
+result: 0 ;golden: 59
+result: 0 ;golden: 5
+result: 0 ;golden: 30
+result: 0 ;golden: 2a
+result: 0 ;golden: 10
+result: 0 ;golden: 0
+result: 0 ;golden: 47
+result: 0 ;golden: 10
+TEST PASSED
+The maximum depth reached by any of the 3 hls::stream() instances in the design is 12
+ERROR: [COSIM-4] *** C/RTL co-simulation finished: FAIL ***
+INFO: [COSIM-211] II is measurable only when transaction number is greater than 1 in RTL simulation. Otherwise, they will be marked as all NA. If user wants to calculate them, please make sure there are at least 2 transactions in RTL simulation.

@@ -7,9 +7,9 @@ static uint64_t hash_func(unsigned char *input, unsigned int pos)
 {
 	uint64_t hash = 0; 
     if(last_hash == 0){
-        for(int i = 0; i < WIN_SIZE; i++){
-        	hash += static_cast<uint64_t>(input[pos + WIN_SIZE - 1 - i]) * std::pow(PRIME, i + 1);
-        }
+         for(int i = 0; i < WIN_SIZE; i++){
+         	hash += static_cast<uint64_t>(input[pos + WIN_SIZE - 1 - i]) * std::pow(PRIME, i + 1);
+         }
     }
     else{
         hash = last_hash * PRIME - static_cast<uint64_t>(input[pos - 1]) * std::pow(PRIME, WIN_SIZE + 1) + static_cast<uint64_t>(input[pos + WIN_SIZE - 1]) * PRIME;
@@ -26,9 +26,15 @@ void cdc(unsigned char* buffer, std::vector<std::string> &chunks, unsigned int b
     std::cout << "Using cdc to split the input into chunks ..." << std::endl;
     std::string chunk;
     //initialize the first chunk
-    for(unsigned int i = 0; i < WIN_SIZE; i++){
-        chunk.push_back(buffer[i]);
-    }
+    // for(unsigned int i = 0; i < WIN_SIZE; i++){
+    //     chunk.push_back(buffer[i]);
+    // }
+
+    //unroll
+    chunk.push_back(buffer[0]);
+    chunk.push_back(buffer[1]);
+    chunk.push_back(buffer[2]);
+    chunk.push_back(buffer[3]);
 
 	for(unsigned int i = WIN_SIZE; i < buff_size - WIN_SIZE; i++){
         chunk.push_back(buffer[i]);
