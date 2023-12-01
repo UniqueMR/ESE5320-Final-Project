@@ -1,5 +1,5 @@
 #include "host.h"
-
+using namespace std;
 int offset = 0;
 unsigned char* file;
 
@@ -26,6 +26,57 @@ void write_encoded_file(uint16_t* out_code, int out_len, uint32_t *header, char*
         file_buffer[j++] = static_cast<unsigned char>((out_code[i] << 4) & 0xF0);
     }
 
+    std::ofstream outfile(fileName, std::ios::app);
+    
+    if(!outfile.is_open()) {
+        std::cerr << "Could not open the file for writing.\n";
+        return;
+    }
+
+    // Write the data to the file
+    outfile.write(reinterpret_cast<const char*>(file_buffer), total_bytes + 4);
+
+    // Check for write errors
+    if (!outfile.good()) {
+        std::cerr << "Error occurred while writing to the file.\n";
+    }
+
+    // Close the file
+    outfile.close();
+}
+
+static void write_encoded_file_buf(uint16_t* out_code, int out_len, unsigned char* file_buffer, int &total_bytes){
+    int total_bits = out_len * 12;
+    total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
+    uint32_t header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
+
+    int i = 0, j = 0;
+
+    file_buffer[j++] = static_cast<unsigned char>(header & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 8) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>((header >> 16) & 0xFF);
+    file_buffer[j++] = static_cast<unsigned char>(header >> 24);
+    for(i = 0; i + 1 < out_len; i += 2){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>(((out_code[i] << 4) & 0xF0) | ((out_code[i + 1] >> 8) & 0x0F));
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i + 1] & 0xFF);
+    }
+    if(i != out_len){
+        file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j++] = static_cast<unsigned char>((out_code[i] << 4) & 0xF0);
+    }
+    return;
+}
+
+static void vector_to_array(vector<uint16_t> vec, uint16_t* arr, int &len){
+    len = vec.size();
+    for(int i = 0; i < len; i++){
+        arr[i] = vec[i];
+    }
+    return;
+}
+
+static void write_file(unsigned char* file_buffer, int total_bytes, char* fileName){
     std::ofstream outfile(fileName, std::ios::app);
     
     if(!outfile.is_open()) {
@@ -188,8 +239,6 @@ int main(int argc, char** argv)
                 int chunk_len = chunks[i].length();
 				uint32_t header = 0;
 				int out_len = 0;
-				q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
-				q.enqueueWriteBuffer(out_len_buf, CL_TRUE, 0, sizeof(int), &out_len);
 
 				timer.add("Set kernel arguments");  
 				// Map buffers to kernel arguments, thereby assigning them to specific device memory banks
@@ -204,11 +253,31 @@ int main(int argc, char** argv)
                 q.enqueueMigrateMemObjects({chunk_content_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
                 clWaitForEvents(1, (const cl_event *)&event_sp);
 
+				// running kernel
                 timer.add("Launch kernel");
                 q.enqueueTask(krnl_hardware_encoding, NULL, &event_sp);
                 timer.add("Wait for kernel to finish running");
                 clWaitForEvents(1, (const cl_event *)&event_sp);
-				// hardware_encoding(chunk_content, chunks[i].length(), out_code, header, out_len);
+
+				// running hardware implementation on cpu
+				unsigned char* chunk_content_cpu = (unsigned char*)malloc(sizeof(unsigned char) * MAX_CHUNK_SIZE);
+				memcpy(chunk_content_cpu, chunk_content, chunks[i].length());
+				int chunk_len_cpu = chunk_len;
+				int total_bytes_cpu = 0;
+				unsigned char* file_buffer_cpu = (unsigned char*)malloc((std::ceil(MAX_CHUNK_SIZE * 1.5) + 4) * sizeof(unsigned char));
+				lzw(chunk_content_cpu, chunk_len_cpu, file_buffer_cpu, &total_bytes_cpu);
+
+				//the actual software implementation
+				vector<uint16_t> golden = encoding(chunks[i]);
+				uint16_t* golden_buf = (uint16_t*)malloc(golden.size()*sizeof(uint16_t));
+				int golden_len; 
+				vector_to_array(golden, golden_buf, golden_len);
+				unsigned char* golden_file_buf = (unsigned char*)malloc((std::ceil(golden_len * 3 / 2) + 4) * sizeof(unsigned char));
+				int golden_file_buf_len;
+				write_encoded_file_buf(golden_buf, golden_len, golden_file_buf, golden_file_buf_len);
+
+				q.enqueueWriteBuffer(header_buf, CL_TRUE, 0, sizeof(uint32_t), &header);
+				q.enqueueWriteBuffer(out_len_buf, CL_TRUE, 0, sizeof(int), &out_len);
 
                 timer.add("Read back computation results (implicit device->host migration)");
                 // q.enqueueMigrateMemObjects({out_code_buf, header_buf, out_len_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
@@ -217,19 +286,21 @@ int main(int argc, char** argv)
 				q.enqueueReadBuffer(out_len_buf, CL_TRUE, 0, sizeof(int), &out_len);
                 timer.finish();
 
-				std::cout << "output length = " << out_len << std::endl;
-				std::cout << "header = " << header << std::endl;
-				for(int k = 0; k < 10; k++){
-					std::cout << out_code[k] << " ";
-				}
-				printf("\n");
-                                
+				std::cout << "len cpu: " << total_bytes_cpu << std::endl;
+				std::cout << "len golden: " << golden_file_buf_len << std::endl;
+
+				for(int i = 0; i < total_bytes_cpu; i++)
+					std::cout << "cpu: " << std::hex << static_cast<int>(file_buffer_cpu[i]) << "; golden: " << std::hex << static_cast<int>(golden_file_buf[i]) << std::endl;
+
 				write_encoded_file(out_code, out_len, &header, "encoded.bin");
 				std::cout << "New chunk " << i << ": " << out_code << std::endl;
 				sum_raw_length += chunks[i].length();
 				sum_lzw_cmprs_len += out_len;
-				// free(out_code);
-				// free(chunk_content); 
+
+				free(chunk_content_cpu);
+				free(file_buffer_cpu);
+				free(golden_buf);
+				free(golden_file_buf);
 			}
 
 			else{
@@ -239,7 +310,7 @@ int main(int argc, char** argv)
 			}
 		}
 		base += chunks.size();
-		printf("........................\host");
+		printf("host\n");
 	}
 	float lzw_compress_ratio = sum_raw_length / sum_lzw_cmprs_len;
 	std::cout << "LZW compress ratio: " << lzw_compress_ratio << std::endl;
