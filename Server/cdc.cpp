@@ -49,6 +49,7 @@ void cdc(unsigned char* buffer, std::string &chunks, unsigned int buff_size,int 
             if((hash % MODULUS)== TARGET){
                 chunks=chunk;
                 chunk.clear();
+                current_i+=1;
                 break;
             }
         }
