@@ -44,7 +44,7 @@ std::vector<uint16_t> encoding(std::string s1);
 #ifdef HARDWARE
 extern "C"{
     void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32_t *header, int *out_len);
-    void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes);
+    // void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes);
     void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE], int length[CHUNKS_IN_SINGLE_KERNEL], unsigned char file_buffer[CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE], int total_bytes[CHUNKS_IN_SINGLE_KERNEL]);
 };
 void write_encoded_file(uint16_t* out_code, int out_len, uint32_t *header, char* fileName);

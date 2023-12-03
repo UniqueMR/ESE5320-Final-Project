@@ -106,7 +106,7 @@ clean: clean-cpu clean-host clean-accelerators clean-package
 
 $(XO): ./Server/lzw_unstream.cpp
 	-@$(RM) $@
-	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) -k lzw --compile -I"$(<D)" --config ./hls/design.cfg -o"$@" "$<"
+	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) -k lzw_multi_chunks --compile -I"$(<D)" --config ./hls/design.cfg -o"$@" "$<"
 
 $(XCLBIN): $(XO)
 	$(VPP) $(VPP_OPTS) --platform $(VITIS_PLATFORM_PATH) --link --config ./hls/design.cfg -o"$@" $(+)

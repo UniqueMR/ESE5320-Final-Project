@@ -3,59 +3,6 @@ using namespace std;
 int offset = 0;
 unsigned char* file;
 
-// void duplicate_encoding(int duplicate_idx, uint32_t &dup_outcode, unsigned char* file_buffer){
-    
-//     dup_outcode = static_cast<uint32_t>(duplicate_idx & 0xFFFFFFFF) << 1;
-//     dup_outcode |= static_cast<uint32_t>(0x1);
-
-//     file_buffer[0] = static_cast<unsigned char>(dup_outcode & 0xFF);
-//     file_buffer[1] = static_cast<unsigned char>((dup_outcode >> 8) & 0xFF);
-//     file_buffer[2] = static_cast<unsigned char>((dup_outcode >> 16) & 0xFF);
-//     file_buffer[3] = static_cast<unsigned char>(dup_outcode >> 24);
-// }
-
-// void write_encoded_file(uint16_t* out_code, int out_len, uint32_t *header, char* fileName){
-//     //printf("%d\n",out_code);
-//     int total_bits = out_len * 12;
-//     int total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
-//     *header = static_cast<uint32_t>(total_bytes & 0xFFFFFFFF) << 1;
-//     unsigned char* file_buffer = (unsigned char*)malloc(sizeof(unsigned char) * (total_bytes + 4));
-
-//     int i = 0, j = 0;
-
-//     file_buffer[j++] = static_cast<unsigned char>(*header & 0xFF);
-//     file_buffer[j++] = static_cast<unsigned char>((*header >> 8) & 0xFF);
-//     file_buffer[j++] = static_cast<unsigned char>((*header >> 16) & 0xFF);
-//     file_buffer[j++] = static_cast<unsigned char>(*header >> 24);
-//     for(i = 0; i + 1 < out_len; i += 2){
-//         file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
-//         file_buffer[j++] = static_cast<unsigned char>(((out_code[i] << 4) & 0xF0) | ((out_code[i + 1] >> 8) & 0x0F));
-//         file_buffer[j++] = static_cast<unsigned char>(out_code[i + 1] & 0xFF);
-//     }
-//     if(i != out_len){
-//         file_buffer[j++] = static_cast<unsigned char>(out_code[i] >> 4);
-//         file_buffer[j++] = static_cast<unsigned char>((out_code[i] << 4) & 0xF0);
-//     }
-
-//     std::ofstream outfile(fileName, std::ios::app);
-    
-//     if(!outfile.is_open()) {
-//         std::cerr << "Could not open the file for writing.\n";
-//         return;
-//     }
-
-//     // Write the data to the file
-//     outfile.write(reinterpret_cast<const char*>(file_buffer), total_bytes + 4);
-
-//     // Check for write errors
-//     if (!outfile.good()) {
-//         std::cerr << "Error occurred while writing to the file.\n";
-//     }
-
-//     // Close the file
-//     outfile.close();
-// }
-
 static void write_encoded_file_buf(uint16_t* out_code, int out_len, unsigned char* file_buffer, int &total_bytes){
     int total_bits = out_len * 12;
     total_bytes = static_cast<int>(std::ceil(total_bits / 8.0));
@@ -128,33 +75,25 @@ int main(int argc, char** argv)
     cl::Program::Binaries bins{{fileBuf, fileBufSize}};
     cl::Program program(context, devices, bins, NULL, &err);
     cl::CommandQueue q(context, device, CL_QUEUE_PROFILING_ENABLE, &err);
-    cl::Kernel krnl_hardware_encoding(program,"lzw", &err);
+    cl::Kernel krnl_hardware_encoding(program,"lzw_multi_chunks", &err);
 
 // ------------------------------------------------------------------------------------
 // Step 2: Create buffers and initialize test values
 // ------------------------------------------------------------------------------------
     timer.add("Allocate contiguous OpenCL buffers");
     // Create the buffers and allocate memory   
-    cl::Buffer chunk_content_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_READ_ONLY,  sizeof(unsigned char) * MAX_CHUNK_SIZE, NULL, &err);
-    cl::Buffer file_buffer_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint16_t) * MAX_CHUNK_SIZE, NULL, &err);
-    // cl::Buffer header_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(uint32_t), NULL, &err);
-    cl::Buffer total_bytes_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(int), NULL, &err);
-
-    // timer.add("Set kernel arguments");  
-    // // Map buffers to kernel arguments, thereby assigning them to specific device memory banks
-    // krnl_hardware_encoding.setArg(0, chunk_content_buf);
-    // krnl_hardware_encoding.setArg(1, *chunk_len_buf);
-    // krnl_hardware_encoding.setArg(2, out_code_buf);
-    // krnl_hardware_encoding.setArg(3, header_buf);
-    // krnl_hardware_encoding.setArg(4, out_len_buf);
+    cl::Buffer lzw_chunks_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_READ_ONLY,  sizeof(unsigned char) * CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE, NULL, &err);
+	cl::Buffer lzw_chunks_length_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_READ_ONLY, sizeof(int) * CHUNKS_IN_SINGLE_KERNEL, NULL, &err);
+    cl::Buffer lzw_file_buffer_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(unsigned char) * CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE, NULL, &err);
+    cl::Buffer lzw_total_bytes_buf(context, CL_MEM_ALLOC_HOST_PTR | CL_MEM_WRITE_ONLY,  sizeof(int) * CHUNKS_IN_SINGLE_KERNEL, NULL, &err);
 
     timer.add("Map buffers to userspace pointers");
     // Map host-side buffer memory to user-space pointers
-    unsigned char* chunk_content = (unsigned char *)q.enqueueMapBuffer(chunk_content_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(unsigned char) * MAX_CHUNK_SIZE);
-    unsigned char* file_buffer = (unsigned char*)q.enqueueMapBuffer(file_buffer_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(uint16_t) * MAX_CHUNK_SIZE);
-    // uint32_t* header = (uint32_t*)q.enqueueMapBuffer(header_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(uint32_t));
-    // int* out_len = (int*)q.enqueueMapBuffer(header_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(int));
-    
+    unsigned char* lzw_chunks = (unsigned char *)q.enqueueMapBuffer(lzw_chunks_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(unsigned char) * CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE);
+	int *lzw_chunks_length = (int*)q.enqueueMapBuffer(lzw_chunks_length_buf, CL_TRUE, CL_MAP_WRITE, 0, sizeof(int) * CHUNKS_IN_SINGLE_KERNEL);
+    unsigned char* lzw_file_buffer = (unsigned char*)q.enqueueMapBuffer(lzw_file_buffer_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(unsigned char) * CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE);
+	int *lzw_total_bytes = (int*)q.enqueueMapBuffer(lzw_total_bytes_buf, CL_TRUE, CL_MAP_READ, 0, sizeof(int) * CHUNKS_IN_SINGLE_KERNEL);
+
     timer.add("Populating buffer inputs");
 
 // ------------------------------------------------------------------------------------
@@ -253,9 +192,9 @@ int main(int argc, char** argv)
 
 		unsigned char lzw_chunks_cpu[CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE];
 		unsigned char lzw_file_buffer_cpu[CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE];
+		int lzw_chunks_length_cpu[4];
+		int lzw_total_bytes_cpu[4];
 		int lzw_offset = 0;
-		int lzw_chunks_length[4];
-		int lzw_total_bytes[4];
 
 		std::vector<std::array<unsigned char, 4>> dedup_file_buffer;
 		int dedup_offset = 0;
@@ -274,49 +213,63 @@ int main(int argc, char** argv)
 			
 			if(chunks_map.find(hash_hex_string) == chunks_map.end()){
 				chunks_map.insert({hash_hex_string, base + i});
+				unsigned char* chunk_content = (unsigned char*)malloc(sizeof(unsigned char) * MAX_CHUNK_SIZE);
                 convert_string_char(chunks[i], chunk_content);
                 int chunk_len = chunks[i].length();
 				int total_bytes = 0;
-
-				// timer.add("Set kernel arguments");  
-				// // Map buffers to kernel arguments, thereby assigning them to specific device memory banks
-				// krnl_hardware_encoding.setArg(0, chunk_content_buf);
-				// krnl_hardware_encoding.setArg(1, chunk_len);
-				// krnl_hardware_encoding.setArg(2, file_buffer_buf);
-				// krnl_hardware_encoding.setArg(3, total_bytes_buf);
-
-                // timer.add("Memory object migration enqueue host->device");
-                // cl::Event event_sp;
-                // q.enqueueMigrateMemObjects({chunk_content_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
-				// q.enqueueWriteBuffer(total_bytes_buf, CL_TRUE, 0, sizeof(int), &total_bytes);
-
-                // clWaitForEvents(1, (const cl_event *)&event_sp);
-
-				// //running kernel
-                // timer.add("Launch kernel");
-                // q.enqueueTask(krnl_hardware_encoding, NULL, &event_sp);
-                // timer.add("Wait for kernel to finish running");
-                // clWaitForEvents(1, (const cl_event *)&event_sp);
 				
 				total_time.stop();
-				// running hardware implementation on cpu
-				// unsigned char chunk_content_cpu[MAX_CHUNK_SIZE];
+				//runnning kernel on CPU
 				memcpy(&lzw_chunks_cpu[lzw_offset * MAX_CHUNK_SIZE], chunk_content, chunks[i].length());
+				lzw_chunks_length_cpu[lzw_offset] = chunk_len;
+				
+				//running kernel on FPGA
+				memcpy(&lzw_chunks[lzw_offset * MAX_CHUNK_SIZE], chunk_content, chunks[i].length());
 				lzw_chunks_length[lzw_offset] = chunk_len;
+
+				free(chunk_content);
+
 				lzw_or_dedup.push_back(false);
 				lzw_offset++;
 				if(lzw_offset == CHUNKS_IN_SINGLE_KERNEL){
 					std::cout << "calculating lzw in multi chunks" << std::endl;
 					lzw_offset = 0;
-					lzw_multi_chunks(lzw_chunks_cpu, lzw_chunks_length, lzw_file_buffer_cpu, lzw_total_bytes);
-					for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++)	std::cout << "lzw_total_bytes: " << lzw_total_bytes[i] << std::endl;
+
+					// running kernel on CPU 
+					total_time.stop();
+					lzw_multi_chunks(lzw_chunks_cpu, lzw_chunks_length_cpu, lzw_file_buffer_cpu, lzw_total_bytes_cpu);
+					total_time.start();
+
+					// running kernel on FPGA
+					timer.add("Set kernel arguments");  
+					// Map buffers to kernel arguments, thereby assigning them to specific device memory banks
+					krnl_hardware_encoding.setArg(0, lzw_chunks_buf);
+					krnl_hardware_encoding.setArg(1, lzw_chunks_length_buf);
+					krnl_hardware_encoding.setArg(2, lzw_file_buffer_buf);
+					krnl_hardware_encoding.setArg(3, lzw_total_bytes_buf);
+
+					timer.add("Memory object migration enqueue host->device");
+					cl::Event event_sp;
+					q.enqueueMigrateMemObjects({lzw_chunks_buf, lzw_chunks_length_buf, lzw_file_buffer_buf, lzw_total_bytes_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
+					clWaitForEvents(1, (const cl_event *)&event_sp);
+
+					//running kernel
+					timer.add("Launch kernel");
+					q.enqueueTask(krnl_hardware_encoding, NULL, &event_sp);
+					timer.add("Wait for kernel to finish running");
+					clWaitForEvents(1, (const cl_event *)&event_sp);
+
+					timer.add("Read back computation results (implicit device->host migration)");
+					q.enqueueMigrateMemObjects({lzw_chunks_buf, lzw_chunks_length_buf, lzw_file_buffer_buf, lzw_total_bytes_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
+					timer.finish();
+
+					for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++)	std::cout << "lzw_total_bytes: " << "cpu; " << lzw_total_bytes_cpu[i] << "kernel" << lzw_total_bytes[i] << std::endl;
 					std::cout << "total nums of write: " << lzw_or_dedup.size() << std::endl;
 					for(int i = 0; i < lzw_or_dedup.size(); i++){
-						std::cout << lzw_or_dedup[i] << std::endl;
 						if(!lzw_or_dedup[i]){
-							// for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
-							// 	std::cout << "multi lzw: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
-							write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
+							for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
+								std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
+							write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
 							lzw_offset++;
 						}
 						else{
@@ -335,10 +288,7 @@ int main(int argc, char** argv)
 					lzw_or_dedup.clear();
 					dedup_file_buffer.clear();
 				}
-				// int total_bytes_cpu = 0;
-				// unsigned char file_buffer_cpu[MAX_FILE_BUFFER_SIZE];
-				// lzw(chunk_content_cpu, chunk_len_cpu, file_buffer_cpu, &total_bytes_cpu);
-				
+
 				//the actual software implementation
 				// vector<uint16_t> golden = encoding(chunks[i]);
 				// uint16_t* golden_buf = (uint16_t*)malloc(golden.size()*sizeof(uint16_t));
@@ -349,29 +299,9 @@ int main(int argc, char** argv)
 				// write_encoded_file_buf(golden_buf, golden_len, golden_file_buf, golden_file_buf_len);
 				// total_time.start();
 
-                // timer.add("Read back computation results (implicit device->host migration)");
-                // q.enqueueMigrateMemObjects({file_buffer_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
-				// q.enqueueReadBuffer(total_bytes_buf, CL_TRUE, 0, sizeof(int), &total_bytes);
-                // timer.finish();
-
 				total_time.stop();
-				// std::cout << "len kernel: " << total_bytes << std::endl;
-				// std::cout << "len cpu: " << total_bytes_cpu << std::endl;
-				// std::cout << "len golden: " << golden_file_buf_len << std::endl;
-
-				// for(int i = 0; i < total_bytes_cpu; i++)
-				// 	std::cout << "kernel: " << std::hex << static_cast<int>(file_buffer[i]) << "; cpu: " << std::hex << static_cast<int>(file_buffer_cpu[i]) << "; golden: " << std::hex << static_cast<int>(golden_file_buf[i]) << std::endl;
-
-				// // write_encoded_file(out_code, out_len, &header, "encoded.bin");
-				// write_file(file_buffer, total_bytes_cpu, "encoded.bin");
 				sum_lzw_raw_length += chunks[i].length() * 1.5;
 				sum_lzw_cmprs_len += total_bytes;
-
-
-				// free(chunk_content_cpu);
-				// free(file_buffer_cpu);
-				// free(golden_buf);
-				// free(golden_file_buf);
 				total_time.start();
 			}
 
@@ -389,7 +319,6 @@ int main(int argc, char** argv)
 				lzw_or_dedup.push_back(true);
 				dedup_time.stop();
 				total_time.stop();
-				// write_file(file_buffer, 0, "encoded.bin");
 				std::cout << "Duplicate chunk " << i << ": " << out_code << std::endl;
 				sum_dedup_raw_length += chunks[i].length() * 1.5;
 				sum_dedup_cmprs_len += 4;
@@ -399,12 +328,42 @@ int main(int argc, char** argv)
 		if(lzw_offset != 0){
 			std::cout << "calculating lzw in multi chunks" << std::endl;
 			lzw_offset = 0;
-			lzw_multi_chunks(lzw_chunks_cpu, lzw_chunks_length, lzw_file_buffer_cpu, lzw_total_bytes);
+
+			// running kernel on CPU 
+			total_time.stop();
+			lzw_multi_chunks(lzw_chunks_cpu, lzw_chunks_length_cpu, lzw_file_buffer_cpu, lzw_total_bytes_cpu);
+			total_time.start();
+
+			// running kernel on FPGA
+			timer.add("Set kernel arguments");  
+			// Map buffers to kernel arguments, thereby assigning them to specific device memory banks
+			krnl_hardware_encoding.setArg(0, lzw_chunks_buf);
+			krnl_hardware_encoding.setArg(1, lzw_chunks_length_buf);
+			krnl_hardware_encoding.setArg(2, lzw_file_buffer_buf);
+			krnl_hardware_encoding.setArg(3, lzw_total_bytes_buf);
+
+			timer.add("Memory object migration enqueue host->device");
+			cl::Event event_sp;
+			q.enqueueMigrateMemObjects({lzw_chunks_buf, lzw_chunks_length_buf, lzw_file_buffer_buf, lzw_total_bytes_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
+			clWaitForEvents(1, (const cl_event *)&event_sp);
+
+			//running kernel
+			timer.add("Launch kernel");
+			q.enqueueTask(krnl_hardware_encoding, NULL, &event_sp);
+			timer.add("Wait for kernel to finish running");
+			clWaitForEvents(1, (const cl_event *)&event_sp);
+
+			timer.add("Read back computation results (implicit device->host migration)");
+			q.enqueueMigrateMemObjects({lzw_chunks_buf, lzw_chunks_length_buf, lzw_file_buffer_buf, lzw_total_bytes_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
+			timer.finish();
+
+			for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++)	std::cout << "lzw_total_bytes: " << "cpu; " << lzw_total_bytes_cpu[i] << "kernel" << lzw_total_bytes[i] << std::endl;
+			std::cout << "total nums of write: " << lzw_or_dedup.size() << std::endl;
 			for(int i = 0; i < lzw_or_dedup.size(); i++){
 				if(!lzw_or_dedup[i]){
-					// for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
-					// 	std::cout << "multi lzw: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
-					write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
+					for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
+						std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
+					write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
 					lzw_offset++;
 				}
 				else{
@@ -482,10 +441,10 @@ int main(int argc, char** argv)
     // bool match = Compare_matrices(out_sw, out_hw);
     // Destroy_matrix(out_sw);
     delete[] fileBuf;
-    q.enqueueUnmapMemObject(chunk_content_buf, chunk_content);
-    q.enqueueUnmapMemObject(file_buffer_buf, file_buffer);
-    // q.enqueueUnmapMemObject(header_buf, header);
-    // q.enqueueUnmapMemObject(out_len_buf, out_len);
+    q.enqueueUnmapMemObject(lzw_chunks_buf, lzw_chunks);
+    q.enqueueUnmapMemObject(lzw_chunks_length_buf, lzw_chunks_length);
+    q.enqueueUnmapMemObject(lzw_file_buffer_buf, lzw_file_buffer);
+    q.enqueueUnmapMemObject(lzw_total_bytes_buf, lzw_total_bytes);
     q.finish();
 
     // std::cout << "--------------- Key execution times ---------------" << std::endl;

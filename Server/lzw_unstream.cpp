@@ -106,7 +106,7 @@ static unsigned int findAddr(uint64_t match){
     if(match == 0)  return 64; //find address failed
 
     uint8_t segment[8]; // split 64-bits match into 8 x 8 bits
-    #pragma HLS ARRAY_PARTITION variable=segment complete
+    #pragma HLS array_partition variable=segment complete
     // initialize all the segments in parallel
     for(int i = 0; i < 8; i++){
         #pragma HLS UNROLL
@@ -114,7 +114,7 @@ static unsigned int findAddr(uint64_t match){
     }
 
     uint8_t mask[8];
-    #pragma HLS ARRAY_PARTITION variable=mask complete
+    #pragma HLS array_partition variable=mask complete
     for(int j = 0; j < 8; j++){
         #pragma HLS UNROLL
         mask[j] = 0x1 << j;
@@ -187,8 +187,10 @@ static void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, 
     }
 }
 
-static void write_header(unsigned char* file_buffer, uint32_t header) {
+static void write_header(unsigned char file_buffer[4], uint32_t header) {
+    #pragma HLS array_partition variable=file_buffer complete
     for (int i = 0; i < 4; ++i) {
+        #pragma HLS UNROLL
         file_buffer[i] = static_cast<unsigned char>((header >> (i * 8)) & 0xFF);
     }
 }
@@ -199,17 +201,21 @@ static void write_header(unsigned char* file_buffer, uint32_t header) {
 //     file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
 // }
 
-static void clear_hash_table(unsigned long *hash_table){
+static void clear_hash_table(unsigned long hash_table[CAPACITY]){
+    #pragma HLS array_partition variable=hash_table complete
     for(int i = 0; i < CAPACITY; i++)
     {
+        #pragma HLS UNROLL
         hash_table[i] = 0;
     }
 }
 
-static void clear_assoc_mem(assoc_mem* my_assoc_mem){
+static void clear_assoc_mem(assoc_mem my_assoc_mem[512]){
+    #pragma HLS array_partition variable=my_assoc_mem complete
     my_assoc_mem->fill = 0;
     for(int i = 0; i < 512; i++)
     {
+        #pragma HLS UNROLL
         my_assoc_mem->upper_key_mem[i] = 0;
         my_assoc_mem->middle_key_mem[i] = 0;
         my_assoc_mem->lower_key_mem[i] = 0;
@@ -217,6 +223,7 @@ static void clear_assoc_mem(assoc_mem* my_assoc_mem){
 }
 
 static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
+    #pragma HLS DATAFLOW
     clear_hash_table(hash_table);
     clear_assoc_mem(my_assoc_mem);
 }
@@ -259,7 +266,7 @@ mem_wr:
     return;
 }
 
-void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
+static void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
 
@@ -319,8 +326,13 @@ void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_b
 }
 
 void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE], int length[CHUNKS_IN_SINGLE_KERNEL], unsigned char file_buffer[CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE], int total_bytes[CHUNKS_IN_SINGLE_KERNEL]){
-#pragma HLS array_partition variable=multi_chunks block factor=CHUNKS_IN_SINGLE_KERNEL
-#pragma HLS array_partition variable=file_buffer block factor=CHUNKS_IN_SINGLE_KERNEL
+#pragma HLS INTERFACE m_axi port=multi_chunks bundle=aximm1
+#pragma HLS INTERFACE m_axi port=length bundle=aximm2
+#pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3
+#pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4
+
+#pragma HLS array_partition variable=multi_chunks block factor=4
+#pragma HLS array_partition variable=file_buffer block factor=4
     for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
         #pragma HLS unroll
         lzw(&multi_chunks[i * MAX_CHUNK_SIZE], length[i], &file_buffer[i * MAX_FILE_BUFFER_SIZE], &total_bytes[i]);
