@@ -9,7 +9,6 @@
 #define CL_USE_DEPRECATED_OPENCL_1_2_APIS
 
 //this value should be more carefully defined afterwards
-#define MAX_CHUNK_SIZE 100000
 #define MAX_FILENAME_SIZE 100
 
 #include "utils.h"

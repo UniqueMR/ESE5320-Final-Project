@@ -77,6 +77,7 @@
         "utility": "cpp",
         "format": "cpp",
         "numbers": "cpp",
-        "span": "cpp"
+        "span": "cpp",
+        "queue": "cpp"
     }
 }

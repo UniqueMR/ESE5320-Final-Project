@@ -193,11 +193,11 @@ static void write_header(unsigned char* file_buffer, uint32_t header) {
     }
 }
 
-static void write_file_buffer(unsigned char* file_buffer, int j, uint16_t out_code_0, uint16_t out_code_1){
-    file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
-    file_buffer[j+1] = static_cast<unsigned char>(((out_code_0 << 4) & 0xF0) | ((out_code_1 >> 8) & 0x0F));
-    file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
-}
+// static void write_file_buffer(unsigned char* file_buffer, int j, uint16_t out_code_0, uint16_t out_code_1){
+//     file_buffer[j] = static_cast<unsigned char>(out_code_0 >> 4);
+//     file_buffer[j+1] = static_cast<unsigned char>(((out_code_0 << 4) & 0xF0) | ((out_code_1 >> 8) & 0x0F));
+//     file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
+// }
 
 static void clear_hash_table(unsigned long *hash_table){
     for(int i = 0; i < CAPACITY; i++)
@@ -230,8 +230,10 @@ static int ceil_fixed(float num){
     }
 }
 
-static void write_result(uint16_t* out_code, int out_len, unsigned char* file_buffer, int* total_bytes){
+static void write_result(uint16_t out_code[MAX_CHUNK_SIZE], int out_len, unsigned char file_buffer[MAX_FILE_BUFFER_SIZE], int* total_bytes){
 mem_wr:
+#pragma HLS array_partition variable=out_code complete
+#pragma HLS array_partition variable=file_buffer complete
     int total_bits = out_len * 12;
     *total_bytes = static_cast<int>(ceil_fixed(total_bits / 8.0));
     uint32_t header = static_cast<uint32_t>(*total_bytes & 0xFFFFFFFF) << 1;
@@ -241,8 +243,10 @@ mem_wr:
     int i = 0, j = 4;
 
     for(i = 0; i + 1 < out_len; i += 2){
-// #pragma HLS LOOP_TRIPCOUNT min = *out_len max = *out_len
-        write_file_buffer(file_buffer, j, out_code[i], out_code[i+1]);
+        #pragma HLS unroll
+        file_buffer[j] = static_cast<unsigned char>(out_code[i] >> 4);
+        file_buffer[j+1] = static_cast<unsigned char>(((out_code[i] << 4) & 0xF0) | ((out_code[i+1] >> 8) & 0x0F));
+        file_buffer[j+2] = static_cast<unsigned char>(out_code[i+1] & 0xFF);
         j += 3;
     }
 
@@ -280,10 +284,10 @@ void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_b
         lookup(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, &hit, &code);
         if(!hit)
         {
-            std::cout << prefix_code;
+            // std::cout << prefix_code;
             out_code[j++] = prefix_code;
             // out_code[i]=prefix_code;
-            std::cout << "\n";
+            // std::cout << "\n";
 
             bool collision = 0;
             insert(hash_table, &my_assoc_mem, (prefix_code << 8) + next_char, next_code, &collision);
@@ -301,8 +305,8 @@ void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_b
             prefix_code = code;
             if(i + 1 == length){
                 out_code[j++] = prefix_code;
-            	std::cout << prefix_code;
-            	std::cout << "\n";
+            	// std::cout << prefix_code;
+            	// std::cout << "\n";
             }
 
         }
@@ -312,4 +316,13 @@ void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_b
     int out_len = j;
     write_result(out_code, out_len, file_buffer, total_bytes);
     return;
+}
+
+void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE], int length[CHUNKS_IN_SINGLE_KERNEL], unsigned char file_buffer[CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE], int total_bytes[CHUNKS_IN_SINGLE_KERNEL]){
+#pragma HLS array_partition variable=multi_chunks block factor=CHUNKS_IN_SINGLE_KERNEL
+#pragma HLS array_partition variable=file_buffer block factor=CHUNKS_IN_SINGLE_KERNEL
+    for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
+        #pragma HLS unroll
+        lzw(&multi_chunks[i * MAX_CHUNK_SIZE], length[i], &file_buffer[i * MAX_FILE_BUFFER_SIZE], &total_bytes[i]);
+    }
 }
