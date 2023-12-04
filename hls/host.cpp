@@ -99,7 +99,7 @@ int main(int argc, char** argv)
 // ------------------------------------------------------------------------------------
 // Step 3: Run the kernel
 // ------------------------------------------------------------------------------------
-	std::cout << "11:05am" << std::endl;
+	std::cout << "dec 4 0224" << std::endl;
 	std::cout << argv[1] << std::endl;
 	stopwatch ethernet_timer;
 	unsigned char* input[NUM_PACKETS];
@@ -250,7 +250,7 @@ int main(int argc, char** argv)
 
 					timer.add("Memory object migration enqueue host->device");
 					cl::Event event_sp;
-					q.enqueueMigrateMemObjects({lzw_chunks_buf, lzw_chunks_length_buf, lzw_file_buffer_buf, lzw_total_bytes_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
+					q.enqueueMigrateMemObjects({lzw_chunks_buf, lzw_chunks_length_buf}, 0 /* 0 means from host*/, NULL, &event_sp); 
 					clWaitForEvents(1, (const cl_event *)&event_sp);
 
 					//running kernel
@@ -260,10 +260,10 @@ int main(int argc, char** argv)
 					clWaitForEvents(1, (const cl_event *)&event_sp);
 
 					timer.add("Read back computation results (implicit device->host migration)");
-					q.enqueueMigrateMemObjects({lzw_chunks_buf, lzw_chunks_length_buf, lzw_file_buffer_buf, lzw_total_bytes_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
+					q.enqueueMigrateMemObjects({lzw_file_buffer_buf, lzw_total_bytes_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
 					timer.finish();
 
-					for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++)	std::cout << "lzw_total_bytes: " << "cpu; " << lzw_total_bytes_cpu[i] << "kernel" << lzw_total_bytes[i] << std::endl;
+					for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++)	std::cout << "lzw_total_bytes: " << "cpu: " << lzw_total_bytes_cpu[i] << "kernel: " << lzw_total_bytes[i] << std::endl;
 					std::cout << "total nums of write: " << lzw_or_dedup.size() << std::endl;
 					for(int i = 0; i < lzw_or_dedup.size(); i++){
 						if(!lzw_or_dedup[i]){
