@@ -99,7 +99,7 @@ int main(int argc, char** argv)
 // ------------------------------------------------------------------------------------
 // Step 3: Run the kernel
 // ------------------------------------------------------------------------------------
-	std::cout << "dec 4 0224" << std::endl;
+	std::cout << "dec 5 1505" << std::endl;
 	std::cout << argv[1] << std::endl;
 	stopwatch ethernet_timer;
 	unsigned char* input[NUM_PACKETS];
