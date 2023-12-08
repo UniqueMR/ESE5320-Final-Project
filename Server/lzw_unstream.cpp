@@ -297,6 +297,11 @@ static void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* 
     int i = 0, j = 0;
     while(i < length)
     {
+        if(i + 1 == length){
+            out_code[j++] = prefix_code;
+            break;
+        }
+
         next_char = s1[i + 1];
 
         bool hit = 0;
@@ -323,10 +328,6 @@ static void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* 
         else
         {
             prefix_code = code;
-            if(i + 1 == length){
-                out_code[j++] = prefix_code;
-            }
-
         }
         i += 1;
     }
@@ -419,30 +420,35 @@ static void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* 
 // }
 
 void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE], int length[CHUNKS_IN_SINGLE_KERNEL], unsigned char file_buffer[CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE], int total_bytes[CHUNKS_IN_SINGLE_KERNEL]){
-// #pragma HLS INTERFACE m_axi port=multi_chunks bundle=aximm1
-// #pragma HLS INTERFACE m_axi port=length bundle=aximm2
-// #pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3
-// #pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4
+#pragma HLS INTERFACE m_axi port=multi_chunks bundle=aximm1
+#pragma HLS INTERFACE m_axi port=length bundle=aximm2
+#pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3
+#pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4
 
 // #pragma HLS array_partition variable=multi_chunks block factor=4
 // #pragma HLS array_partition variable=file_buffer block factor=4
     unsigned char input_buffer[CHUNKS_IN_SINGLE_KERNEL][MAX_CHUNK_SIZE];
     unsigned char output_buffer[CHUNKS_IN_SINGLE_KERNEL][MAX_FILE_BUFFER_SIZE];
 
+#pragma HLS array_partition variable=input_buffer complete
+#pragma HLS array_partition variable=output_buffer complete
+
     Init_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
         Init_loop_j: for(int j = 0; j < length[i]; j++){
+            #pragma HLS pipeline II=1
             input_buffer[i][j] = multi_chunks[i * MAX_CHUNK_SIZE + j];
         }
     }
 
     Main_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
-        // #pragma HLS unroll
+        #pragma HLS unroll
         // lzw(&multi_chunks[i * MAX_CHUNK_SIZE], length[i], &file_buffer[i * MAX_FILE_BUFFER_SIZE], &total_bytes[i]);
         lzw(input_buffer[i], length[i], output_buffer[i], total_bytes + i);
     }
 
     Epi_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
         Epi_loop_j: for(int j = 0; j < total_bytes[i]; j++){
+            #pragma HLS pipeline II=1
             file_buffer[i * MAX_FILE_BUFFER_SIZE + j] = output_buffer[i][j];
         }
     }

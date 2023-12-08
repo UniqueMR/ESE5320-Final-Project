@@ -185,7 +185,7 @@ int main(int argc, char** argv)
 
 		total_time.start();
 		cdc_time.start();
-		cdc(&buffer[2], chunks, NUM_ELEMENTS + HEADER);
+		cdc(&buffer[2], chunks, length);
 		cdc_time.stop();
 
 		std::vector<bool> lzw_or_dedup; //0 denotes lzw, while 1 denotes dedup
@@ -269,7 +269,7 @@ int main(int argc, char** argv)
 						if(!lzw_or_dedup[i]){
 							for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
 								std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
-							write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
+							write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
 							lzw_offset++;
 						}
 						else{
@@ -363,7 +363,7 @@ int main(int argc, char** argv)
 				if(!lzw_or_dedup[i]){
 					for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
 						std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
-					write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
+					write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
 					lzw_offset++;
 				}
 				else{
