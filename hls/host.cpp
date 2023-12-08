@@ -285,7 +285,7 @@ int main(int argc, char** argv)
 						if(!lzw_or_dedup[i]){
 							for(int j = 0; j < lzw_total_bytes[lzw_offset] + 4; j++)
 								std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << std::hex << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; software: " << std::hex << static_cast<int>(software_content[lzw_offset][j]) << std::endl;
-							write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
+							write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
 							lzw_offset++;
 						}
 						else{
@@ -371,7 +371,7 @@ int main(int argc, char** argv)
 				if(!lzw_or_dedup[i]){
 					for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
 						std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
-					write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
+					write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
 					lzw_offset++;
 				}
 				else{
