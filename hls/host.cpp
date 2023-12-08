@@ -99,7 +99,7 @@ int main(int argc, char** argv)
 // ------------------------------------------------------------------------------------
 // Step 3: Run the kernel
 // ------------------------------------------------------------------------------------
-	std::cout << "dec 5 1505" << std::endl;
+	std::cout << "dec 8 0941" << std::endl;
 	std::cout << argv[1] << std::endl;
 	stopwatch ethernet_timer;
 	unsigned char* input[NUM_PACKETS];
@@ -283,7 +283,7 @@ int main(int argc, char** argv)
 					std::cout << "total nums of write: " << lzw_or_dedup.size() << std::endl;
 					for(int i = 0; i < lzw_or_dedup.size(); i++){
 						if(!lzw_or_dedup[i]){
-							for(int j = 0; j < lzw_total_bytes[lzw_offset] + 4; j++)
+							for(int j = 0; j < lzw_total_bytes_cpu[lzw_offset] + 4; j++)
 								std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << std::hex << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; software: " << std::hex << static_cast<int>(software_content[lzw_offset][j]) << std::endl;
 							write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
 							lzw_offset++;
@@ -369,7 +369,7 @@ int main(int argc, char** argv)
 			std::cout << "total nums of write: " << lzw_or_dedup.size() << std::endl;
 			for(int i = 0; i < lzw_or_dedup.size(); i++){
 				if(!lzw_or_dedup[i]){
-					for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
+					for(int j = 0; j < lzw_total_bytes_cpu[lzw_offset]; j++)
 						std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
 					write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
 					lzw_offset++;

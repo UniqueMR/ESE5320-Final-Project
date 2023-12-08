@@ -435,8 +435,8 @@ void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_C
 
 #pragma HLS stream variable=stream_input depth=2500
 #pragma HLS stream variable=stream_output depth=3750
-#pragma HLS stream variable=len_input depth=10
-#pragma HLS stream variable=len_output depth=10
+#pragma HLS stream variable=len_input depth=200
+#pragma HLS stream variable=len_output depth=200
 
 #pragma HLS array_partition variable=stream_input complete
 #pragma HLS array_partition variable=stream_output complete
