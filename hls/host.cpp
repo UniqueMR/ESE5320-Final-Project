@@ -199,6 +199,9 @@ int main(int argc, char** argv)
 		std::vector<std::array<unsigned char, 4>> dedup_file_buffer;
 		int dedup_offset = 0;
 
+		std::vector<int> software_len;
+		unsigned char *software_content[4];
+
 		//calculate hash value and chunk id for each chunk
 		//add those key-value pairs to chunks map
 		//Question: do we need to consider the situation that different chunks share the same hash value calculated by SHA at this point
@@ -229,8 +232,20 @@ int main(int argc, char** argv)
 
 				free(chunk_content);
 
+				//the actual software implementation
+				vector<uint16_t> golden = encoding(chunks[i]);
+				uint16_t* golden_buf = (uint16_t*)malloc(golden.size()*sizeof(uint16_t));
+				int golden_len; 
+				vector_to_array(golden, golden_buf, golden_len);
+				unsigned char* golden_file_buf = (unsigned char*)malloc((std::ceil(golden_len * 3 / 2) + 4) * sizeof(unsigned char));
+				int golden_file_buf_len;
+				write_encoded_file_buf(golden_buf, golden_len, golden_file_buf, golden_file_buf_len);
+				software_len.push_back(golden_file_buf_len);
+				software_content[lzw_offset] = golden_file_buf;
+
 				lzw_or_dedup.push_back(false);
 				lzw_offset++;
+
 				if(lzw_offset == CHUNKS_IN_SINGLE_KERNEL){
 					std::cout << "calculating lzw in multi chunks" << std::endl;
 					lzw_offset = 0;
@@ -263,13 +278,14 @@ int main(int argc, char** argv)
 					q.enqueueMigrateMemObjects({lzw_file_buffer_buf, lzw_total_bytes_buf}, CL_MIGRATE_MEM_OBJECT_HOST, NULL, &event_sp); 
 					timer.finish();
 
-					for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++)	std::cout << "lzw_total_bytes: " << "cpu: " << lzw_total_bytes_cpu[i] << "kernel: " << lzw_total_bytes[i] << std::endl;
+					for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++)	std::cout << "lzw_total_bytes: " << "cpu: " << lzw_total_bytes_cpu[i] << "; kernel: " << lzw_total_bytes[i] << "; software: " << software_len[i] << std::endl;
+					software_len.clear();
 					std::cout << "total nums of write: " << lzw_or_dedup.size() << std::endl;
 					for(int i = 0; i < lzw_or_dedup.size(); i++){
 						if(!lzw_or_dedup[i]){
-							for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
-								std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
-							write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
+							for(int j = 0; j < lzw_total_bytes[lzw_offset] + 4; j++)
+								std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << std::hex << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; software: " << std::hex << static_cast<int>(software_content[lzw_offset][j]) << std::endl;
+							write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
 							lzw_offset++;
 						}
 						else{
@@ -289,15 +305,7 @@ int main(int argc, char** argv)
 					dedup_file_buffer.clear();
 				}
 
-				//the actual software implementation
-				// vector<uint16_t> golden = encoding(chunks[i]);
-				// uint16_t* golden_buf = (uint16_t*)malloc(golden.size()*sizeof(uint16_t));
-				// int golden_len; 
-				// vector_to_array(golden, golden_buf, golden_len);
-				// unsigned char* golden_file_buf = (unsigned char*)malloc((std::ceil(golden_len * 3 / 2) + 4) * sizeof(unsigned char));
-				// int golden_file_buf_len;
-				// write_encoded_file_buf(golden_buf, golden_len, golden_file_buf, golden_file_buf_len);
-				// total_time.start();
+				total_time.start();
 
 				total_time.stop();
 				sum_lzw_raw_length += chunks[i].length() * 1.5;
@@ -363,7 +371,7 @@ int main(int argc, char** argv)
 				if(!lzw_or_dedup[i]){
 					for(int j = 0; j < lzw_total_bytes[lzw_offset]; j++)
 						std::cout << "multi lzw: " << "cpu: " << std::hex << static_cast<int>(lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << "; kernel: " << static_cast<int>(lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE + j]) << std::endl;
-					write_file(&lzw_file_buffer[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes[lzw_offset], "encoded.bin");
+					write_file(&lzw_file_buffer_cpu[lzw_offset * MAX_FILE_BUFFER_SIZE], lzw_total_bytes_cpu[lzw_offset], "encoded.bin");
 					lzw_offset++;
 				}
 				else{

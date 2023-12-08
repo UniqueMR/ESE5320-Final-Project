@@ -3,16 +3,18 @@
 #include <string>
 static uint64_t last_hash = 0;
 
+int expo_table[]={1, 3, 9, 27, 81, 243, 729, 2187, 6561, 19683, 59049, 177147, 531441, 1594323, 4782969, 14348907, 43046721, 129140163};
+
 static uint64_t hash_func(unsigned char *input, unsigned int pos)
 {
 	uint64_t hash = 0; 
     if(last_hash == 0){
         for(int i = 0; i < WIN_SIZE; i++){
-        	hash += static_cast<uint64_t>(input[pos + WIN_SIZE - 1 - i]) * std::pow(PRIME, i + 1);
+        	hash += static_cast<uint64_t>(input[pos + WIN_SIZE - 1 - i]) * expo_table[i+1];
         }
     }
     else{
-        hash = last_hash * PRIME - static_cast<uint64_t>(input[pos - 1]) * std::pow(PRIME, WIN_SIZE + 1) + static_cast<uint64_t>(input[pos + WIN_SIZE - 1]) * PRIME;
+        hash = last_hash * PRIME - static_cast<uint64_t>(input[pos - 1]) * expo_table[WIN_SIZE + 1] + static_cast<uint64_t>(input[pos + WIN_SIZE - 1]) * PRIME;
     }
 	// std::cout << hash << std::endl;
     last_hash = hash;

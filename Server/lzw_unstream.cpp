@@ -299,6 +299,8 @@ static void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* 
     {
         if(i + 1 == length){
             out_code[j++] = prefix_code;
+            std::cout << prefix_code << std::endl;
+            std::cout << "............" << std::endl;
             break;
         }
 
@@ -311,6 +313,7 @@ static void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* 
         {
             // std::cout << prefix_code;
             out_code[j++] = prefix_code;
+            std::cout << prefix_code << " ";
             // out_code[i]=prefix_code;
             // std::cout << "\n";
 
@@ -442,16 +445,14 @@ void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_C
 
     Main_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
         #pragma HLS unroll
-        // lzw(&multi_chunks[i * MAX_CHUNK_SIZE], length[i], &file_buffer[i * MAX_FILE_BUFFER_SIZE], &total_bytes[i]);
         lzw(input_buffer[i], length[i], output_buffer[i], total_bytes + i);
     }
 
     Epi_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
-        Epi_loop_j: for(int j = 0; j < total_bytes[i]; j++){
+        Epi_loop_j: for(int j = 0; j < total_bytes[i] + 4; j++){
             #pragma HLS pipeline II=1
             file_buffer[i * MAX_FILE_BUFFER_SIZE + j] = output_buffer[i][j];
         }
     }
-    
     return;
 }
