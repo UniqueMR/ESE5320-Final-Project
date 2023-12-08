@@ -201,32 +201,31 @@ static void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, 
 // //     file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
 // // }
 
-// static void clear_hash_table(unsigned long hash_table[CAPACITY]){
-//     // #pragma HLS array_partition variable=hash_table complete
-//     for(int i = 0; i < CAPACITY; i++)
-//     {
-//         #pragma HLS UNROLL
-//         hash_table[i] = 0;
-//     }
-// }
+static void clear_hash_table(unsigned long hash_table[CAPACITY]){
+    #pragma HLS array_partition variable=hash_table type=block factor=32
+    for(int i = 0; i < CAPACITY; i++)
+    {
+        hash_table[i] = 0;
+    }
+}
 
-// static void clear_assoc_mem(assoc_mem my_assoc_mem[512]){
-//     // #pragma HLS array_partition variable=my_assoc_mem complete
-//     my_assoc_mem->fill = 0;
-//     for(int i = 0; i < 512; i++)
-//     {
-//         #pragma HLS UNROLL
-//         my_assoc_mem->upper_key_mem[i] = 0;
-//         my_assoc_mem->middle_key_mem[i] = 0;
-//         my_assoc_mem->lower_key_mem[i] = 0;
-//     }
-// }
+static void clear_assoc_mem(assoc_mem my_assoc_mem[512]){
+    #pragma HLS array_partition variable=my_assoc_mem type=block factor=16
+    my_assoc_mem->fill = 0;
+    for(int i = 0; i < 512; i++)
+    {
+        #pragma HLS pipeline II=1
+        my_assoc_mem->upper_key_mem[i] = 0;
+        my_assoc_mem->middle_key_mem[i] = 0;
+        my_assoc_mem->lower_key_mem[i] = 0;
+    }
+}
 
-// static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
-//     #pragma HLS DATAFLOW
-//     clear_hash_table(hash_table);
-//     clear_assoc_mem(my_assoc_mem);
-// }
+static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
+    #pragma HLS DATAFLOW
+    clear_hash_table(hash_table);
+    clear_assoc_mem(my_assoc_mem);
+}
 
 // static int ceil_fixed(float num){
 //     int inum = (int)num;
@@ -270,20 +269,7 @@ static void lzw(hls::stream<unsigned char>& input_stream, hls::stream<int>& leng
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
 
-    for(int i = 0; i < CAPACITY; i++)
-    {
-        #pragma HLS pipeline II=1
-        hash_table[i] = 0;
-    }
-
-    my_assoc_mem.fill = 0;
-    for(int i = 0; i < 512; i++)
-    {
-        #pragma HLS pipeline II=1
-        my_assoc_mem.upper_key_mem[i] = 0;
-        my_assoc_mem.middle_key_mem[i] = 0;
-        my_assoc_mem.lower_key_mem[i] = 0;
-    }
+    clear_mem(hash_table, &my_assoc_mem);
 
     uint16_t out_code[MAX_CHUNK_SIZE];
 
@@ -433,10 +419,10 @@ void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_C
     hls::stream<int> len_input[CHUNKS_IN_SINGLE_KERNEL];
     hls::stream<int> len_output[CHUNKS_IN_SINGLE_KERNEL];
 
-#pragma HLS stream variable=stream_input depth=2500
-#pragma HLS stream variable=stream_output depth=3750
-#pragma HLS stream variable=len_input depth=200
-#pragma HLS stream variable=len_output depth=200
+#pragma HLS stream variable=stream_input depth=250
+#pragma HLS stream variable=stream_output depth=375
+#pragma HLS stream variable=len_input depth=50
+#pragma HLS stream variable=len_output depth=50
 
 #pragma HLS array_partition variable=stream_input complete
 #pragma HLS array_partition variable=stream_output complete
