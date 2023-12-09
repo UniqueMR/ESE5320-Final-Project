@@ -10,6 +10,7 @@
 
 //this value should be more carefully defined afterwards
 #define MAX_FILENAME_SIZE 100
+#define NUM_KERNELS 2
 
 #include "utils.h"
 #include "EventTimer.h"
