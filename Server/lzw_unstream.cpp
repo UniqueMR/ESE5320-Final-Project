@@ -201,40 +201,41 @@ static void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, 
 // //     file_buffer[j+2] = static_cast<unsigned char>(out_code_1 & 0xFF);
 // // }
 
-static void clear_hash_table(unsigned long hash_table[CAPACITY]){
-    #pragma HLS array_partition variable=hash_table type=block factor=32
-    for(int i = 0; i < CAPACITY; i++)
-    {
-        hash_table[i] = 0;
-    }
-}
-
-static void clear_assoc_mem(assoc_mem my_assoc_mem[512]){
-    #pragma HLS array_partition variable=my_assoc_mem type=block factor=16
-    my_assoc_mem->fill = 0;
-    for(int i = 0; i < 512; i++)
-    {
-        #pragma HLS pipeline II=1
-        my_assoc_mem->upper_key_mem[i] = 0;
-        my_assoc_mem->middle_key_mem[i] = 0;
-        my_assoc_mem->lower_key_mem[i] = 0;
-    }
-}
-
-static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
-    #pragma HLS DATAFLOW
-    clear_hash_table(hash_table);
-    clear_assoc_mem(my_assoc_mem);
-}
-
-// static int ceil_fixed(float num){
-//     int inum = (int)num;
-//     if (num == (float)inum) {
-//         return inum;
-//     } else {
-//         return inum + ((num > 0) ? 1 : 0);
+// static void clear_hash_table(unsigned long hash_table[CAPACITY]){
+//     // #pragma HLS array_partition variable=hash_table complete
+//     for(int i = 0; i < CAPACITY; i++)
+//     {
+//         #pragma HLS UNROLL
+//         hash_table[i] = 0;
 //     }
 // }
+
+// static void clear_assoc_mem(assoc_mem my_assoc_mem[512]){
+//     // #pragma HLS array_partition variable=my_assoc_mem complete
+//     my_assoc_mem->fill = 0;
+//     for(int i = 0; i < 512; i++)
+//     {
+//         #pragma HLS UNROLL
+//         my_assoc_mem->upper_key_mem[i] = 0;
+//         my_assoc_mem->middle_key_mem[i] = 0;
+//         my_assoc_mem->lower_key_mem[i] = 0;
+//     }
+// }
+
+// static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
+//     #pragma HLS DATAFLOW
+//     clear_hash_table(hash_table);
+//     clear_assoc_mem(my_assoc_mem);
+// }
+
+static int ceil_fixed(float num){
+    int inum = (int)num;
+    if (num == (float)inum) {
+        return inum;
+    } else {
+        return inum + ((num > 0) ? 1 : 0);
+    }
+}
 
 // static void write_result(uint16_t out_code[MAX_CHUNK_SIZE], int out_len, unsigned char file_buffer[MAX_FILE_BUFFER_SIZE], int* total_bytes){
 // mem_wr:
@@ -265,30 +266,45 @@ static void clear_mem(unsigned long *hash_table, assoc_mem* my_assoc_mem){
 //     return;
 // }
 
-static void lzw(hls::stream<unsigned char>& input_stream, hls::stream<int>& length, hls::stream<unsigned char>& output_stream, hls::stream<int>& total_bytes){
+static void lzw(unsigned char* s1, int length, unsigned char* file_buffer, int* total_bytes){
     unsigned long hash_table[CAPACITY];
     assoc_mem my_assoc_mem;
 
-    clear_mem(hash_table, &my_assoc_mem);
+    for(int i = 0; i < CAPACITY; i++)
+    {
+        #pragma HLS pipeline II=1
+        hash_table[i] = 0;
+    }
 
+    my_assoc_mem.fill = 0;
+    for(int i = 0; i < 512; i++)
+    {
+        #pragma HLS pipeline II=1
+        my_assoc_mem.upper_key_mem[i] = 0;
+        my_assoc_mem.middle_key_mem[i] = 0;
+        my_assoc_mem.lower_key_mem[i] = 0;
+    }
+
+    // uint16_t* out_code = (uint16_t*)malloc(length * sizeof(uint16_t));
     uint16_t out_code[MAX_CHUNK_SIZE];
 
     int next_code = 256;
 
-    int prefix_code = input_stream.read();
+    int prefix_code = s1[0];
     unsigned int code = 0;
     char next_char = 0;
 
     int i = 0, j = 0;
-    int local_len = length.read();
-    while(i < local_len)
+    while(i < length)
     {
-        if(i + 1 == local_len){
+        if(i + 1 == length){
             out_code[j++] = prefix_code;
+            std::cout << prefix_code << std::endl;
+            std::cout << "............" << std::endl;
             break;
         }
 
-        next_char = input_stream.read();
+        next_char = s1[i + 1];
 
         bool hit = 0;
         //std::cout << "prefix_code " << prefix_code << " next_char " << next_char << std::endl;
@@ -297,6 +313,7 @@ static void lzw(hls::stream<unsigned char>& input_stream, hls::stream<int>& leng
         {
             // std::cout << prefix_code;
             out_code[j++] = prefix_code;
+            std::cout << prefix_code << " ";
             // out_code[i]=prefix_code;
             // std::cout << "\n";
 
@@ -321,29 +338,28 @@ static void lzw(hls::stream<unsigned char>& input_stream, hls::stream<int>& leng
     int out_len = j;
 
     int total_bits = out_len * 12;
-    int local_total_bytes = (total_bits + 7) / 8;
-    uint32_t header = static_cast<uint32_t>(local_total_bytes & 0xFFFFFFFF) << 1;
-    total_bytes.write(local_total_bytes);
+    *total_bytes = static_cast<int>(ceil_fixed(total_bits / 8.0));
+    uint32_t header = static_cast<uint32_t>(*total_bytes & 0xFFFFFFFF) << 1;
 
     for (int i = 0; i < 4; ++i) {
         #pragma HLS UNROLL
-        output_stream.write(static_cast<unsigned char>((header >> (i * 8)) & 0xFF));
+        file_buffer[i] = static_cast<unsigned char>((header >> (i * 8)) & 0xFF);
     }
 
     int m = 0, n = 4;
 
     for(m = 0; m + 1 < out_len; m += 2){
         #pragma HLS pipeline II=1
-        output_stream.write(static_cast<unsigned char>(out_code[m] >> 4));
-        output_stream.write(static_cast<unsigned char>(((out_code[m] << 4) & 0xF0) | ((out_code[m+1] >> 8) & 0x0F)));
-        output_stream.write(static_cast<unsigned char>(out_code[m+1] & 0xFF));
+        file_buffer[n] = static_cast<unsigned char>(out_code[m] >> 4);
+        file_buffer[n+1] = static_cast<unsigned char>(((out_code[m] << 4) & 0xF0) | ((out_code[m+1] >> 8) & 0x0F));
+        file_buffer[n+2] = static_cast<unsigned char>(out_code[m+1] & 0xFF);
         n += 3;
     }
 
     if(m != out_len){
         // std::cout << out_code_0 << std::endl;
-        output_stream.write(static_cast<unsigned char>(out_code[m] >> 4));
-        output_stream.write(static_cast<unsigned char>((out_code[m] << 4) & 0xF0));
+        file_buffer[n] = static_cast<unsigned char>(out_code[m] >> 4);
+        file_buffer[n+1] = static_cast<unsigned char>((out_code[m] << 4) & 0xF0);
     }
 
     return;
@@ -412,41 +428,30 @@ void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_C
 #pragma HLS INTERFACE m_axi port=file_buffer bundle=aximm3
 #pragma HLS INTERFACE m_axi port=total_bytes bundle=aximm4
 
-#pragma HLS dataflow
+// #pragma HLS array_partition variable=multi_chunks block factor=4
+// #pragma HLS array_partition variable=file_buffer block factor=4
+    unsigned char input_buffer[CHUNKS_IN_SINGLE_KERNEL][MAX_CHUNK_SIZE];
+    unsigned char output_buffer[CHUNKS_IN_SINGLE_KERNEL][MAX_FILE_BUFFER_SIZE];
 
-    hls::stream<unsigned char> stream_input[CHUNKS_IN_SINGLE_KERNEL];
-    hls::stream<unsigned char> stream_output[CHUNKS_IN_SINGLE_KERNEL];
-    hls::stream<int> len_input[CHUNKS_IN_SINGLE_KERNEL];
-    hls::stream<int> len_output[CHUNKS_IN_SINGLE_KERNEL];
-
-#pragma HLS stream variable=stream_input depth=250
-#pragma HLS stream variable=stream_output depth=375
-#pragma HLS stream variable=len_input depth=50
-#pragma HLS stream variable=len_output depth=50
-
-#pragma HLS array_partition variable=stream_input complete
-#pragma HLS array_partition variable=stream_output complete
-#pragma HLS array_partition variable=len_input complete
-#pragma HLS array_partition variable=len_output complete
+#pragma HLS array_partition variable=input_buffer complete
+#pragma HLS array_partition variable=output_buffer complete
 
     Init_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
-        len_input[i].write(length[i]);
         Init_loop_j: for(int j = 0; j < length[i]; j++){
             #pragma HLS pipeline II=1
-            stream_input[i].write(multi_chunks[i * MAX_CHUNK_SIZE + j]);
+            input_buffer[i][j] = multi_chunks[i * MAX_CHUNK_SIZE + j];
         }
     }
 
     Main_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
         #pragma HLS unroll
-        lzw(stream_input[i], len_input[i], stream_output[i], len_output[i]);
+        lzw(input_buffer[i], length[i], output_buffer[i], total_bytes + i);
     }
 
     Epi_loop_i: for(int i = 0; i < CHUNKS_IN_SINGLE_KERNEL; i++){
-        total_bytes[i] = len_output[i].read();
         Epi_loop_j: for(int j = 0; j < total_bytes[i] + 4; j++){
             #pragma HLS pipeline II=1
-            file_buffer[i * MAX_FILE_BUFFER_SIZE + j] = stream_output[i].read();
+            file_buffer[i * MAX_FILE_BUFFER_SIZE + j] = output_buffer[i][j];
         }
     }
     return;
