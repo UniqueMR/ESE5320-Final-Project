@@ -1,0 +1,2 @@
+   text	   data	    bss	    dec	    hex	filename
+   9473	   3959	     32	  13464	   3498	test-neon
