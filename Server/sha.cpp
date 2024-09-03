@@ -1,6 +1,7 @@
 #include "sha.h"
 #include <stdlib.h>
 #include <iomanip>
+#include <arm_neon.h>
 
 //some logic function in SHA computation
 //micro reference from https://github.com/james-ben/mpsoc-crypto/blob/master/sha256/software/sha256.c
@@ -71,6 +72,53 @@ void sha_compute(data_chunk& M,hash_part& last_hash,hash_part& Hash_final){
         Hash_final[7]=h+last_hash[7];
 }
 
+void sha_compute_neon(data_chunk& M, hash_part& last_hash, hash_part& Hash_final) {
+    // Initialize hash values
+    uint32x4_t a = vld1q_u32(&last_hash[0]);
+    uint32x4_t b = vld1q_u32(&last_hash[1]);
+    uint32x4_t c = vld1q_u32(&last_hash[2]);
+    uint32x4_t d = vld1q_u32(&last_hash[3]);
+    uint32x4_t e = vld1q_u32(&last_hash[4]);
+    uint32x4_t f = vld1q_u32(&last_hash[5]);
+    uint32x4_t g = vld1q_u32(&last_hash[6]);
+    uint32x4_t h = vld1q_u32(&last_hash[7]);
+
+    uint32x4_t w[64] = {0};
+
+    // Message schedule array
+    for (int i = 0; i < 16; i += 4) {
+        w[i] = vld1q_u32((uint32_t*)&M[4 * i]);
+    }
+
+    for (int i = 16; i < 64; i += 4) {
+        w[i] = vaddq_u32(vaddq_u32(SIG1(w[i - 2]), w[i - 7]), vaddq_u32(SIG0(w[i - 15]), w[i - 16]));
+    }
+
+    // Main loop
+    for (int i = 0; i < 64; i += 4) {
+        uint32x4_t t1 = vaddq_u32(vaddq_u32(h, EP1(e)), vaddq_u32(CH(e, f, g), vld1q_u32(&k[i])));
+        uint32x4_t t2 = vaddq_u32(EP0(a), MAJ(a, b, c));
+
+        h = g;
+        g = f;
+        f = e;
+        e = vaddq_u32(d, t1);
+        d = c;
+        c = b;
+        b = a;
+        a = vaddq_u32(t1, t2);
+    }
+
+    // Compute final hash values
+    vst1q_u32(&Hash_final[0], vaddq_u32(a, vld1q_u32(&last_hash[0])));
+    vst1q_u32(&Hash_final[1], vaddq_u32(b, vld1q_u32(&last_hash[1])));
+    vst1q_u32(&Hash_final[2], vaddq_u32(c, vld1q_u32(&last_hash[2])));
+    vst1q_u32(&Hash_final[3], vaddq_u32(d, vld1q_u32(&last_hash[3])));
+    vst1q_u32(&Hash_final[4], vaddq_u32(e, vld1q_u32(&last_hash[4])));
+    vst1q_u32(&Hash_final[5], vaddq_u32(f, vld1q_u32(&last_hash[5])));
+    vst1q_u32(&Hash_final[6], vaddq_u32(g, vld1q_u32(&last_hash[6])));
+    vst1q_u32(&Hash_final[7], vaddq_u32(h, vld1q_u32(&last_hash[7])));
+}
 
 void sha(std::string& input_chunk,hash_part& Hash_final){
     unsigned long long total_data_len = input_chunk.length(); 
