@@ -75,102 +75,93 @@ static void hash_insert(unsigned long* hash_table, unsigned int key, unsigned in
     }
 }
 
-// cast to struct and use ap types to pull out various feilds.
-
-static void assoc_insert(assoc_mem* mem,  unsigned int key, unsigned int value, bool* collision)
-{
-    //std::cout << "assoc_insert():" << std::endl;
-    key &= 0xFFFFF; // make sure key is only 20 bits
-    value &= 0xFFF;   // value is only 12 bits
-
-    if(mem->fill < 64)
+void assoc_init(assoc_mem_t* mem){
+    
+    for(int i = 0; i < 32; i++)
     {
-        mem->upper_key_mem[(key >> 18)%512] |= (1 << mem->fill);  // set the fill'th bit to 1, while preserving everything else
-        mem->middle_key_mem[(key >> 9)%512] |= (1 << mem->fill);  // set the fill'th bit to 1, while preserving everything else
-        mem->lower_key_mem[(key >> 0)%512] |= (1 << mem->fill);   // set the fill'th bit to 1, while preserving everything else
-        mem->value[mem->fill] = value;
+        mem->quarter_0[i] = 0;
+        mem->quarter_1[i] = 0;
+        mem->quarter_2[i] = 0;
+        mem->quarter_3[i] = 0;
+    }
+
+    for(int i = 0; i < 64; i++){
+        mem->value[i] = 0;
+    }
+
+    mem->fill = 0;
+    
+    return;
+}
+
+void assoc_insert(assoc_mem_t* mem, unsigned int key, unsigned int val, bool* wfull){
+    // key and val alignment
+    key &= 0xFFFFF; // 20 bits
+    val &= 0xFFF; // 12 bits
+
+    int key_quarter_0 = key & 0x1f;
+    int key_quarter_1 = (key >> 5) & 0x1f;
+    int key_quarter_2 = (key >> 10) & 0x1f;
+    int key_quarter_3 = (key >> 15) & 0x1f;
+
+    if(mem->fill < 64){
+        mem->quarter_0[key_quarter_0] = 1UL << mem->fill;
+        mem->quarter_1[key_quarter_1] = 1UL << mem->fill;
+        mem->quarter_2[key_quarter_2] = 1UL << mem->fill;
+        mem->quarter_3[key_quarter_3] = 1UL << mem->fill;
+        mem->value[mem->fill] = val;
         mem->fill++;
-        *collision = 0;
-        //std::cout << "\tinserted into the assoc mem" << std::endl;
-        //std::cout << "\t(k,v) = " << key << " " << value << std::endl;
+        *wfull = 0;
     }
-    else
-    {
-        *collision = 1;
-        //std::cout << "\tcollision in the assoc mem" << std::endl;
-    }
+
+    else    *wfull = 1;
 }
 
-static unsigned int findAddr(uint64_t match){
-    #pragma HLS INLINE
 
-    if(match == 0)  return 64; //find address failed
+int one_hot_decode(unsigned long one_hot) {
+    if (one_hot == 0) return -1;
 
-    uint8_t segment[8]; // split 64-bits match into 8 x 8 bits
-    #pragma HLS ARRAY_PARTITION variable=segment complete
-    // initialize all the segments in parallel
-    for(int i = 0; i < 8; i++){
-        #pragma HLS UNROLL
-        segment[i] = (match >> (8 * i)) & 0xFF;
+    int upper_ptr = 64;
+    int lower_ptr = 0;
+    int ptr;
+
+    while (upper_ptr > lower_ptr) {
+        ptr = (upper_ptr + lower_ptr) / 2;
+
+        if ((one_hot >> ptr) != 0) lower_ptr = ptr + 1;   
+        else  upper_ptr = ptr; 
     }
 
-    uint8_t mask[8];
-    #pragma HLS ARRAY_PARTITION variable=mask complete
-    for(int j = 0; j < 8; j++){
-        #pragma HLS UNROLL
-        mask[j] = 0x1 << j;
-    }
-
-    // check each segment in parallel
-    for(int i = 0; i < 8; i++){
-        #pragma HLS UNROLL
-        if(segment[i] != 0){
-            for(int j = 0; j < 8; j++){
-                #pragma HLS UNROLL
-                if(segment[i] & mask[j]){
-                    return 8 * i + j;
-                }
-            }
-        }
-    }
-    return 64;
+    return upper_ptr - 1;
 }
 
-static void assoc_lookup(assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
-{
-    //std::cout << "assoc_lookup():" << std::endl;
-    key &= 0xFFFFF; // make sure key is only 20 bits
+void assoc_lookup(assoc_mem_t* mem, unsigned int key, unsigned int* result, bool* rhit){
+    // key alignmemt
+    key &= 0xFFFFF; // 20 bits
 
-    unsigned int match_high = mem->upper_key_mem[(key >> 18)%512];
-    unsigned int match_middle = mem->middle_key_mem[(key >> 9)%512];
-    unsigned int match_low  = mem->lower_key_mem[(key >> 0)%512];
+    int key_quarter_0 = key & 0x1f;
+    int key_quarter_1 = (key >> 5) & 0x1f;
+    int key_quarter_2 = (key >> 10) & 0x1f;
+    int key_quarter_3 = (key >> 15) & 0x1f;
 
-    unsigned int match = match_high & match_middle & match_low;
+    unsigned long match_quarter_0 = mem->quarter_0[key_quarter_0];
+    unsigned long match_quarter_1 = mem->quarter_1[key_quarter_1];
+    unsigned long match_quarter_2 = mem->quarter_2[key_quarter_2];
+    unsigned long match_quarter_3 = mem->quarter_3[key_quarter_3];
 
-    unsigned int address = findAddr(match);
+    unsigned long match = match_quarter_0 & match_quarter_1 & match_quarter_2 & match_quarter_3;
+    int addr = one_hot_decode(match);
 
-    // for(; address < 64; address++)
-    // {
-    //     if((match >> address) & 0x1)
-    //     {   
-    //         break;
-    //     }
-    // }
-    if(address != 64)
-    {
-        *result = mem->value[address];
-        *hit = 1;
-        //std::cout << "\thit the assoc" << std::endl;
-        //std::cout << "\t(k,v) = " << key << " " << *result << std::endl;
+    if(addr == -1) *rhit = 0;
+    else{
+        *rhit = 1;
+        *result = mem->value[addr];
     }
-    else
-    {
-        *hit = 0;
-        //std::cout << "\tmissed the assoc" << std::endl;
-    }
+    return;
 }
+
 //****************************************************************************************************************
-static void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, unsigned int value, bool* collision)
+static void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsigned int value, bool* collision)
 {
     hash_insert(hash_table, key, value, collision);
     if(*collision)
@@ -179,12 +170,12 @@ static void insert(unsigned long* hash_table, assoc_mem* mem, unsigned int key, 
     }
 }
 
-static void lookup(unsigned long* hash_table, assoc_mem* mem, unsigned int key, bool* hit, unsigned int* result)
+static void lookup(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, bool* hit, unsigned int* result)
 {
     hash_lookup(hash_table, key, hit, result);
     if(!*hit)
     {
-        assoc_lookup(mem, key, hit, result);
+        assoc_lookup(mem, key, result, hit);
     }
 }
 
@@ -387,20 +378,15 @@ void hardware_encoding(unsigned char* s1, int length, uint16_t* out_code, uint32
 {
     // create hash table and assoc mem
     unsigned long hash_table[CAPACITY];
-    assoc_mem my_assoc_mem;
+    assoc_mem_t my_assoc_mem;
 
     // make sure the memories are clear
     for(int i = 0; i < CAPACITY; i++)
     {
         hash_table[i] = 0;
     }
-    my_assoc_mem.fill = 0;
-    for(int i = 0; i < 512; i++)
-    {
-        my_assoc_mem.upper_key_mem[i] = 0;
-        my_assoc_mem.middle_key_mem[i] = 0;
-        my_assoc_mem.lower_key_mem[i] = 0;
-    }
+
+    assoc_init(&my_assoc_mem);
 
     // init the memories with the first 256 codes
     // Ezra told us this can be discard

@@ -14,19 +14,18 @@
 #define CHUNKS_IN_SINGLE_KERNEL 4
 
 //****************************************************************************************************************
-typedef struct
-{   
-    // Each key_mem has a 9 bit address (so capacity = 2^9 = 512)
-    // and the key is 20 bits, so we need to use 3 key_mems to cover all the key bits.
-    // The output width of each of these memories is 64 bits, so we can only store 64 key
-    // value pairs in our associative memory map.
+typedef struct 
+{
+    // from LSB to MSB
+    unsigned long quarter_0[32]; 
+    unsigned long quarter_1[32];
+    unsigned long quarter_2[32];
+    unsigned long quarter_3[32]; 
+    unsigned int value[64];    
+    unsigned int fill;
+    
+} assoc_mem_t;
 
-    unsigned long upper_key_mem[512]; // the output of these  will be 64 bits wide (size of unsigned long).
-    unsigned long middle_key_mem[512];
-    unsigned long lower_key_mem[512]; 
-    unsigned int value[64];    // value store is 64 deep, because the lookup mems are 64 bits wide
-    unsigned int fill;         // tells us how many entries we've currently stored 
-} assoc_mem;
 
 
 // unsigned int my_hash(unsigned long key);
