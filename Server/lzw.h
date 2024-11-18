@@ -47,6 +47,9 @@ extern "C"{
     void lzw_multi_chunks(unsigned char multi_chunks[CHUNKS_IN_SINGLE_KERNEL * MAX_CHUNK_SIZE], int length[CHUNKS_IN_SINGLE_KERNEL], unsigned char file_buffer[CHUNKS_IN_SINGLE_KERNEL * MAX_FILE_BUFFER_SIZE], int total_bytes[CHUNKS_IN_SINGLE_KERNEL]);
 };
 void write_encoded_file(uint16_t* out_code, int out_len, uint32_t *header, char* fileName);
+void assoc_init(assoc_mem_t* mem);
+void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsigned int value, bool* collision);
+void lookup(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, bool* hit, unsigned int* result);
 #endif
 
 #ifdef SOFTWARE

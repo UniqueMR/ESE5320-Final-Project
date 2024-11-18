@@ -161,7 +161,7 @@ void assoc_lookup(assoc_mem_t* mem, unsigned int key, unsigned int* result, bool
 }
 
 //****************************************************************************************************************
-static void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsigned int value, bool* collision)
+void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsigned int value, bool* collision)
 {
     hash_insert(hash_table, key, value, collision);
     if(*collision)
@@ -170,7 +170,7 @@ static void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key
     }
 }
 
-static void lookup(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, bool* hit, unsigned int* result)
+void lookup(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, bool* hit, unsigned int* result)
 {
     hash_lookup(hash_table, key, hit, result);
     if(!*hit)
