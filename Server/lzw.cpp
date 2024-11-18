@@ -75,7 +75,7 @@ static void hash_insert(unsigned long* hash_table, unsigned int key, unsigned in
     }
 }
 
-void assoc_init(assoc_mem_t* mem){
+static void assoc_init(assoc_mem_t* mem){
     
     for(int i = 0; i < 32; i++)
     {
@@ -94,7 +94,7 @@ void assoc_init(assoc_mem_t* mem){
     return;
 }
 
-void assoc_insert(assoc_mem_t* mem, unsigned int key, unsigned int val, bool* wfull){
+static void assoc_insert(assoc_mem_t* mem, unsigned int key, unsigned int val, bool* wfull){
     // key and val alignment
     key &= 0xFFFFF; // 20 bits
     val &= 0xFFF; // 12 bits
@@ -118,7 +118,7 @@ void assoc_insert(assoc_mem_t* mem, unsigned int key, unsigned int val, bool* wf
 }
 
 
-int one_hot_decode(unsigned long one_hot) {
+static int one_hot_decode(unsigned long one_hot) {
     if (one_hot == 0) return -1;
 
     int upper_ptr = 64;
@@ -135,7 +135,7 @@ int one_hot_decode(unsigned long one_hot) {
     return upper_ptr - 1;
 }
 
-void assoc_lookup(assoc_mem_t* mem, unsigned int key, unsigned int* result, bool* rhit){
+static void assoc_lookup(assoc_mem_t* mem, unsigned int key, unsigned int* result, bool* rhit){
     // key alignmemt
     key &= 0xFFFFF; // 20 bits
 
@@ -161,7 +161,7 @@ void assoc_lookup(assoc_mem_t* mem, unsigned int key, unsigned int* result, bool
 }
 
 //****************************************************************************************************************
-void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsigned int value, bool* collision)
+static void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsigned int value, bool* collision)
 {
     hash_insert(hash_table, key, value, collision);
     if(*collision)
@@ -170,7 +170,7 @@ void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsig
     }
 }
 
-void lookup(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, bool* hit, unsigned int* result)
+static void lookup(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, bool* hit, unsigned int* result)
 {
     hash_lookup(hash_table, key, hit, result);
     if(!*hit)

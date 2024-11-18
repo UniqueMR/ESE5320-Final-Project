@@ -5,6 +5,179 @@
 
 #define CAPACITY 32768
 
+static unsigned int my_hash(unsigned long key)
+{
+    key &= 0xFFFFF; // make sure the key is only 20 bits
+
+    unsigned int hashed = 0;
+
+    for(int i = 0; i < 20; i++)
+    {
+        hashed += (key >> i)&0x01;
+        hashed += hashed << 10;
+        hashed ^= hashed >> 6;
+    }
+    hashed += hashed << 3;
+    hashed ^= hashed >> 11;
+    hashed += hashed << 15;
+    return hashed & 0x7FFF;          // hash output is 15 bits
+    //return hashed & 0xFFF;   
+}
+
+static void hash_lookup(unsigned long* hash_table, unsigned int key, bool* hit, unsigned int* result)
+{
+    //std::cout << "hash_lookup():" << std::endl;
+    key &= 0xFFFFF; // make sure key is only 20 bits 
+
+    unsigned long lookup = hash_table[my_hash(key)];
+
+    // [valid][value][key]
+    unsigned int stored_key = lookup&0xFFFFF;       // stored key is 20 bits
+    unsigned int value = (lookup >> 20)&0xFFF;      // value is 12 bits
+    unsigned int valid = (lookup >> (20 + 12))&0x1; // valid is 1 bit
+    
+    if(valid && (key == stored_key))
+    {
+        *hit = 1;
+        *result = value;
+        //std::cout << "\thit the hash" << std::endl;
+        //std::cout << "\t(k,v,h) = " << key << " " << value << " " << my_hash(key) << std::endl;
+    }
+    else
+    {
+        *hit = 0;
+        *result = 0;
+        //std::cout << "\tmissed the hash" << std::endl;
+    }
+}
+
+static void hash_insert(unsigned long* hash_table, unsigned int key, unsigned int value, bool* collision)
+{
+    //std::cout << "hash_insert():" << std::endl;
+    key &= 0xFFFFF;   // make sure key is only 20 bits
+    value &= 0xFFF;   // value is only 12 bits
+
+    unsigned long lookup = hash_table[my_hash(key)];
+    unsigned int valid = (lookup >> (20 + 12))&0x1;
+
+    if(valid)
+    {
+        *collision = 1;
+        //std::cout << "\tcollision in the hash" << std::endl;
+    }
+    else
+    {
+        hash_table[my_hash(key)] = (1UL << (20 + 12)) | (value << 20) | key;
+        *collision = 0;
+        //std::cout << "\tinserted into the hash table" << std::endl;
+        //std::cout << "\t(k,v,h) = " << key << " " << value << " " << my_hash(key) << std::endl;
+    }
+}
+
+static void assoc_init(assoc_mem_t* mem){
+    
+    for(int i = 0; i < 32; i++)
+    {
+        mem->quarter_0[i] = 0;
+        mem->quarter_1[i] = 0;
+        mem->quarter_2[i] = 0;
+        mem->quarter_3[i] = 0;
+    }
+
+    for(int i = 0; i < 64; i++){
+        mem->value[i] = 0;
+    }
+
+    mem->fill = 0;
+    
+    return;
+}
+
+static void assoc_insert(assoc_mem_t* mem, unsigned int key, unsigned int val, bool* wfull){
+    // key and val alignment
+    key &= 0xFFFFF; // 20 bits
+    val &= 0xFFF; // 12 bits
+
+    int key_quarter_0 = key & 0x1f;
+    int key_quarter_1 = (key >> 5) & 0x1f;
+    int key_quarter_2 = (key >> 10) & 0x1f;
+    int key_quarter_3 = (key >> 15) & 0x1f;
+
+    if(mem->fill < 64){
+        mem->quarter_0[key_quarter_0] = 1UL << mem->fill;
+        mem->quarter_1[key_quarter_1] = 1UL << mem->fill;
+        mem->quarter_2[key_quarter_2] = 1UL << mem->fill;
+        mem->quarter_3[key_quarter_3] = 1UL << mem->fill;
+        mem->value[mem->fill] = val;
+        mem->fill++;
+        *wfull = 0;
+    }
+
+    else    *wfull = 1;
+}
+
+
+static int one_hot_decode(unsigned long one_hot) {
+    if (one_hot == 0) return -1;
+
+    int upper_ptr = 64;
+    int lower_ptr = 0;
+    int ptr;
+
+    while (upper_ptr > lower_ptr) {
+        ptr = (upper_ptr + lower_ptr) / 2;
+
+        if ((one_hot >> ptr) != 0) lower_ptr = ptr + 1;   
+        else  upper_ptr = ptr; 
+    }
+
+    return upper_ptr - 1;
+}
+
+static void assoc_lookup(assoc_mem_t* mem, unsigned int key, unsigned int* result, bool* rhit){
+    // key alignmemt
+    key &= 0xFFFFF; // 20 bits
+
+    int key_quarter_0 = key & 0x1f;
+    int key_quarter_1 = (key >> 5) & 0x1f;
+    int key_quarter_2 = (key >> 10) & 0x1f;
+    int key_quarter_3 = (key >> 15) & 0x1f;
+
+    unsigned long match_quarter_0 = mem->quarter_0[key_quarter_0];
+    unsigned long match_quarter_1 = mem->quarter_1[key_quarter_1];
+    unsigned long match_quarter_2 = mem->quarter_2[key_quarter_2];
+    unsigned long match_quarter_3 = mem->quarter_3[key_quarter_3];
+
+    unsigned long match = match_quarter_0 & match_quarter_1 & match_quarter_2 & match_quarter_3;
+    int addr = one_hot_decode(match);
+
+    if(addr == -1) *rhit = 0;
+    else{
+        *rhit = 1;
+        *result = mem->value[addr];
+    }
+    return;
+}
+
+//****************************************************************************************************************
+static void insert(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, unsigned int value, bool* collision)
+{
+    hash_insert(hash_table, key, value, collision);
+    if(*collision)
+    {
+        assoc_insert(mem, key, value, collision);
+    }
+}
+
+static void lookup(unsigned long* hash_table, assoc_mem_t* mem, unsigned int key, bool* hit, unsigned int* result)
+{
+    hash_lookup(hash_table, key, hit, result);
+    if(!*hit)
+    {
+        assoc_lookup(mem, key, result, hit);
+    }
+}
+
 static void clear_hash_table(unsigned long hash_table[CAPACITY]){
     #pragma HLS array_partition variable=hash_table type=block factor=32
     for(int i = 0; i < CAPACITY; i++)
