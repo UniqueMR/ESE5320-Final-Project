@@ -44,11 +44,11 @@ ALL_MESSAGE_FILES = $(subst .xo,.mdb,$(XO)) $(subst .xclbin,.mdb,$(XCLBIN))
 #
 # host files
 #
-HOST_SOURCES = fpga/Host.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
+HOST_SOURCES = fpga/host_ooo_mult_krnls.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
 HOST_OBJECTS =$(HOST_SOURCES:.cpp=.o)
 HOST_EXE = host
 
-CPU_SOURCES = cpu/Host.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
+CPU_SOURCES = cpu/host_ooo_mult_krnls.cpp ../../common/EventTimer.cpp ../../common/Utilities.cpp
 CPU_OBJECTS=$(CPU_SOURCES:.cpp=.o)
 CPU_EXE = mmult_cpu
 
