@@ -120,18 +120,24 @@ static void assoc_insert(assoc_mem_t* mem, unsigned int key, unsigned int val, b
 static int one_hot_decode(unsigned long one_hot) {
     if (one_hot == 0) return -1;
 
-    int upper_ptr = 64;
-    int lower_ptr = 0;
-    int ptr;
+    // int upper_ptr = 64;
+    // int lower_ptr = 0;
+    // int ptr;
 
-    while (upper_ptr > lower_ptr) {
-        ptr = (upper_ptr + lower_ptr) / 2;
+    // while (upper_ptr > lower_ptr) {
+    //     ptr = (upper_ptr + lower_ptr) / 2;
 
-        if ((one_hot >> ptr) != 0) lower_ptr = ptr + 1;   
-        else  upper_ptr = ptr; 
-    }
+    //     if ((one_hot >> ptr) != 0) lower_ptr = ptr + 1;   
+    //     else  upper_ptr = ptr; 
+    // }
 
-    return upper_ptr - 1;
+    // return upper_ptr - 1;
+    int result = 0;
+
+    for(; result < 64; result++)
+        if((one_hot >> result) & 0x1) break;
+    
+    return result;   
 }
 
 static void assoc_lookup(assoc_mem_t* mem, unsigned int key, unsigned int* result, bool* rhit){
