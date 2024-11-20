@@ -1,5 +1,14 @@
 # Real-Time Ethernet Data Compression and Deduplication on Zynq UltraScale+ MPSoC
 
+## Overview 
+This project developed a high-speed, real-time data compression system using Vitis HLS on a Zynq Ultrascale+ MPSoC. The compression system involves content-defined chunking to break the input into chunks, SHA-256 hashes to screen for duplicated chunks, and LZW compression to compress non-duplicate chunks. 
+
+<img src="./imgs/compression_pipeline.png" >
+
+The LZW module is a FPGA kernel implemented with Vitis HLS and deployed on a Zynq Ultrascale+ MPSoC. It is connected to AXI interfaces to interact with the Zynq MPSoC processing system, where CDC and SHA-256 modules are deployed as the host. To avoid bus contention and maximize bandwidth utilization, `multi_chunks` as input and `file_buffer` as output are assigned two independent AXI ports with 32-bit data width and 64-bit addressing space. This dual-port setting cooperates with dataflow and streaming, where FIFO buffers isolate the kernel into input initialization, lzw execution, and output finalization stages to support concurrent input/output and execution.     
+
+<img src="./imgs/block_design_top.png" height="75"><img src="./imgs/kernel_zoom_in.png" height="75">
+
 ## Performance 
 
 ### Throughput 
