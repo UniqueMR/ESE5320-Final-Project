@@ -13,6 +13,10 @@ To align with the ports allocation, `aximm1` as input and `aximm3` as output are
 
 <img src="./imgs/address.png" height="500">
 
+When implemented on the Zynq Ultrascale SoC platform, 40,909 LUTs and 44,182 CLB registers are utilized, which respectively takes 58% and 31% of resources available on PL region. Almost 87% (216 tiles) of BRAM resources are utilized for implementing FIFO buffers to stream data between stages, and hash tables in LZW compression logic. Among the usage of LUTs, 20% of the LUTs are used as distributed memories due to extensive array partitions to support parallel accesses of memory banks. 
+
+<img src="./imgs/distribution.png" height="500">
+
 ## Performance 
 
 ### Throughput 
