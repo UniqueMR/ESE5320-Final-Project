@@ -22,7 +22,7 @@ When implemented on the Zynq Ultrascale SoC platform, 40,909 LUTs and 44,182 CLB
 ### Timing 
 Under the operating frequency of 150 MHz, the compression system achieved a worst-case setup slack of 0.749 ns and a hold slack of 0.011 ns. The critical path involves communication between the logic in the `prefix_code_7_fu_556` module and the Block RAM (`ram_reg_bram_1`), which has 12 levels of logic and a fanout of 13. 
 
-<img src="./imgs/critical-path.png">
+<img src="./imgs/critical_path.png">
 <img src="./imgs/timing.png">
 
 ### Throughput 
