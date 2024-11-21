@@ -9,6 +9,10 @@ The LZW module is a FPGA kernel implemented with Vitis HLS and deployed on a Zyn
 
 <img src="./imgs/block_design_top.png" height="275"><img src="./imgs/kernel_zoom_in.png" height="225">
 
+To align with the ports allocation, `aximm1` as input and `aximm3` as output are mapped to `HP2_DDR_LOW` and `HP3_DDR_LOW` respectively. The Zynq Ultrascale+ MPSoC processing system interacts with the kernel by accessing the mapped addresses in DDR memory.  
+
+<img src="./imgs/address.png" height="275">
+
 ## Performance 
 
 ### Throughput 
