@@ -25,6 +25,11 @@ Under the operating frequency of 150 MHz, the compression system achieved a wors
 <img src="./imgs/critical_path.png">
 <img src="./imgs/timing.png">
 
+### Power
+The system achieved 2.787W of power consumption when deployed on Zynq MPSoC, where dynamic and static power consumption contribute 2.464W and 0.323W respectively. If ignoring 70% power consumed by the Zynq MPSoC processing system, the PL region only consumes 0.176W, which suggests efficient logic synthesis and resource utilization. 
+<img src="./imgs/power.png">
+
+
 ### Throughput 
 
 <img src="./imgs/tp-ltlprn.png" height="90"><img src="./imgs/tp-frkln.png" height="90">
